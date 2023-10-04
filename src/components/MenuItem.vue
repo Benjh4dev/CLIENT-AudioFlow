@@ -47,7 +47,7 @@ const isHover = () => {
         <img :width="iconSize" :src="`/images/icons/${icon}.png`">
         <div
             :class="textIsHover ? 'text-white ' : 'text-gray-400'"
-            class="font-semibold text-[14px] ml-4 mt-0.5"
+            class="font-semibold ml-4 mt-0.5"
         >
             <span :class="route.path == pageUrl ? 'text-white' : ''">{{ name }}</span>
         </div>

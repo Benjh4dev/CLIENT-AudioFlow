@@ -6,9 +6,9 @@
 <template>
     <div class="flex flex-col h-screen">
         <div id="UserOptions" class="pl-6 w-[240px] bg-black">
-            <RouterLink to="/"  class="flex items-center pt-6">
+            <RouterLink to="/"  class="flex items-center mt-10">
                 <img width="55" src="/images/icons/audioflow-logo.png" class="">
-                <span class="font-sans font-bold text-white text-[25px]">AudioFlow</span>
+                <span class="font-sans font-bold text-white text-[25px] mt-2 ml-1">AudioFlow</span>
             </RouterLink>
             <div class="my-8 pt-1"></div>
             <ul>
@@ -19,20 +19,20 @@
                     <MenuItem class="ml-[1px]" :iconSize="24" name="Buscar" iconString="search" pageUrl="/search" />
                 </RouterLink>
                 <RouterLink to="/library">
-                    <MenuItem class="ml-[1px]" :iconSize="26" name="Tus canciones" iconString="library" pageUrl="/library" />
+                    <MenuItem class="ml-[1px]" :iconSize="24" name="Mis canciones" iconString="library" pageUrl="/library" />
                 </RouterLink>
-                <div>
-                    <MenuItem class="ml-[1px]" :iconSize="24" name="Crear Playlist" iconString="playlist" pageUrl="/playlist" />
-                </div>
-                <div>
-                    <MenuItem :iconSize="24" name="Subir Canción" iconString="upload" pageUrl="/liked" class="ml-[1px]"/>
+                
+                <div class="border-b border-b-gray-700 w-[200px]"></div>
+                <div class="mt-4">
+                    <MenuItem :iconSize="24" name="Crear Playlist" iconString="playlist" pageUrl="/playlist" />
+                    <MenuItem :iconSize="24" name="Subir Canción" iconString="upload" pageUrl="/addsong" class="ml-[1px]"/>
                 </div>
             </ul>
         </div>
         <div id="UserPlaylists" class="h-[100%] pl-6 w-[240px] bg-black">
             
             <div class="border-b border-b-gray-700 w-[200px]"></div>
-                <ul>
+                <ul class="mt-6">
                     <li class="font-semibold text-[15px] mt-3 text-gray-300 hover:text-white">Tu Playlist #1</li>
                     <li class="font-semibold text-[15px] mt-3 text-gray-300 hover:text-white">Tu Playlist #2</li>
                     <li class="font-semibold text-[15px] mt-3 text-gray-300 hover:text-white">Tu Playlist #3</li>
