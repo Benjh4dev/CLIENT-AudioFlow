@@ -76,8 +76,6 @@
     </TransitionRoot>
 </template>
 
-
-
 <script setup lang="ts">
 import { ref, defineEmits } from 'vue';
 import axios from 'axios';

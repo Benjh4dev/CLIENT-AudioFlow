@@ -21,7 +21,6 @@
         <Sidebar></Sidebar>
     </div>
 
-    <MusicPlayer v-if="currentTrack"/>
     <div
         class="
             fixed
@@ -39,5 +38,6 @@
             <RouterView />
             <div class="mb-[100px]"></div>
         </div>
-
+        
+        <MusicPlayer v-if="currentTrack"/>
     </template>
