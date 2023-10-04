@@ -8,7 +8,6 @@
 
   import TopNav from './layouts/TopNav.vue';
   import Sidebar from './layouts/Sidebar.vue';
-  import Register from './components/Register.vue';
 
   const useSong = useSongStore()
   const { isPlaying, currentTrack } = storeToRefs(useSong)

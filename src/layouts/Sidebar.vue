@@ -7,10 +7,10 @@
     <div class="flex flex-col h-screen">
         <div id="UserOptions" class="pl-6 w-[240px] bg-black">
             <RouterLink to="/"  class="flex items-center mt-10">
-                <img width="55" src="/images/icons/audioflow-logo.png" class="">
-                <span class="font-sans font-bold text-white text-[25px] mt-2 ml-1">AudioFlow</span>
+                <img src="/images/icons/audioflow-logo-nombre.png" class="w-[80%] ml-2.5">
+                
             </RouterLink>
-            <div class="my-8 pt-1"></div>
+            <div class="my-14"></div>
             <ul>
                 <RouterLink to="/">
                     <MenuItem class="ml-[1px]" :iconSize="24" name="Inicio" iconString="home" pageUrl="/" />

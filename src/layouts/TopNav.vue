@@ -6,11 +6,20 @@ import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
 import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
 import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue';
 
+import RegisterModal from '../components/RegisterModal.vue';
+let showModal = ref(false);
+function openModal() {
+    showModal.value = true;
+    openMenu.value = false;
+}
+
 let openMenu = ref(false)
 
 </script>
 
 <template>
+    <RegisterModal v-if="showModal" @close="showModal = false" />
+
     <div 
         id="TopNav"
         class="
@@ -52,7 +61,7 @@ let openMenu = ref(false)
             class="fixed w-[190px] bg-[#282828] shadow-2xl z-50 rounded-sm top-[52px] right-[35px] p-1 cursor-pointer">
             <ul class="text-gray-200 font-semibold text-[14px]">
                 <li class="px-3 py-2.5 hover:bg-[#3E3D3D] border-b border-b-gray-600">Iniciar sesión</li>
-                <li class="px-3 py-2.5 hover:bg-[#3E3D3D]">Registrarse</li>
+                <li @click="openModal" class="px-3 py-2.5 hover:bg-[#3E3D3D]">Registrarse</li>
             </ul>
         </span>
     </div>
