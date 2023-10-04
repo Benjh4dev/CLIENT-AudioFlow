@@ -8,13 +8,12 @@
 
   import TopNav from './layouts/TopNav.vue';
   import Sidebar from './layouts/Sidebar.vue';
+  import Register from './components/Register.vue';
 
   const useSong = useSongStore()
   const { isPlaying, currentTrack } = storeToRefs(useSong)
 
   onMounted(() => { isPlaying.value = false })
-
-  let openMenu = ref(false)
 </script>
 
 <template>
@@ -23,6 +22,7 @@
         <Sidebar></Sidebar>
     </div>
 
+    <MusicPlayer v-if="currentTrack"/>
     <div
         class="
             fixed
@@ -34,12 +34,11 @@
             bg-gradient-to-b
             from-[#1C1C1C]
             to-black
-        "
-    >
-        <div class="mt-[70px]"></div>
-        <RouterView />
-        <div class="mb-[100px]"></div>
-    </div>
+            "
+            >
+            <div class="mt-[70px]"></div>
+            <RouterView />
+            <div class="mb-[100px]"></div>
+        </div>
 
-    <MusicPlayer v-if="currentTrack"/>
-</template>
+    </template>
