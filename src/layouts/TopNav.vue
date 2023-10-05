@@ -1,14 +1,25 @@
 <script setup lang="ts">
-  import { ref } from 'vue'
-  import ChevronUp from 'vue-material-design-icons/ChevronUp.vue';
-  import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
-  import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
-  import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue';
+import { ref } from 'vue';
 
-  let openMenu = ref(false)
+import ChevronUp from 'vue-material-design-icons/ChevronUp.vue';
+import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
+import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
+import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue';
+
+import RegisterModal from '../components/RegisterModal.vue';
+let showModal = ref(false);
+function openModal() {
+    showModal.value = true;
+    openMenu.value = false;
+}
+
+let openMenu = ref(false)
+
 </script>
 
 <template>
+    <RegisterModal v-if="showModal" @close="showModal = false" />
+
     <div 
         id="TopNav"
         class="
@@ -32,16 +43,15 @@
                 <ChevronRight fillColor="#FFFFFF" :size="30" />
             </button>
         </div>
-
         <button @click="openMenu = !openMenu" :class="openMenu ? 'bg-[#282828]' : 'bg-black'"
             class="bg-black hover:bg-[#282828] rounded-full p-0.5 mr-8 mt-0.5 cursor-pointer">
             <div class="flex items-center">
                 <img 
                     class="rounded-full" 
                     width="27"
-                    src="https://yt3.ggpht.com/e9o-24_frmNSSVvjS47rT8qCHgsHNiedqgXbzmrmpsj6H1ketcufR1B9vLXTZRa30krRksPj=s88-c-k-c0x00ffffff-no-rj-mo"
+                    src="public\images\icons\guest-pic.png"
                 >
-                <div class="text-white text-[14px] ml-1.5 font-semibold">mizok dev</div>
+                <div class="text-white text-[14px] ml-1.5 font-semibold">Usuario invitado</div>
                 <ChevronDown v-if="!openMenu" @click="openMenu = true" fillColor="#FFFFFF" :size="25" />
                 <ChevronUp v-else @click="openMenu = false" fillColor="#FFFFFF" :size="25" />
             </div>
@@ -50,8 +60,8 @@
         <span v-if="openMenu"
             class="fixed w-[190px] bg-[#282828] shadow-2xl z-50 rounded-sm top-[52px] right-[35px] p-1 cursor-pointer">
             <ul class="text-gray-200 font-semibold text-[14px]">
-                <li class="px-3 py-2.5 hover:bg-[#3E3D3D] border-b border-b-gray-600">Mi perfil</li>
-                <li class="px-3 py-2.5 hover:bg-[#3E3D3D]">Cerrar sesión</li>
+                <li class="px-3 py-2.5 hover:bg-[#3E3D3D] border-b border-b-gray-600">Iniciar sesión</li>
+                <li @click="openModal" class="px-3 py-2.5 hover:bg-[#3E3D3D]">Registrarse</li>
             </ul>
         </span>
     </div>
