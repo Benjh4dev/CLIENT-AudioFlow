@@ -23,7 +23,7 @@ export const useStore = defineStore({
     }),
 
     actions: {
-        async loginUser(credentials: { username: string; password: string }) { // Puedes definir una interfaz para `credentials` si lo consideras necesario
+        async loginUser(credentials: { username: string; password: string }) {
             const response = await axios.post('YOUR_ENDPOINT_FOR_LOGIN', credentials);
             this.user = response.data as User;
         },
