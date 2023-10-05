@@ -33,19 +33,19 @@
                   <div class="mt-4">
                     <label for="username" class="block text-sm text-gray-400">Nombre de usuario</label>
                     <input type="text" id="username" name="username" v-model="formData.username" class="w-[90%] h-10 my-2 py-3 px-4 block border-2 border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
-                    <p v-if="errors.username" class="text-xs text-red-600 mt-2">{{ errors.username }}</p>
+                    <p v-if="errors.username" class="text-xs text-red-600 mt-2">{{ errors.username[0] }}</p>
                   </div>
 
                   <div class="mt-4">
                     <label for="email" class="block text-sm text-gray-400">Correo electrónico</label>
                     <input type="email" id="email" name="email" v-model="formData.email" class="w-[90%] h-10 my-2 py-3 px-4 block border-2 border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
-                    <p v-if="errors.email" class="text-xs text-red-600 mt-2">{{ errors.email }}</p>
+                    <p v-if="errors.email" class="text-xs text-red-600 mt-2">{{ errors.email[0] }}</p>
                   </div>
 
                   <div class="mt-4">
                     <label for="password" class="block text-sm text-gray-400">Contraseña</label>
                     <input type="password" id="password" name="password" v-model="formData.password" class="w-[90%] h-10 my-2 py-3 px-4 block border-2 border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
-                    <p v-if="errors.password" class="text-xs text-red-600 mt-2">{{ errors.password }}</p>
+                    <p v-if="errors.password" class="text-xs text-red-600 mt-2">{{ errors.password[0] }}</p>
                   </div>
 
                   <div class="mt-4">
@@ -78,7 +78,7 @@
 
 <script setup lang="ts">
 import { ref, defineEmits } from 'vue';
-import axios from 'axios';
+import apiClient from '@/services/api.js';
 import {
     TransitionRoot,
     TransitionChild,
@@ -86,6 +86,16 @@ import {
     DialogPanel,
     DialogTitle,
 } from '@headlessui/vue';
+
+const isOpen = ref<boolean>(true);
+const emits = defineEmits(['close']);
+function closeModal(): void {
+  isOpen.value = false;
+  setTimeout(() => {
+    emits('close');
+  }, 300);
+}
+
 
 interface FormData {
     username: string;
@@ -98,34 +108,39 @@ interface Errors {
     [key: string]: string;
 }
 
-const isOpen = ref<boolean>(true);
 const formData = ref<FormData>({
     username: '',
     email: '',
     password: '',
     confirmPassword: ''
 });
+
 const errors = ref<Errors>({});
-const emits = defineEmits(['close']);
 
 async function submitForm(): Promise<void> {
-    try {
-        const response = await axios.post('/api/register', formData.value);
-        if (response.status === 200) {
-            closeModal();
-            // manejar la respuesta del backend si es necesario
-        }
-    } catch (error: any) {
-        if (error.response && error.response.data.errors) {
-            errors.value = error.response.data.errors;
-        }
-    }
-}
+  if (formData.value.password !== formData.value.confirmPassword) {
+    errors.value.confirmPassword = "Las contraseñas no coinciden";
+    return;
+  }
+  try {
+    const { confirmPassword, ...dataToSend } = formData.value;
+    const response = await apiClient.post('/user/', dataToSend);
+    closeModal();
 
-function closeModal(): void {
-    isOpen.value = false;
-    setTimeout(() => {
-      emits('close');
-    }, 300);
+  } catch (error: any) {
+      if (error.response && error.response.data.error) {
+        const zodErrors = error.response.data.error.issues;
+        const mappedErrors: Record<string, any> = {};
+        zodErrors.forEach((err: any) => {
+          const fieldName = err.path[0];
+          
+          if (!mappedErrors[fieldName]) {
+            mappedErrors[fieldName] = [];
+          }
+          mappedErrors[fieldName].push(err.message);
+          });
+          errors.value = mappedErrors;
+      }
+    }
 }
 </script>
