@@ -3,7 +3,7 @@
   import { RouterView } from 'vue-router'
   import MusicPlayer from './components/MusicPlayer.vue'
 
-  import { useSongStore } from './stores/song'
+  import { useSongStore } from './stores/song.js'
   import { storeToRefs } from 'pinia';
 
   import TopNav from './layouts/TopNav.vue';

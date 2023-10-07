@@ -1,7 +1,8 @@
 export interface Song {
     id: number;
-    title: string;
+    name: string;
     artist: string;
-    url: string;  // URL del archivo de la canción, por ejemplo
-    //... otros campos que tus canciones puedan tener
+    duration: number;
+    pic_url: string;
+    url: string;
 }

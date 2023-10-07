@@ -1,3 +1,19 @@
+<template>
+    <li 
+        class="flex items-center justify-start pb-4 cursor-pointer" 
+        @mouseenter="isHover()" 
+        @mouseleave="isHover()"
+    >
+        <img :width="iconSize" :src="`/images/icons/${icon}.png`">
+        <div
+            :class="textIsHover ? 'text-white ' : 'text-gray-400'"
+            class="font-semibold ml-4 mt-0.5"
+        >
+            <span :class="route.path == pageUrl ? 'text-white' : ''">{{ name }}</span>
+        </div>
+    </li>
+</template>
+
 <script setup>
 import { ref, toRefs, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
@@ -37,19 +53,3 @@ const isHover = () => {
     }
 }
 </script>
-
-<template>
-    <li 
-        class="flex items-center justify-start pb-4 cursor-pointer" 
-        @mouseenter="isHover()" 
-        @mouseleave="isHover()"
-    >
-        <img :width="iconSize" :src="`/images/icons/${icon}.png`">
-        <div
-            :class="textIsHover ? 'text-white ' : 'text-gray-400'"
-            class="font-semibold ml-4 mt-0.5"
-        >
-            <span :class="route.path == pageUrl ? 'text-white' : ''">{{ name }}</span>
-        </div>
-    </li>
-</template>
