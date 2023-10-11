@@ -31,7 +31,7 @@
                   <DialogTitle as="h3" class="text-lg font-medium leading-6 text-white mb-4">¡Inicia sesión en AudioFlow!</DialogTitle>
                   <form @submit.prevent="submitForm" class="mt-6">
                     <div class="mt-4">
-                      <label for="username" class="block text-sm text-gray-400">Nombre de usuario</label>
+                      <label for="username" class="block text-sm text-gray-400">Correo Electrónico</label>
                       <input
                         type="text"
                         id="username"

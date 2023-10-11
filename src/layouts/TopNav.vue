@@ -5,15 +5,20 @@ import ChevronUp from 'vue-material-design-icons/ChevronUp.vue';
 import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
 import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
 import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue';
-
+import LoginModal from '../components/LoginModal.vue';
 import RegisterModal from '../components/RegisterModal.vue';
 let showModal = ref(false);
 function openModal() {
     showModal.value = true;
     openMenu.value = false;
 }
-
+let showLoginModal = ref(false);
 let openMenu = ref(false)
+
+function openLoginModal() {
+    showLoginModal.value = true;
+    openMenu.value = false;
+}
 
 </script>
 
@@ -60,10 +65,13 @@ let openMenu = ref(false)
         <span v-if="openMenu"
             class="fixed w-[190px] bg-[#282828] shadow-2xl z-50 rounded-sm top-[52px] right-[35px] p-1 cursor-pointer">
             <ul class="text-gray-200 font-semibold text-[14px]">
-                <li class="px-3 py-2.5 hover:bg-[#3E3D3D] border-b border-b-gray-600">Iniciar sesión</li>
+                <li @click="openLoginModal" class="px-3 py-2.5 hover:bg-[#3E3D3D] border-b border-b-gray-600">Iniciar sesión</li>
                 <li @click="openModal" class="px-3 py-2.5 hover:bg-[#3E3D3D]">Registrarse</li>
             </ul>
         </span>
+        <RegisterModal v-if="showModal" @close="showModal = false" />
+        <LoginModal v-if="showLoginModal" @close="showLoginModal = false" />
     </div>
     
 </template>
+
