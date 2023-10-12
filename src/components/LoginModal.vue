@@ -83,6 +83,9 @@
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
 import { ref, defineEmits } from 'vue';
 import apiClient from '@/services/api.js';
+import { useMainStore } from '@/stores/main'
+
+const mainStore = useMainStore();
 
 const isOpen = ref<boolean>(true);
 const emits = defineEmits(['close']);
@@ -109,6 +112,7 @@ async function submitForm(): Promise<void> {
   try {
     const response = await apiClient.post('/auth/', formData.value);
     if (response.status === 200) {
+      mainStore.loginUser(response.data);
       closeModal();
     }
   } catch (errorResponse: any) {
