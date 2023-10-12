@@ -1,25 +1,27 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import ChevronUp from 'vue-material-design-icons/ChevronUp.vue';
+import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
+import Avatar from 'vue-avatar/src/Avatar.vue';
+import Account from 'vue-material-design-icons/Account.vue';
+import AccountPlus from 'vue-material-design-icons/AccountPlus.vue';
 import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
-import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
-import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue';
+
 import LoginModal from '../components/LoginModal.vue';
 import RegisterModal from '../components/RegisterModal.vue';
 
-let openMenu = ref(false)
+import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
+import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue';
+
 let showRegisterModal = ref(false);
 let showLoginModal = ref(false);
 
 function openRegisterModal() {
     showRegisterModal.value = true;
-    openMenu.value = false;
 }
 
 function openLoginModal() {
     showLoginModal.value = true;
-    openMenu.value = false;
 }
 </script>
 
@@ -29,11 +31,11 @@ function openLoginModal() {
     <div 
         id="TopNav"
         class="
-        w-[calc(100%-240px)] 
+        w-[calc(100%-256px)] 
         h-[60px] 
         fixed 
-        right-0 
-        z-20 
+        right-4 
+        z-50 
         bg-[#101010] 
         bg-opacity-80 
         flex 
@@ -49,26 +51,64 @@ function openLoginModal() {
                 <ChevronRight fillColor="#FFFFFF" :size="30" />
             </button>
         </div>
-        <button @click="openMenu = !openMenu" :class="openMenu ? 'bg-[#282828]' : 'bg-black'"
-            class="bg-black hover:bg-[#282828] rounded-full p-0.5 mr-8 mt-0.5 cursor-pointer">
-            <div class="flex items-center">
-                <img 
-                    class="rounded-full" 
-                    width="27"
-                    src="public\images\icons\guest-pic.png"
-                >
-                <div class="text-white text-[14px] ml-1.5 font-semibold">Usuario invitado</div>
-                <ChevronDown v-if="!openMenu" @click="openMenu = true" fillColor="#FFFFFF" :size="25" />
-                <ChevronUp v-else @click="openMenu = false" fillColor="#FFFFFF" :size="25" />
-            </div>
-        </button>
 
-        <span v-if="openMenu"
-            class="fixed w-[190px] bg-[#282828] shadow-2xl z-50 rounded-sm top-[52px] right-[35px] p-1 cursor-pointer">
-            <ul class="text-gray-200 font-semibold text-[14px]">
-                <li @click="openLoginModal" class="px-3 py-2.5 hover:bg-[#3E3D3D] border-b border-b-gray-600">Iniciar sesión</li>
-                <li @click="openRegisterModal" class="px-3 py-2.5 hover:bg-[#3E3D3D]">Registrarse</li>
-            </ul>
-        </span>
+        <Menu as="div" class="relative inline-block text-left mr-5">
+            <div>
+                <MenuButton
+                class="flex items-center h-10 gap-1 rounded-full bg-black bg-opacity-20 
+                text-sm font-medium text-white hover:bg-[#282828] cursor-pointer"
+                >
+                <avatar 
+                :size="25"
+                color="white"
+                username="username"
+                class="m-1"
+                />
+                Usuario Invitado
+                <ChevronDown class="pl-1"/>
+                </MenuButton>
+            </div>
+
+            <transition
+                enter-active-class="transition duration-100 ease-out"
+                enter-from-class="transform scale-95 opacity-0"
+                enter-to-class="transform scale-100 opacity-100"
+                leave-active-class="transition duration-75 ease-in"
+                leave-from-class="transform scale-100 opacity-100"
+                leave-to-class="transform scale-95 opacity-0"
+            >
+                <MenuItems
+                class="absolute right-0 mt-2 w-38 origin-top-right divide-y divide-gray-100 rounded-md 
+                bg-[#282828] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                >
+                <div class="px-1 py-1">
+                    <MenuItem v-slot="{ active }">
+                    <button
+                        @click="openLoginModal"
+                        :class="[
+                        active ? 'bg-[#3E3D3D] text-white' : 'text-gray-400',
+                        'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                        ]"
+                    >
+                        Iniciar sesión
+                        <Account class="ml-3 pl-2"/>
+                    </button>
+                    </MenuItem>
+                    <MenuItem v-slot="{ active }">
+                    <button
+                        @click="openRegisterModal"
+                        :class="[
+                        active ? 'bg-[#3E3D3D] text-white' : 'text-gray-400',
+                        'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                        ]"
+                    >
+                        Registrarse
+                        <AccountPlus class="ml-3 pl-4"/>
+                    </button>
+                    </MenuItem>
+                </div>
+                </MenuItems>
+            </transition>
+        </Menu>
     </div>
 </template>

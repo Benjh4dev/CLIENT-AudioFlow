@@ -8,7 +8,7 @@
             items-center
             justify-between
             bottom-0
-            w-full
+            w-[calc(100%-16px)] 
             z-50
             h-[90px]
             bg-[#181818]
