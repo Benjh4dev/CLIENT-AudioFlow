@@ -26,7 +26,7 @@
             >
               <DialogPanel class="flex w-full max-w-2xl transform overflow-hidden rounded-2xl bg-black p-6 shadow-xl transition-all">
   
-                <!-- Bloque Izquierdo -->
+                
                 <div class="w-1/2 pr-4">
                   <DialogTitle as="h3" class="text-lg font-medium leading-6 text-white mb-4">¡Inicia sesión en AudioFlow!</DialogTitle>
                   <form @submit.prevent="submitForm" class="mt-6">
@@ -63,7 +63,7 @@
                   </form>
                 </div>
   
-                <!-- Bloque Derecho -->
+                
                 <div class="w-1/2 flex items-center justify-center">
                   <img src="/images/icons/audioflow-logo.png" alt="Icono de AudioFlow" class="w-1/2">
                 </div>
