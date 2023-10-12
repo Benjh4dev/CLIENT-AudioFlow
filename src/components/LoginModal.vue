@@ -36,11 +36,11 @@
                         type="text"
                         id="email"
                         name="email"
+                        autocomplete="off"
                         placeholder="ejemplo@correo"
+                        :class="{ 'border-red-500': error }"
                         v-model="formData.email"
-                        :class="{ 'border-red-500': errors.email }"
                         class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm ">
-                      <p v-if="errors.email" class="text-xs text-red-600 mt-2">{{ errors.email[0] }}</p>
                     </div>
   
                     <div class="mt-4">
@@ -49,11 +49,12 @@
                         type="password"
                         id="password"
                         name="password"
+                        autocomplete="off"
                         placeholder="contraseña"
                         v-model="formData.password"
-                        :class="{ 'border-red-500': errors.password }"
+                        :class="{ 'border-red-500': error }"
                         class="w-[90%] h-10 my-2 py-3 px-4 block border-2 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
-                      <p v-if="errors.password" class="text-xs text-red-600 mt-2">{{ errors.password[0] }}</p>
+                      <p v-if="error" class="text-xs text-red-600 mt-2">{{ error }}</p>
                     </div>
   
                     <div class="mt-8 flex justify-center pr-8">
@@ -78,63 +79,46 @@
     </TransitionRoot>
   </template>
   
-  <script setup lang="ts">
-  import { ref, defineEmits } from 'vue';
-  import apiClient from '@/services/api.js';
-  import {
-    TransitionRoot,
-    TransitionChild,
-    Dialog,
-    DialogPanel,
-    DialogTitle,
-  } from '@headlessui/vue';
-  
-  const isOpen = ref<boolean>(true);
-  const emits = defineEmits(['close']);
-  function closeModal(): void {
-    isOpen.value = false;
-    setTimeout(() => {
-      emits('close');
-    }, 300);
-  }
-  
-  interface FormData {
-    email: string;
-    password: string;
-  }
-  
-  interface Errors {
-    [key: string]: string;
-  }
-  
-  const formData = ref<FormData>({
-    email: '',
-    password: '',
-  });
-  
-  const errors = ref<Errors>({});
-  
-  async function submitForm(): Promise<void> {
-    // Errores vacíos
-    errors.value = {};
-    try {
-      const response = await apiClient.post('/auth/', formData.value);
+<script setup lang="ts">
+import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
+import { ref, defineEmits } from 'vue';
+import apiClient from '@/services/api.js';
+
+const isOpen = ref<boolean>(true);
+const emits = defineEmits(['close']);
+
+interface FormData {
+  email: string;
+  password: string;
+}
+
+const formData = ref<FormData>({
+  email: '',
+  password: '',
+});
+
+const error = ref<string>('');
+
+function closeModal(): void {
+  isOpen.value = false;
+  setTimeout(() => { emits('close') }, 300);
+}
+
+async function submitForm(): Promise<void> {
+  error.value = '';
+  try {
+    const response = await apiClient.post('/auth/', formData.value);
+    if (response.status === 200) {
       closeModal();
-    } catch (error: any) {
-      if (error.response && error.response.data.error) {
-        const zodErrors = error.response.data.error.issues;
-        const mappedErrors: Record<string, any> = {};
-        zodErrors.forEach((err: any) => {
-          const fieldName = err.path[0];
-  
-          if (!mappedErrors[fieldName]) {
-            mappedErrors[fieldName] = [];
-          }
-          mappedErrors[fieldName].push(err.message);
-        });
-        errors.value = mappedErrors;
-      }
     }
+  } catch (errorResponse: any) {
+      if (errorResponse.response) {
+        if (errorResponse.response.status == 400) {
+        error.value = 'Ingrese los campos correctamente';
+        return
+        }
+        error.value = errorResponse.response.data.message;
+      }
   }
-  </script>
-  
+}
+</script>

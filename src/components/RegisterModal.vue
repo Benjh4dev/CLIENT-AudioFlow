@@ -109,24 +109,12 @@
 </template>
 
 <script setup lang="ts">
+import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
 import { ref, defineEmits } from 'vue';
 import apiClient from '@/services/api';
-import {
-    TransitionRoot,
-    TransitionChild,
-    Dialog,
-    DialogPanel,
-    DialogTitle,
-} from '@headlessui/vue';
 
 const isOpen = ref<boolean>(true);
 const emits = defineEmits(['close']);
-function closeModal(): void {
-  isOpen.value = false;
-  setTimeout(() => {
-    emits('close');
-  }, 300);
-}
 
 interface FormData {
     username: string;
@@ -148,8 +136,12 @@ const formData = ref<FormData>({
 
 const errors = ref<Errors>({});
 
+function closeModal(): void {
+  isOpen.value = false;
+  setTimeout(() => { emits('close') }, 300);
+}
+
 async function submitForm(): Promise<void> {
-  //errores vacíos
   errors.value = {};
   //isLoading() ---> ref
   if (formData.value.password !== formData.value.confirmPassword) {
