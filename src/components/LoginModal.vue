@@ -31,15 +31,16 @@
                   <DialogTitle as="h3" class="text-lg font-medium leading-6 text-white mb-4">¡Inicia sesión en AudioFlow!</DialogTitle>
                   <form @submit.prevent="submitForm" class="mt-6">
                     <div class="mt-4">
-                      <label for="username" class="block text-sm text-gray-400">Correo Electrónico</label>
+                      <label for="email" class="block text-sm text-gray-400">Correo Electrónico</label>
                       <input
                         type="text"
-                        id="username"
-                        name="username"
-                        v-model="formData.username"
-                        :class="{ 'border-red-500': errors.username }"
-                        class="w-[90%] h-10 my-2 py-3 px-4 block border-6 border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm ">
-                      <p v-if="errors.username" class="text-xs text-red-600 mt-2">{{ errors.username[0] }}</p>
+                        id="email"
+                        name="email"
+                        placeholder="ejemplo@correo"
+                        v-model="formData.email"
+                        :class="{ 'border-red-500': errors.email }"
+                        class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm ">
+                      <p v-if="errors.email" class="text-xs text-red-600 mt-2">{{ errors.email[0] }}</p>
                     </div>
   
                     <div class="mt-4">
@@ -48,9 +49,10 @@
                         type="password"
                         id="password"
                         name="password"
+                        placeholder="contraseña"
                         v-model="formData.password"
                         :class="{ 'border-red-500': errors.password }"
-                        class="w-[90%] h-10 my-2 py-3 px-4 block border-2 border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
+                        class="w-[90%] h-10 my-2 py-3 px-4 block border-2 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
                       <p v-if="errors.password" class="text-xs text-red-600 mt-2">{{ errors.password[0] }}</p>
                     </div>
   
@@ -97,7 +99,7 @@
   }
   
   interface FormData {
-    username: string;
+    email: string;
     password: string;
   }
   
@@ -106,7 +108,7 @@
   }
   
   const formData = ref<FormData>({
-    username: '',
+    email: '',
     password: '',
   });
   
@@ -116,7 +118,7 @@
     // Errores vacíos
     errors.value = {};
     try {
-      const response = await apiClient.post('/login', formData.value);
+      const response = await apiClient.post('/auth/', formData.value);
       closeModal();
     } catch (error: any) {
       if (error.response && error.response.data.error) {
