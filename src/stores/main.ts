@@ -1,6 +1,12 @@
 import { defineStore } from 'pinia';
 import { User, AuthResponse } from '@/interfaces';
 import router from '@/router';
+import jwtDecode from "jwt-decode";
+
+interface DecodedToken {
+    exp: number;
+    [key: string]: any;
+}
 
 export const useMainStore = defineStore({
     id: 'main',
@@ -24,7 +30,22 @@ export const useMainStore = defineStore({
             this.user = null;
             this.token = "";
             router.push('/');
-        }
+        },
+        verifyTokenValidity() {
+            if (!this.token) {
+                return false;
+            }
+    
+            const decodedToken: DecodedToken = jwtDecode(this.token);
+    
+            // Si el token ha expirado
+            if (decodedToken.exp * 1000 < Date.now()) {
+                this.logoutUser();
+                return false;
+            }
+    
+            return true;
+        },
     },
     persist: true
 });
