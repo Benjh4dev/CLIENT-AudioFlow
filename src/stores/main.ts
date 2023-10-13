@@ -24,12 +24,14 @@ export const useMainStore = defineStore({
             this.user = AuthResponse.user;
             this.token = AuthResponse.token;
             router.push('/');
+            window.location.reload();
         },
 
         logoutUser() {
             this.user = null;
             this.token = "";
             router.push('/');
+            window.location.reload();
         },
         verifyTokenValidity() {
             if (!this.token) {

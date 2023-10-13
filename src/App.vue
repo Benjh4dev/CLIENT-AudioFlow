@@ -15,9 +15,9 @@
       to-black
       "
       >
-      <div class="mt-[70px]"></div>
+      <div class="mt-[60px]"></div>
       <RouterView />
-      <div class="mb-[100px]"></div>
+      <div class="mb-[90px]"></div>
   </div>
       
   <MusicPlayer v-if="currentTrack"/>
