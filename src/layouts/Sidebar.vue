@@ -28,21 +28,14 @@
             </ul>
         </div>
 
-        <!-- User logged -->
-        <div v-if="mainStore.$state.token" id="UserPlaylists" class="h-[100%] pl-6 w-[240px] bg-black">
-            
-            <div class="border-b border-b-gray-700 w-[200px]"></div>
-                <ul class="mt-6">
+        <div id="UserPlaylists" class="h-[100%] pl-6 w-[240px] bg-black">
+            <div v-if="mainStore.$state.token" class="border-b border-b-gray-700 w-[200px]"></div>
+                <ul v-if="mainStore.$state.token" class="mt-6">
                     <li class="font-semibold text-[15px] mt-3 text-gray-300 hover:text-white">Tu Playlist #1</li>
                     <li class="font-semibold text-[15px] mt-3 text-gray-300 hover:text-white">Tu Playlist #2</li>
                     <li class="font-semibold text-[15px] mt-3 text-gray-300 hover:text-white">Tu Playlist #3</li>
                     <li class="font-semibold text-[15px] mt-3 text-gray-300 hover:text-white">Tu Playlist #4</li>
                 </ul>
-        </div>
-
-        <!-- Guest -->
-        <div v-if="!mainStore.$state.token" id="UserPlaylists" class="h-[100%] pl-6 w-[240px] bg-black text-white">
-            <span></span>
         </div>
 
     </div>
