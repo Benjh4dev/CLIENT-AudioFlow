@@ -82,8 +82,8 @@
 <script setup lang="ts">
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
 import { ref, defineEmits } from 'vue';
-import apiClient from '@/services/api.js';
 import { useMainStore } from '@/stores/main'
+import apiClient from '@/services/api.js';
 
 const mainStore = useMainStore();
 

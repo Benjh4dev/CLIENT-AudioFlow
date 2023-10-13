@@ -29,7 +29,8 @@
             bg-[#282828] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
             >
             <div class="px-1 py-1">
-                <MenuItem v-slot="{ active }">
+                <RouterLink to="/profile">
+                <MenuItem v-slot="{ active } " pageUrl="/profile">
                 <button
                     
                     :class="[
@@ -41,6 +42,7 @@
                     <AccountBox class="ml-3 pl-10"/>
                 </button>
                 </MenuItem>
+                </RouterLink>
                 <MenuItem v-slot="{ active }">
                 <button
                     @click="mainStore.logoutUser()"
@@ -60,6 +62,7 @@
 </template>
 
 <script setup lang="ts">
+import { RouterLink } from 'vue-router'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import Avatar from 'vue-avatar/src/Avatar.vue';
 import AccountRemove from 'vue-material-design-icons/AccountRemove.vue';

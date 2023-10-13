@@ -3,8 +3,8 @@
         <div id="UserOptions" class="pl-6 w-[240px] bg-black">
             <RouterLink to="/"  class="flex items-center mt-10">
                 <img src="/images/icons/audioflow-logo-nombre.png" class="w-[80%] ml-2.5">
-                
             </RouterLink>
+            
             <div class="my-14"></div>
             <ul>
                 <RouterLink to="/">
@@ -13,7 +13,7 @@
                 <RouterLink to="/search">
                     <MenuItem class="ml-[1px]" :iconSize="24" name="Buscar" iconString="search" pageUrl="/search" />
                 </RouterLink>
-                <RouterLink to="/library" v-if="mainStore.$state.token">
+                <RouterLink to="/profile" v-if="mainStore.$state.token">
                     <MenuItem class="ml-[1px]" :iconSize="24" name="Mis canciones" iconString="library" pageUrl="/library" />
                 </RouterLink>
                 
@@ -44,13 +44,14 @@
         <div v-if="!mainStore.$state.token" id="UserPlaylists" class="h-[100%] pl-6 w-[240px] bg-black text-white">
             <span></span>
         </div>
+
     </div>
 </template>
 
 <script setup lang="ts">
-    import { RouterLink } from 'vue-router'
-    import MenuItem from '../components/MenuItem.vue';
-    import { useMainStore } from '@/stores/main';
+import { RouterLink } from 'vue-router'
+import MenuItem from '../components/MenuItem.vue';
+import { useMainStore } from '@/stores/main';
 
-    const mainStore = useMainStore();
+const mainStore = useMainStore();
 </script>
