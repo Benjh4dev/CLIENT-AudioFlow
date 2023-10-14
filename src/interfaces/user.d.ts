@@ -1,11 +1,6 @@
-import { Song } from "./song";
-import { UserPlaylist } from "./userPlaylist";
-
 export interface User {
-    id: number;
-    username: string;
+    id: string;
     email: string;
-    pic_url: string;
-    playlists: UserPlaylist[];
-    songs_uploaded: Song[];
+    picture_url: string;
+    username: string;
 }
