@@ -32,7 +32,7 @@
                 <RouterLink to="/profile">
                 <MenuItem v-slot="{ active } " pageUrl="/profile">
                 <button
-                    
+                    @click="mainStore.verifyTokenValidity()"
                     :class="[
                     active ? 'bg-[#3E3D3D] text-white' : 'text-gray-400',
                     'group flex w-full items-center rounded-md px-2 py-2 text-sm',

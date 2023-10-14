@@ -10,7 +10,7 @@ const showPencil = ref(false);
 </script>
 
 <template>
-    <div class="pl-8 pt-4 bg-gradient-to-b from-[#5A7D8E] to-[#2E3F4D] h-[30%]">
+    <div class="pl-8 pt-4 bg-gradient-to-b from-[#5A7D8E] to-[#2E3F4D] h-[30%] w-[99%] ">
         <div class="flex">
             <div class="relative group hover:bg-opacity-50 cursor-pointer" @mouseover="showPencil = true" @mouseleave="showPencil = false">
                 <Avatar 
