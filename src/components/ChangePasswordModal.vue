@@ -29,7 +29,7 @@
                 <!-- Bloque Izquierdo -->
                 <div class="w-1/2 pr-4">
                   <DialogTitle as="h3" class="text-lg font-medium leading-6 text-white mb-4">¡Cambia tu contraseña!</DialogTitle>
-                  <form class="mt-6">
+                  <form @submit.prevent="submitForm" class="mt-6">
 
                   <div class="mt-4">
                     <label for="password" class="block text-sm text-gray-400">Nueva Contraseña</label>
@@ -40,6 +40,7 @@
                       autocomplete="off"
                       v-model="formData.password"
                       class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
+                    <p v-if="errors.password" class="text-xs text-red-600 mt-2">{{ errors.password[0] }}</p>
                   </div>
 
                   <div class="mt-4">
@@ -51,6 +52,7 @@
                       autocomplete="off"
                       v-model="formData.confirmPassword"
                       class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
+                    <p v-if="errors.confirmPassword" class="text-xs text-red-600 mt-2">{{ errors.confirmPassword[0] }}</p>
                   </div>
 
                   <div class="mt-8 flex justify-center pr-8">
@@ -106,10 +108,41 @@ interface Errors {
     [key: string]: string;
 }
 
+const errors = ref<Errors>({});
+
 const formData = ref<FormData>({
     password: '',
     confirmPassword: ''
 });
+
+async function submitForm(): Promise<void> {
+  errors.value = {};
+  //isLoading() ---> ref
+  try {
+    const response = await apiClient.patch(`/user/${mainStore.$state.user?.id}/changePassword`, formData.value, {
+      headers: {
+        'Authorization': `Bearer ${mainStore.$state.token}`
+      }
+    });
+    closeModal();
+    mainStore.logoutUser();
+
+  } catch (error: any) {
+      if (error.response && error.response.data.error) {
+        const zodErrors = error.response.data.error.issues;
+        const mappedErrors: Record<string, any> = {};
+        zodErrors.forEach((err: any) => {
+          const fieldName = err.path[0];
+          
+          if (!mappedErrors[fieldName]) {
+            mappedErrors[fieldName] = [];
+          }
+          mappedErrors[fieldName].push(err.message);
+          });
+          errors.value = mappedErrors;
+      }
+    }
+}
 
 
 
