@@ -1,4 +1,5 @@
 <template>
+    <ChangePasswordModal v-if="showChangePasswordModal" @close="showChangePasswordModal = false"/>
     <Menu as="div" class="relative inline-block text-left mr-5">
         <div>
             <MenuButton
@@ -43,6 +44,22 @@
                 </button>
                 </MenuItem>
                 </RouterLink>
+
+                
+                <MenuItem v-slot="{ active } " >
+                <button
+                    @click="mainStore.verifyTokenValidity(),openChangePasswordModal()"
+                    :class="[
+                    active ? 'bg-[#3E3D3D] text-white' : 'text-gray-400',
+                    'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                    ]"
+
+                >
+                    Contraseña
+                    <ShieldEdit class="ml-3 pl-5"/>
+                </button>
+                </MenuItem>
+
                 <MenuItem v-slot="{ active }">
                 <button
                     @click="mainStore.logoutUser()"
@@ -69,6 +86,14 @@ import AccountRemove from 'vue-material-design-icons/AccountRemove.vue';
 import AccountBox from 'vue-material-design-icons/AccountBox.vue';
 import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
 import { useMainStore } from '@/stores/main';
+import ChangePasswordModal from '@/components/ChangePasswordModal.vue';
+import { ref } from 'vue';
+import ShieldEdit from 'vue-material-design-icons/ShieldEdit.vue';
+
+let showChangePasswordModal = ref(false)
+function openChangePasswordModal() {
+    showChangePasswordModal.value = true
+}
 
 const mainStore = useMainStore();
 </script>
