@@ -32,7 +32,19 @@
                   <form @submit.prevent="submitForm" class="mt-6">
 
                   <div class="mt-4">
-                    <label for="password" class="block text-sm text-gray-400">Nueva Contraseña</label>
+                    <label for="currentPassword" class="block text-sm text-gray-400">Contraseña actual</label>
+                    <input 
+                      type="password" 
+                      id="currentPassword" 
+                      name="currentPassword"
+                      autocomplete="off"
+                      v-model="formData.currentPassword"
+                      class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
+                    <p v-if="errors.currentPassword" class="text-xs text-red-600 mt-2">{{ errors.currentPassword[0] }}</p>
+                  </div>
+
+                  <div class="mt-4">
+                    <label for="password" class="block text-sm text-gray-400">Nueva contraseña</label>
                     <input 
                       type="password" 
                       id="password" 
@@ -100,6 +112,7 @@ function closeModal(): void {
 }
 
 interface FormData {
+    currentPassword: string;
     password: string;
     confirmPassword: string;
 }
@@ -111,6 +124,7 @@ interface Errors {
 const errors = ref<Errors>({});
 
 const formData = ref<FormData>({
+    currentPassword: '',
     password: '',
     confirmPassword: ''
 });

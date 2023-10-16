@@ -112,6 +112,9 @@
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
 import { ref, defineEmits } from 'vue';
 import apiClient from '@/services/api';
+import { useMainStore } from '@/stores/main';
+
+const mainStore = useMainStore();
 
 const isOpen = ref<boolean>(true);
 const emits = defineEmits(['close']);
@@ -143,15 +146,26 @@ function closeModal(): void {
 
 async function submitForm(): Promise<void> {
   errors.value = {};
-  //isLoading() ---> ref
+
   if (formData.value.password !== formData.value.confirmPassword) {
     errors.value.confirmPassword = "Las contraseñas no coinciden";
     return;
   }
+  
   try {
     const { confirmPassword, ...dataToSend } = formData.value;
     const response = await apiClient.post('/user/', dataToSend);
     closeModal();
+
+    const loginUser = await apiClient.post('/auth/', {
+      email: formData.value.email,
+      password: formData.value.password
+    });
+
+    if (loginUser.status === 200) {
+      mainStore.loginUser(loginUser.data);
+      closeModal();
+    }
 
   } catch (error: any) {
       if (error.response && error.response.data.error) {
