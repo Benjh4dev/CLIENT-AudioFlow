@@ -151,7 +151,7 @@ async function submitForm(): Promise<void> {
     errors.value.confirmPassword = "Las contraseñas no coinciden";
     return;
   }
-  
+
   try {
     const { confirmPassword, ...dataToSend } = formData.value;
     const response = await apiClient.post('/user/', dataToSend);
@@ -164,7 +164,6 @@ async function submitForm(): Promise<void> {
 
     if (loginUser.status === 200) {
       mainStore.loginUser(loginUser.data);
-      closeModal();
     }
 
   } catch (error: any) {
