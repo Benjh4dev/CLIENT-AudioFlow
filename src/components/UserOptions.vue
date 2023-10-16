@@ -48,7 +48,7 @@
                 
                 <MenuItem v-slot="{ active } " >
                 <button
-                    @click="mainStore.verifyTokenValidity(),openChangePasswordModal()"
+                    @click="mainStore.verifyTokenValidity(), openChangePasswordModal()"
                     :class="[
                     active ? 'bg-[#3E3D3D] text-white' : 'text-gray-400',
                     'group flex w-full items-center rounded-md px-2 py-2 text-sm',

@@ -8,16 +8,14 @@ import EditEmailModal from '../components/EditEmailModal.vue';
 const mainStore = useMainStore();
 const showPencil = ref(false);
 
-let showEditUserModal = ref(false);
+let showEditEmailModal = ref(false);
 function openEditUserModal() {
-    showEditUserModal.value = true;
+    showEditEmailModal.value = true;
 }
-
-
 </script>
 
 <template>
-    <EditEmailModal v-if="showEditUserModal" @close="showEditUserModal = false"/>
+    <EditEmailModal v-if="showEditEmailModal" @close="showEditEmailModal = false"/>
     <div class="pl-8 pt-4 bg-gradient-to-b from-[#5A7D8E] to-[#2E3F4D] h-[30%] w-[99%] ">
         <div class="flex">
             <div class="relative group hover:bg-opacity-50 cursor-pointer" @mouseover="showPencil = true" @mouseleave="showPencil = false">
@@ -30,8 +28,6 @@ function openEditUserModal() {
                 <p v-if="showPencil" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black font-bold pointer-events-none">
                     <Pencil class="text-black" :size="46"/>
                 </p>
-
-
             </div>
             
             <div class="block mt-16 ml-5">
