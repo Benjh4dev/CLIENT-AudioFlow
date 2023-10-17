@@ -4,6 +4,7 @@ import { useMainStore } from '@/stores/main';
 import Avatar from 'vue-avatar/src/Avatar.vue';
 import Pencil from 'vue-material-design-icons/Pencil.vue';
 import EditEmailModal from '../components/EditEmailModal.vue';
+import ChangeUserPhotoModal from '@/components/ChangeUserPhotoModal.vue';
 
 const mainStore = useMainStore();
 const showPencil = ref(false);
@@ -12,22 +13,30 @@ let showEditEmailModal = ref(false);
 function openEditUserModal() {
     showEditEmailModal.value = true;
 }
+
+let showChangeUserPhotoModal = ref(false);
+function openChangeUserPhotoModal() {
+    showChangeUserPhotoModal.value = true;
+}
 </script>
 
 <template>
     <EditEmailModal v-if="showEditEmailModal" @close="showEditEmailModal = false"/>
+    <ChangeUserPhotoModal v-if="showChangeUserPhotoModal" @close="showChangeUserPhotoModal = false"/>
     <div class="pl-8 pt-4 bg-gradient-to-b from-[#5A7D8E] to-[#2E3F4D] h-[30%] w-[99%] ">
         <div class="flex">
             <div class="relative group hover:bg-opacity-50 cursor-pointer" @mouseover="showPencil = true" @mouseleave="showPencil = false">
-                <Avatar 
-                :size="232"
-                color="white"
-                :username="mainStore.$state.user?.username"
-                class="m-1 hover:opacity-50 shadow-2xl cursor-pointer"
-                />
-                <p v-if="showPencil" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black font-bold pointer-events-none">
-                    <Pencil class="text-black" :size="46"/>
-                </p>
+                <button @click="openChangeUserPhotoModal">
+                    <Avatar 
+                    :size="232"
+                    color="white"
+                    :username="mainStore.$state.user?.username"
+                    class="m-1 hover:opacity-50 shadow-2xl cursor-pointer"
+                    />
+                    <p v-if="showPencil" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black font-bold pointer-events-none">
+                        <Pencil class="text-black" :size="46"/>
+                    </p>
+                </button>
             </div>
             
             <div class="block mt-16 ml-5">
