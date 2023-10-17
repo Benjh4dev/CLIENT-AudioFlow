@@ -11,9 +11,7 @@
             w-[calc(100%)] 
             z-50
             h-[90px]
-            bg-[#181818]
-            border-t
-            border-t-[#272727]
+            bg-black
         "
     >
         <div class="flex items-center w-1/4">

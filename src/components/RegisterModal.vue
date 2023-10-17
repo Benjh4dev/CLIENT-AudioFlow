@@ -24,7 +24,7 @@
             leave-from="opacity-100 scale-100"
             leave-to="opacity-0 scale-95"
           >
-            <DialogPanel class="flex w-full max-w-2xl transform overflow-hidden rounded-2xl bg-black p-6 shadow-xl transition-all">
+            <DialogPanel class="flex w-full max-w-2xl transform overflow-hidden rounded-2xl bg-[#121212] p-6 shadow-xl transition-all">
               
               <!-- Bloque Izquierdo -->
               <div class="w-1/2 pr-4">
@@ -40,7 +40,7 @@
                     placeholder="@username"
                     v-model="formData.username" 
                     :class="{ 'border-red-500': errors.username }" 
-                    class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm ">
+                    class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-black text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm ">
                   <p v-if="errors.username" class="text-xs text-red-600 mt-2">{{ errors.username[0] }}</p>
                 </div>
 
@@ -54,7 +54,7 @@
                     placeholder="ejemplo@correo"
                     v-model="formData.email" 
                     :class="{ 'border-red-500': errors.email }"
-                    class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
+                    class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-black text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
                   <p v-if="errors.email" class="text-xs text-red-600 mt-2">{{ errors.email[0] }}</p>
                 </div>
 
@@ -68,7 +68,7 @@
                     placeholder="contraseña"
                     v-model="formData.password" 
                     :class="{ 'border-red-500': errors.password }"
-                    class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
+                    class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-black text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
                   <p v-if="errors.password" class="text-xs text-red-600 mt-2">{{ errors.password[0] }}</p>
                 </div>
 
@@ -82,7 +82,7 @@
                     placeholder="contraseña"
                     v-model="formData.confirmPassword" 
                     :class="{ 'border-red-500': errors.confirmPassword }"
-                    class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
+                    class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-black text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
                   <p v-if="errors.confirmPassword" class="text-xs text-red-600 mt-2">{{ errors.confirmPassword }}</p>
                 </div>
 

@@ -24,7 +24,7 @@
             leave-from="opacity-100 scale-100"
             leave-to="opacity-0 scale-95"
           >
-            <DialogPanel class="flex w-full max-w-2xl transform overflow-hidden rounded-2xl bg-black p-6 shadow-xl transition-all">
+            <DialogPanel class="flex w-full max-w-2xl transform overflow-hidden rounded-2xl bg-[#121212] p-6 shadow-xl transition-all">
 
               <div class="w-1/2 pr-4">
                 <DialogTitle as="h3" class="text-lg font-medium leading-6 text-white mb-4">¡Inicia sesión en AudioFlow!</DialogTitle>
@@ -39,7 +39,7 @@
                       placeholder="ejemplo@correo"
                       :class="{ 'border-red-500': error }"
                       v-model="formData.email"
-                      class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm ">
+                      class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-black text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm ">
                   </div>
 
                   <div class="mt-4">
@@ -52,7 +52,7 @@
                       placeholder="contraseña"
                       v-model="formData.password"
                       :class="{ 'border-red-500': error }"
-                      class="w-[90%] h-10 my-2 py-3 px-4 block border-2 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
+                      class="w-[90%] h-10 my-2 py-3 px-4 block border-2 bg-black text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
                     <p v-if="error" class="text-xs text-red-600 mt-2">{{ error }}</p>
                   </div>
 

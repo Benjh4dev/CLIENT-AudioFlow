@@ -1,29 +1,7 @@
-<script setup lang="ts">
-import { ref } from 'vue';
-import { useMainStore } from '@/stores/main';
-import Avatar from 'vue-avatar/src/Avatar.vue';
-import Pencil from 'vue-material-design-icons/Pencil.vue';
-import EditEmailModal from '../components/EditEmailModal.vue';
-import ChangeUserPhotoModal from '@/components/ChangeUserPhotoModal.vue';
-
-const mainStore = useMainStore();
-const showPencil = ref(false);
-
-let showEditEmailModal = ref(false);
-function openEditUserModal() {
-    showEditEmailModal.value = true;
-}
-
-let showChangeUserPhotoModal = ref(false);
-function openChangeUserPhotoModal() {
-    showChangeUserPhotoModal.value = true;
-}
-</script>
-
 <template>
     <EditEmailModal v-if="showEditEmailModal" @close="showEditEmailModal = false"/>
     <ChangeUserPhotoModal v-if="showChangeUserPhotoModal" @close="showChangeUserPhotoModal = false"/>
-    <div class="pl-8 pt-4 bg-gradient-to-b from-[#5A7D8E] to-[#2E3F4D] h-[30%] w-[100%] ">
+    <div class="pl-8 pt-4 bg-gradient-to-b from-[#5A7D8E] to-[#2E3F4D] ml-3 rounded-lg w-[97.5%]">
         <div class="flex">
             <div class="relative group hover:bg-opacity-50 cursor-pointer" @mouseover="showPencil = true" @mouseleave="showPencil = false">
                 <button @click="openChangeUserPhotoModal">
@@ -60,3 +38,25 @@ function openChangeUserPhotoModal() {
         <h1 class="p-8 text-white text-xl font-bold">Tus canciones</h1>
     </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { useMainStore } from '@/stores/main';
+import Avatar from 'vue-avatar/src/Avatar.vue';
+import Pencil from 'vue-material-design-icons/Pencil.vue';
+import EditEmailModal from '../components/EditEmailModal.vue';
+import ChangeUserPhotoModal from '@/components/ChangeUserPhotoModal.vue';
+
+const mainStore = useMainStore();
+const showPencil = ref(false);
+
+let showEditEmailModal = ref(false);
+function openEditUserModal() {
+    showEditEmailModal.value = true;
+}
+
+let showChangeUserPhotoModal = ref(false);
+function openChangeUserPhotoModal() {
+    showChangeUserPhotoModal.value = true;
+}
+</script>

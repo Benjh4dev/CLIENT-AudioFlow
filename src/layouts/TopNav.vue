@@ -2,13 +2,16 @@
     <div 
         id="TopNav"
         class="
-        w-[calc(100%-240px)] 
+        rounded-lg
+        p-3
+        mt-3
+        mr-7
+        w-[84.3%] 
         h-[60px] 
         fixed 
         right-0 
-        z-50 
-        bg-[#101010] 
-        bg-opacity-80 
+        z-50
+        bg-[#121212]  
         flex 
         items-center 
         justify-between

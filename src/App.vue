@@ -6,13 +6,11 @@
   class="
       fixed
       right-0
-      top-0
-      w-[calc(100%-240px)]
+      w-[calc(100%-256px)]
+      top-3
       overflow-auto
-      h-full
-      bg-gradient-to-b
-      from-[#1C1C1C]
-      to-black
+      h-[87%]
+      bg-black
       "
       >
       <div class="mt-[60px]"></div>
