@@ -36,7 +36,7 @@
                                                 <p class="mb-2 text-sm text-gray-500 dark:text-white"><span class="font-semibold">Click para buscar tu imagen</span></p>
                                                 <p class="text-xs text-gray-500 dark:text-white">PNG, JPG o JPEG (MAX. 800x400px)</p>
                                             </div>
-                                            <input @change="handleFileChange" id="dropzone-file" type="file" class="hidden" />
+                                            <input @change="handleFileChange" id="dropzone-file" type="file" class="hidden" accept="image/jpeg, image/png, image/jpg"/>
                                         </label>
                                     </div>
                                     
@@ -56,9 +56,9 @@
                                 </div>
                             </div>
                             <!-- Bloque de Abajo Full Width -->
-                            <div class="w-full p-4 flex flex-col items-center">
-                                <div class="mt-8 flex justify-center pr-8">
-                                    <p v-if="errors" class="text-xs text-red-600 mt-2">{{ errors }}</p>
+                            <div class="w-full flex flex-col items-center">
+                                <div class="flex justify-center pb-4">
+                                    <p v-if="Object.keys(errors).length > 0" class="text-xs text-red-600 mt-2">{{ errors }}</p>
                                 </div>
                                 <button @click="uploadPhoto" class="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:text-black hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                                     Actualizar foto
@@ -72,49 +72,33 @@
     </TransitionRoot>
 </template>
 
-
 <script setup lang="ts">
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
 import { ref, defineEmits } from 'vue';
 import { useMainStore } from '@/stores/main';
 import Avatar from 'vue-avatar/src/Avatar.vue';
-
 import apiClient from '@/services/api.js';
 
 const isOpen = ref<boolean>(true);
 const emits = defineEmits(['close']);
-function closeModal(): void {
+function closeModal(): void { 
     isOpen.value = false;
-    setTimeout(() => {
-        emits('close');
-    }, 300);
-}
+    setTimeout(() => { emits('close'); }, 300);
+};
 
 const mainStore = useMainStore();
 
-interface PhotoFile {
-    file: File | null;
-}
+interface PhotoFile { file: File | null;}
+interface Errors { [key: string]: string; }
 
-interface Errors {
-    [key: string]: string;
-}
-
+const photoFile = ref<PhotoFile>({ file: null });
 const errors = ref<Errors>({});
-
-const photoFile = ref<PhotoFile>({
-    file: null
-});
-
 const previewImageUrl = ref<string | null>(null);
-
 
 function handleFileChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
         photoFile.value.file = input.files[0];
-        console.log(photoFile.value.file?.name);
-        
         const reader = new FileReader();
         reader.onload = (e) => {
             if (e.target && typeof e.target.result === 'string') {
@@ -125,8 +109,30 @@ function handleFileChange(event: Event): void {
     }
 }
 
-
 async function uploadPhoto(): Promise<void> {
-    console.log("WIP")
+    errors.value = {};
+
+    try {
+        if(!photoFile.value.file?.name) {
+            console.log("No hay foto seleccionada");
+            return;
+        }
+
+        mainStore.verifyTokenValidity();
+
+        const response = await apiClient.patch(`/user/${mainStore.$state.user?.id}/upload`, photoFile.value, {
+        headers: {
+            'Content-type': 'multipart/form-data',
+            'Authorization': `Bearer ${mainStore.$state.token}`
+        }
+        });
+
+        mainStore.$state.user = response.data.userWithId;
+        closeModal();
+
+    } catch (error: any) {
+        console.log(error)
+        errors.value = error.response.data.error;
+    }
 }
 </script>

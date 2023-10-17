@@ -23,13 +23,14 @@ function openChangeUserPhotoModal() {
 <template>
     <EditEmailModal v-if="showEditEmailModal" @close="showEditEmailModal = false"/>
     <ChangeUserPhotoModal v-if="showChangeUserPhotoModal" @close="showChangeUserPhotoModal = false"/>
-    <div class="pl-8 pt-4 bg-gradient-to-b from-[#5A7D8E] to-[#2E3F4D] h-[30%] w-[99%] ">
+    <div class="pl-8 pt-4 bg-gradient-to-b from-[#5A7D8E] to-[#2E3F4D] h-[30%] w-[100%] ">
         <div class="flex">
             <div class="relative group hover:bg-opacity-50 cursor-pointer" @mouseover="showPencil = true" @mouseleave="showPencil = false">
                 <button @click="openChangeUserPhotoModal">
                     <Avatar 
                     :size="232"
                     color="white"
+                    :src="mainStore.$state.user?.picture_url"
                     :username="mainStore.$state.user?.username"
                     class="m-1 hover:opacity-50 shadow-2xl cursor-pointer"
                     />

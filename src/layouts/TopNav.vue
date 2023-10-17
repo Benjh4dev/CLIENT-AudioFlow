@@ -2,10 +2,10 @@
     <div 
         id="TopNav"
         class="
-        w-[calc(100%-256px)] 
+        w-[calc(100%-240px)] 
         h-[60px] 
         fixed 
-        right-4 
+        right-0 
         z-50 
         bg-[#101010] 
         bg-opacity-80 

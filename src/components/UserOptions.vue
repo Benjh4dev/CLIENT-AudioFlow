@@ -10,6 +10,7 @@
             :size="25"
             color="white"
             :username="mainStore.$state.user?.username"
+            :src="mainStore.$state.user?.picture_url"
             class="m-1"
             />
             {{ mainStore.$state.user?.username }}
