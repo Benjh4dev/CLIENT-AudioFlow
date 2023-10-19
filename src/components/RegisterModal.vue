@@ -121,9 +121,11 @@ interface FormData {
     email: string;
     password: string;
     confirmPassword: string;
-}
+};
 
-interface Errors { [key: string]: string; }
+interface Errors {
+  [key: string]: string;
+};
 
 const mainStore = useMainStore();
 
@@ -162,23 +164,22 @@ async function submitForm(): Promise<void> {
       showSuccessToast("Inicio de sesión exitoso");
 
     } catch (error: any) {
-      showErrorToast("Error al iniciar sesión")
-    }
+      showErrorToast("Error al iniciar sesión");
+    };
     
   } catch (error: any) {
       if (error.response && error.response.data.error) {
-        const mappedErrors = await mapZodErrors(error)
+        const mappedErrors = await mapZodErrors(error);
         errors.value = mappedErrors;
-      }
+      };
 
       if (formData.value.password !== formData.value.confirmPassword ) {
         errors.value.confirmPassword = "Las contraseñas no coinciden";
-      }
+      };
 
       if (formData.value.confirmPassword == "" ) {
         errors.value.confirmPassword = "Este campo no puede ser vacío";
-        console.log('a')
-      }
-    }
-}
+      };
+    };
+};
 </script>

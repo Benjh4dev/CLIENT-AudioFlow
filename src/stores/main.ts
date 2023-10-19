@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { User } from '@/interfaces';
 import router from '@/router';
 import jwtDecode from "jwt-decode";
+import { LoginCredentials } from '@/interfaces';
 
 import { login as apiLogin } from '@/api/auth';
 
@@ -22,7 +23,7 @@ export const useMainStore = defineStore({
     }),
 
     actions: {
-        async loginUser(credentials: any) {
+        async loginUser(credentials: LoginCredentials) {
             const data = await apiLogin(credentials);
             this.user = data.user;
             this.token = data.token;
