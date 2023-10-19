@@ -119,7 +119,6 @@ function handleFileChange(event: Event): void {
     }
 }
 
-
 async function uploadPhoto(): Promise<void> {
     errors.value = {};
 
@@ -130,7 +129,6 @@ async function uploadPhoto(): Promise<void> {
 
     mainStore.verifyTokenValidity();
 
-    // Mostrar el toast justo después de verificar la validez del token
     const uploadPhotoToast = toast.loading('Subiendo imagen...', {
         position: "bottom-right",
         theme: "dark"
@@ -175,5 +173,4 @@ async function uploadPhoto(): Promise<void> {
         errors.value = error.response.data.error;
     }
 }
-
 </script>
