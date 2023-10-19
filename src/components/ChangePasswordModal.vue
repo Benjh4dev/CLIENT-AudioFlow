@@ -10,7 +10,7 @@
         leave-from="opacity-100"
         leave-to="opacity-0"
       >
-        <div class="fixed inset-0 bg-black bg-opacity-80" />
+      <div class="fixed inset-0 bg-black bg-opacity-80" />
       </TransitionChild>
 
       <div class="fixed inset-0 overflow-y-auto">
@@ -28,67 +28,48 @@
               
               <!-- Bloque Izquierdo -->
               <div class="w-1/2 pr-4">
-                <DialogTitle as="h3" class="text-lg font-medium leading-6 text-white mb-4">¡Regístrate en AudioFlow!</DialogTitle>
+                <DialogTitle as="h3" class="text-lg font-medium leading-6 text-white mb-4">¡Cambia tu contraseña!</DialogTitle>
                 <form @submit.prevent="submitForm" class="mt-6">
-                <div class="mt-4">
-                  <label for="username" class="block text-sm text-gray-400">Nombre de usuario</label>
-                  <input 
-                    type="text" 
-                    id="username" 
-                    name="username" 
-                    autocomplete="off"
-                    placeholder="@username"
-                    v-model="formData.username" 
-                    :class="{ 'border-red-500': errors.username }" 
-                    class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm ">
-                  <p v-if="errors.username" class="text-xs text-red-600 mt-2">{{ errors.username[0] }}</p>
-                </div>
 
                 <div class="mt-4">
-                  <label for="email" class="block text-sm text-gray-400">Correo electrónico</label>
+                  <label for="currentPassword" class="block text-sm text-gray-400">Contraseña actual</label>
                   <input 
-                    type="text" 
-                    id="email" 
-                    name="email" 
+                    type="password" 
+                    id="currentPassword" 
+                    name="currentPassword"
                     autocomplete="off"
-                    placeholder="ejemplo@correo"
-                    v-model="formData.email" 
-                    :class="{ 'border-red-500': errors.email }"
+                    v-model="formData.currentPassword"
                     class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
-                  <p v-if="errors.email" class="text-xs text-red-600 mt-2">{{ errors.email[0] }}</p>
+                  <p v-if="errors.currentPassword" class="text-xs text-red-600 mt-2">{{ errors.currentPassword[0] }}</p>
                 </div>
 
                 <div class="mt-4">
-                  <label for="password" class="block text-sm text-gray-400">Contraseña</label>
+                  <label for="password" class="block text-sm text-gray-400">Nueva contraseña</label>
                   <input 
                     type="password" 
                     id="password" 
-                    name="password" 
+                    name="password"
                     autocomplete="off"
-                    placeholder="contraseña"
-                    v-model="formData.password" 
-                    :class="{ 'border-red-500': errors.password }"
+                    v-model="formData.password"
                     class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
                   <p v-if="errors.password" class="text-xs text-red-600 mt-2">{{ errors.password[0] }}</p>
                 </div>
 
                 <div class="mt-4">
-                  <label for="confirmPassword" class="block text-sm text-gray-400">Confirmar contraseña</label>
+                  <label for="confirmPassword" class="block text-sm text-gray-400">Confirmar nueva contraseña</label>
                   <input 
                     type="password" 
                     id="confirmPassword" 
-                    name="confirmPassword" 
+                    name="confirmPassword"
                     autocomplete="off"
-                    placeholder="contraseña"
-                    v-model="formData.confirmPassword" 
-                    :class="{ 'border-red-500': errors.confirmPassword }"
+                    v-model="formData.confirmPassword"
                     class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
-                  <p v-if="errors.confirmPassword" class="text-xs text-red-600 mt-2">{{ errors.confirmPassword }}</p>
+                  <p v-if="errors.confirmPassword" class="text-xs text-red-600 mt-2">{{ errors.confirmPassword[0] }}</p>
                 </div>
 
                 <div class="mt-8 flex justify-center pr-8">
                   <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:text-black hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
-                      Enviar
+                      Actualizar
                   </button>
                 </div>
 
@@ -112,56 +93,42 @@
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
 import { ref, defineEmits } from 'vue';
 import { useMainStore } from '@/stores/main';
-import apiClient from '@/services/api';
+import apiClient from '@/services/api.js';
 
 const isOpen = ref<boolean>(true);
 const emits = defineEmits(['close']);
 function closeModal(): void {
   isOpen.value = false;
-  setTimeout(() => { emits('close') }, 300);
+  setTimeout(() => { emits('close'); }, 300);
 }
 
 const mainStore = useMainStore();
 
 interface FormData {
-    username: string;
-    email: string;
+    currentPassword: string;
     password: string;
     confirmPassword: string;
 }
+interface Errors { [key: string]: string;}
 
-interface Errors { [key: string]: string; }
-
+const errors = ref<Errors>({});
 const formData = ref<FormData>({
-    username: '',
-    email: '',
+    currentPassword: '',
     password: '',
     confirmPassword: ''
 });
 
-const errors = ref<Errors>({});
-
 async function submitForm(): Promise<void> {
   errors.value = {};
 
-  if (formData.value.password !== formData.value.confirmPassword) {
-    errors.value.confirmPassword = "Las contraseñas no coinciden";
-    return;
-  }
-
   try {
-    const { confirmPassword, ...dataToSend } = formData.value;
-    const response = await apiClient.post('/user/', dataToSend);
-    closeModal();
-
-    const loginUser = await apiClient.post('/auth/', {
-      email: formData.value.email,
-      password: formData.value.password
+    const response = await apiClient.patch(`/user/${mainStore.$state.user?.id}/changePassword`, formData.value, {
+      headers: {
+        'Authorization': `Bearer ${mainStore.$state.token}`
+      }
     });
-
-    if (loginUser.status === 200) {
-      mainStore.loginUser(loginUser.data);
-    }
+    closeModal();
+    mainStore.logoutUser();
 
   } catch (error: any) {
       if (error.response && error.response.data.error) {

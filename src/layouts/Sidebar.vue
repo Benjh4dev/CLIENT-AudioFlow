@@ -41,7 +41,7 @@
     </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts">    
 import { RouterLink } from 'vue-router'
 import MenuItem from '../components/MenuItem.vue';
 import { useMainStore } from '@/stores/main';

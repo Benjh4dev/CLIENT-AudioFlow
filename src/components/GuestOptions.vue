@@ -31,32 +31,32 @@
             class="absolute right-0 mt-2 w-38 origin-top-right divide-y divide-gray-100 rounded-md 
             bg-[#282828] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
             >
-            <div class="px-1 py-1">
-                <MenuItem v-slot="{ active }">
-                <button
-                    @click="openLoginModal"
-                    :class="[
-                    active ? 'bg-[#3E3D3D] text-white' : 'text-gray-400',
-                    'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                    ]"
-                >
-                    Iniciar sesión
-                    <Account class="ml-3 pl-2"/>
-                </button>
-                </MenuItem>
-                <MenuItem v-slot="{ active }">
-                <button
-                    @click="openRegisterModal"
-                    :class="[
-                    active ? 'bg-[#3E3D3D] text-white' : 'text-gray-400',
-                    'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                    ]"
-                >
-                    Registrarse
-                    <AccountPlus class="ml-3 pl-4"/>
-                </button>
-                </MenuItem>
-            </div>
+                <div class="px-1 py-1">
+                    <MenuItem v-slot="{ active }">
+                    <button
+                        @click="openLoginModal"
+                        :class="[
+                        active ? 'bg-[#3E3D3D] text-white' : 'text-gray-400',
+                        'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                        ]"
+                    >
+                        Iniciar sesión
+                        <Account class="ml-3 pl-2"/>
+                    </button>
+                    </MenuItem>
+                    <MenuItem v-slot="{ active }">
+                    <button
+                        @click="openRegisterModal"
+                        :class="[
+                        active ? 'bg-[#3E3D3D] text-white' : 'text-gray-400',
+                        'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                        ]"
+                    >
+                        Registrarse
+                        <AccountPlus class="ml-3 pl-4"/>
+                    </button>
+                    </MenuItem>
+                </div>
             </MenuItems>
         </transition>
     </Menu>
