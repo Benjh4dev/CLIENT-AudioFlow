@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { User } from '@/interfaces';
 import router from '@/router';
 import jwtDecode from "jwt-decode";
+
 import { login as apiLogin } from '@/api/auth';
 
 interface DecodedToken {
@@ -27,7 +28,6 @@ export const useMainStore = defineStore({
             this.token = data.token;
             router.push('/');
         },
-
         logoutUser() {
             this.user = null;
             this.token = "";

@@ -1,5 +1,4 @@
 export async function mapZodErrors(error: any) {
-
     const zodErrors = error.response.data.error.issues;
     const mappedErrors: Record<string, any> = {};
 
@@ -13,4 +12,4 @@ export async function mapZodErrors(error: any) {
         });
     
     return mappedErrors;
-}
+};

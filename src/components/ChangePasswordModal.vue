@@ -101,7 +101,7 @@ interface FormData {
   currentPassword: string;
   password: string;
   confirmPassword: string;
-}
+};
 interface Errors {
   [key: string]: string;
 };

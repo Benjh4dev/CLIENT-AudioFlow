@@ -91,27 +91,19 @@ import { ref } from 'vue';
 import { RouterLink } from 'vue-router'
 import { useMainStore } from '@/stores/main';
 
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
+import { showSuccessToast } from '@/utils/toast';
 
-let showChangePasswordModal = ref(false)
+const mainStore = useMainStore();
+
+let showChangePasswordModal = ref(false);
+
 function openChangePasswordModal() {
     mainStore.verifyTokenValidity()
     showChangePasswordModal.value = true
 }
 
-const mainStore = useMainStore();
-
 function logoutUser() {
     mainStore.logoutUser()
-    toast("Sesión cerrada con éxito", {
-      position: "bottom-right",
-      theme: "dark",
-      autoClose: 3000,
-      closeOnClick: true,
-      closeButton: true,
-      type: 'success',
-      isLoading: false,
-    });
+    showSuccessToast("Sesión cerrada con éxito");
 }
 </script>

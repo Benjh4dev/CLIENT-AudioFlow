@@ -51,4 +51,4 @@ export async function changePhoto(data: ChangePhoto) {
     });
     console.log(response.data)
     return response.data;
-}
+};
