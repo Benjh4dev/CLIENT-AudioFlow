@@ -79,6 +79,9 @@ import { useMainStore } from '@/stores/main';
 import Avatar from 'vue-avatar/src/Avatar.vue';
 import apiClient from '@/services/api.js';
 
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+
 const isOpen = ref<boolean>(true);
 const emits = defineEmits(['close']);
 function closeModal(): void { 
@@ -98,7 +101,14 @@ const previewImageUrl = ref<string | null>(null);
 function handleFileChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-        photoFile.value.file = input.files[0];
+        const selectedFile = input.files[0];
+        
+        if (!selectedFile.type.startsWith('image/')) {
+            console.log('El archivo seleccionado no es una imagen.');
+            return;
+        }
+
+        photoFile.value.file = selectedFile;
         const reader = new FileReader();
         reader.onload = (e) => {
             if (e.target && typeof e.target.result === 'string') {
@@ -109,30 +119,61 @@ function handleFileChange(event: Event): void {
     }
 }
 
+
 async function uploadPhoto(): Promise<void> {
     errors.value = {};
 
-    try {
-        if(!photoFile.value.file?.name) {
-            console.log("No hay foto seleccionada");
-            return;
-        }
+    if(!photoFile.value.file?.name) {
+        console.log("No hay foto seleccionada");
+        return;
+    }
 
-        mainStore.verifyTokenValidity();
+    mainStore.verifyTokenValidity();
 
+    // Mostrar el toast justo después de verificar la validez del token
+    const uploadPhotoToast = toast.loading('Subiendo imagen...', {
+        position: "bottom-right",
+        theme: "dark"
+    });
+
+    try {    
         const response = await apiClient.patch(`/user/${mainStore.$state.user?.id}/upload`, photoFile.value, {
-        headers: {
-            'Content-type': 'multipart/form-data',
-            'Authorization': `Bearer ${mainStore.$state.token}`
-        }
+            headers: {
+                'Content-type': 'multipart/form-data',
+                'Authorization': `Bearer ${mainStore.$state.token}`
+            }
         });
+
+        setTimeout(() => {
+            toast.update(uploadPhotoToast, {
+                render: "Imagen subida exitosamente",
+                autoClose: 3000,
+                closeOnClick: true,
+                closeButton: true,
+                type: 'success',
+                isLoading: false,
+            });
+        }, 0);
 
         mainStore.$state.user = response.data.userWithId;
         closeModal();
 
     } catch (error: any) {
         console.log(error)
+
+        setTimeout(() => {
+            toast.update(uploadPhotoToast, {
+                render: "Error al subir la imagen",
+                autoClose: 3000,
+                closeOnClick: true,
+                closeButton: true,
+                type: 'error',
+                isLoading: false,
+            });
+        }, 0);
+
         errors.value = error.response.data.error;
     }
 }
+
 </script>
