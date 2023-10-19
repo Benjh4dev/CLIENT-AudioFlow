@@ -142,16 +142,14 @@ async function uploadPhoto(): Promise<void> {
             }
         });
 
-        setTimeout(() => {
-            toast.update(uploadPhotoToast, {
-                render: "Imagen subida exitosamente",
-                autoClose: 3000,
-                closeOnClick: true,
-                closeButton: true,
-                type: 'success',
-                isLoading: false,
-            });
-        }, 0);
+        toast.update(uploadPhotoToast, {
+            render: "Imagen subida exitosamente",
+            autoClose: 3000,
+            closeOnClick: true,
+            closeButton: true,
+            type: 'success',
+            isLoading: false,
+        });
 
         mainStore.$state.user = response.data.userWithId;
         closeModal();
@@ -159,16 +157,14 @@ async function uploadPhoto(): Promise<void> {
     } catch (error: any) {
         console.log(error)
 
-        setTimeout(() => {
-            toast.update(uploadPhotoToast, {
-                render: "Error al subir la imagen",
-                autoClose: 3000,
-                closeOnClick: true,
-                closeButton: true,
-                type: 'error',
-                isLoading: false,
-            });
-        }, 0);
+        toast.update(uploadPhotoToast, {
+            render: "Error al subir la imagen",
+            autoClose: 3000,
+            closeOnClick: true,
+            closeButton: true,
+            type: 'error',
+            isLoading: false,
+        });
 
         errors.value = error.response.data.error;
     }
