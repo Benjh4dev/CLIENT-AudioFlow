@@ -91,12 +91,24 @@ function closeModal(): void {
 
 const mainStore = useMainStore();
 
-interface PhotoFile { file: File | null;}
-interface Errors { [key: string]: string; }
+interface PhotoFile { file: File | null };
+interface Errors { [key: string]: string };
 
 const photoFile = ref<PhotoFile>({ file: null });
 const errors = ref<Errors>({});
 const previewImageUrl = ref<string | null>(null);
+
+const showErrorToast = (message: string) => {
+    toast(message, {
+    position: "bottom-right",
+    theme: "dark",
+    autoClose: 3000,
+    closeOnClick: true,
+    closeButton: true,
+    type: 'error',
+    isLoading: false,
+    });
+};
 
 function handleFileChange(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -104,7 +116,7 @@ function handleFileChange(event: Event): void {
         const selectedFile = input.files[0];
         
         if (!selectedFile.type.startsWith('image/')) {
-            console.log('El archivo seleccionado no es una imagen.');
+            showErrorToast('El archivo seleccionado no es una imagen.')
             return;
         }
 
@@ -123,7 +135,7 @@ async function uploadPhoto(): Promise<void> {
     errors.value = {};
 
     if(!photoFile.value.file?.name) {
-        console.log("No hay foto seleccionada");
+        showErrorToast('No hay una foto seleccionada');
         return;
     }
 
@@ -156,16 +168,7 @@ async function uploadPhoto(): Promise<void> {
 
     } catch (error: any) {
         console.log(error)
-
-        toast.update(uploadPhotoToast, {
-            render: "Error al subir la imagen",
-            autoClose: 3000,
-            closeOnClick: true,
-            closeButton: true,
-            type: 'error',
-            isLoading: false,
-        });
-
+        showErrorToast('Error al subir la imagen');
         errors.value = error.response.data.error;
     }
 }
