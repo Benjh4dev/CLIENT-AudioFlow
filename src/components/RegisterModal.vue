@@ -27,78 +27,77 @@
             <DialogPanel class="flex w-full max-w-2xl transform overflow-hidden rounded-2xl bg-black p-6 shadow-xl transition-all">
               
               <!-- Bloque Izquierdo -->
-              <div class="w-1/2 pr-4">
+              <div class="w-1/2 pr-4 gap-5">
                 <DialogTitle as="h3" class="text-lg font-medium leading-6 text-white mb-4">¡Regístrate en AudioFlow!</DialogTitle>
                 <form @submit.prevent="submitForm" class="mt-6">
-                <div class="mt-4">
-                  <label for="username" class="block text-sm text-gray-400">Nombre de usuario</label>
-                  <input 
-                    type="text" 
-                    id="username" 
-                    name="username" 
-                    autocomplete="off"
-                    placeholder="@username"
-                    v-model="formData.username" 
-                    :class="{ 'border-red-500': errors.username }" 
-                    class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm ">
-                  <p v-if="errors.username" class="text-xs text-red-600 mt-2">{{ errors.username[0] }}</p>
-                </div>
+                  <div class="mt-4">
+                    <label for="username" class="block text-sm text-gray-400">Nombre de usuario</label>
+                    <input 
+                      type="text" 
+                      id="username" 
+                      name="username" 
+                      autocomplete="off"
+                      placeholder="@username"
+                      v-model="formData.username" 
+                      :class="{ 'border-red-500': errors.username }" 
+                      class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm ">
+                    <p v-if="errors.username" class="text-xs text-red-600 mt-2">{{ errors.username[0] }}</p>
+                  </div>
 
-                <div class="mt-4">
-                  <label for="email" class="block text-sm text-gray-400">Correo electrónico</label>
-                  <input 
-                    type="text" 
-                    id="email" 
-                    name="email" 
-                    autocomplete="off"
-                    placeholder="ejemplo@correo"
-                    v-model="formData.email" 
-                    :class="{ 'border-red-500': errors.email }"
-                    class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
-                  <p v-if="errors.email" class="text-xs text-red-600 mt-2">{{ errors.email[0] }}</p>
-                </div>
+                  <div class="mt-4">
+                    <label for="email" class="block text-sm text-gray-400">Correo electrónico</label>
+                    <input 
+                      type="text" 
+                      id="email" 
+                      name="email" 
+                      autocomplete="off"
+                      placeholder="ejemplo@correo"
+                      v-model="formData.email" 
+                      :class="{ 'border-red-500': errors.email }"
+                      class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
+                    <p v-if="errors.email" class="text-xs text-red-600 mt-2">{{ errors.email[0] }}</p>
+                  </div>
 
-                <div class="mt-4">
-                  <label for="password" class="block text-sm text-gray-400">Contraseña</label>
-                  <input 
-                    type="password" 
-                    id="password" 
-                    name="password" 
-                    autocomplete="off"
-                    placeholder="contraseña"
-                    v-model="formData.password" 
-                    :class="{ 'border-red-500': errors.password }"
-                    class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
-                  <p v-if="errors.password" class="text-xs text-red-600 mt-2">{{ errors.password[0] }}</p>
-                </div>
+                  <div class="mt-4">
+                    <label for="password" class="block text-sm text-gray-400">Contraseña</label>
+                    <input 
+                      type="password" 
+                      id="password" 
+                      name="password" 
+                      autocomplete="off"
+                      placeholder="contraseña"
+                      v-model="formData.password" 
+                      :class="{ 'border-red-500': errors.password }"
+                      class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
+                    <p v-if="errors.password" class="text-xs text-red-600 mt-2">{{ errors.password[0] }}</p>
+                  </div>
 
-                <div class="mt-4">
-                  <label for="confirmPassword" class="block text-sm text-gray-400">Confirmar contraseña</label>
-                  <input 
-                    type="password" 
-                    id="confirmPassword" 
-                    name="confirmPassword" 
-                    autocomplete="off"
-                    placeholder="contraseña"
-                    v-model="formData.confirmPassword" 
-                    :class="{ 'border-red-500': errors.confirmPassword }"
-                    class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
-                  <p v-if="errors.confirmPassword" class="text-xs text-red-600 mt-2">{{ errors.confirmPassword }}</p>
-                </div>
+                  <div class="mt-4">
+                    <label for="confirmPassword" class="block text-sm text-gray-400">Confirmar contraseña</label>
+                    <input 
+                      type="password" 
+                      id="confirmPassword" 
+                      name="confirmPassword" 
+                      autocomplete="off"
+                      placeholder="contraseña"
+                      v-model="formData.confirmPassword" 
+                      :class="{ 'border-red-500': errors.confirmPassword }"
+                      class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
+                    <p v-if="errors.confirmPassword" class="text-xs text-red-600 mt-2">{{ errors.confirmPassword }}</p>
+                  </div>
 
-                <div class="mt-8 flex justify-center pr-8">
-                  <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:text-black hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
-                      Enviar
-                  </button>
-                </div>
-
+                  <div class="mt-8 flex justify-center pr-8">
+                    <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:text-black hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                        Enviar
+                    </button>
+                  </div>
               </form>
-              </div>
+            </div>
               
-              <!-- Bloque Derecho -->
-              <div class="w-1/2 flex items-center justify-center">
-                <img src="/images/icons/audioflow-logo.png" alt="Icono de AudioFlow" class="w-1/2">
-              </div>
+            <!-- Bloque Derecho -->
+            <div class="w-1/2 flex items-center justify-center">
+              <img src="/images/icons/audioflow-logo.png" alt="Icono de AudioFlow" class="w-1/2">
+            </div>
               
             </DialogPanel>
           </TransitionChild>
@@ -111,17 +110,9 @@
 <script setup lang="ts">
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
 import { ref, defineEmits } from 'vue';
+import { mapZodErrors } from '@/utils/utils';
 import { useMainStore } from '@/stores/main';
-import apiClient from '@/services/api';
-
-const isOpen = ref<boolean>(true);
-const emits = defineEmits(['close']);
-function closeModal(): void {
-  isOpen.value = false;
-  setTimeout(() => { emits('close') }, 300);
-}
-
-const mainStore = useMainStore();
+import { register as registerUser } from '@/api/auth';
 
 interface FormData {
     username: string;
@@ -132,6 +123,11 @@ interface FormData {
 
 interface Errors { [key: string]: string; }
 
+const mainStore = useMainStore();
+
+const isOpen = ref<boolean>(true);
+const emits = defineEmits(['close']);
+let errors = ref<Errors>({});
 const formData = ref<FormData>({
     username: '',
     email: '',
@@ -139,43 +135,40 @@ const formData = ref<FormData>({
     confirmPassword: ''
 });
 
-const errors = ref<Errors>({});
+function closeModal(): void {
+  isOpen.value = false;
+  setTimeout(() => { emits('close') }, 300);
+}
 
 async function submitForm(): Promise<void> {
   errors.value = {};
 
-  if (formData.value.password !== formData.value.confirmPassword) {
-    errors.value.confirmPassword = "Las contraseñas no coinciden";
-    return;
-  }
-
   try {
-    const { confirmPassword, ...dataToSend } = formData.value;
-    const response = await apiClient.post('/user/', dataToSend);
+    await registerUser(formData.value);
     closeModal();
-
-    const loginUser = await apiClient.post('/auth/', {
-      email: formData.value.email,
-      password: formData.value.password
-    });
-
-    if (loginUser.status === 200) {
-      mainStore.loginUser(loginUser.data);
+    try {
+      await mainStore.loginUser({
+        email: formData.value.email,
+        password: formData.value.password
+      });
+    } catch (error: any) {
+      console.log(error.data)
+      //TOAST
     }
-
+    
   } catch (error: any) {
       if (error.response && error.response.data.error) {
-        const zodErrors = error.response.data.error.issues;
-        const mappedErrors: Record<string, any> = {};
-        zodErrors.forEach((err: any) => {
-          const fieldName = err.path[0];
-          
-          if (!mappedErrors[fieldName]) {
-            mappedErrors[fieldName] = [];
-          }
-          mappedErrors[fieldName].push(err.message);
-          });
-          errors.value = mappedErrors;
+        const mappedErrors = await mapZodErrors(error)
+        errors.value = mappedErrors;
+      }
+
+      if (formData.value.password !== formData.value.confirmPassword ) {
+        errors.value.confirmPassword = "Las contraseñas no coinciden";
+      }
+
+      if (formData.value.confirmPassword == "" ) {
+        errors.value.confirmPassword = "Este campo no puede ser vacío";
+        console.log('a')
       }
     }
 }

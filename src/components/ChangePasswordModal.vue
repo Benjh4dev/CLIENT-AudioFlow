@@ -93,7 +93,7 @@
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
 import { ref, defineEmits } from 'vue';
 import { useMainStore } from '@/stores/main';
-import apiClient from '@/services/api.js';
+import api from '@/services/api';
 
 const isOpen = ref<boolean>(true);
 const emits = defineEmits(['close']);
@@ -122,7 +122,7 @@ async function submitForm(): Promise<void> {
   errors.value = {};
 
   try {
-    const response = await apiClient.patch(`/user/${mainStore.$state.user?.id}/changePassword`, formData.value, {
+    const response = await api.patch(`/user/${mainStore.$state.user?.id}/changePassword`, formData.value, {
       headers: {
         'Authorization': `Bearer ${mainStore.$state.token}`
       }

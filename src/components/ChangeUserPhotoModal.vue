@@ -77,7 +77,7 @@ import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } fro
 import { ref, defineEmits } from 'vue';
 import { useMainStore } from '@/stores/main';
 import Avatar from 'vue-avatar/src/Avatar.vue';
-import apiClient from '@/services/api.js';
+import api from '@/services/api';
 
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
@@ -147,7 +147,7 @@ async function uploadPhoto(): Promise<void> {
     });
 
     try {    
-        const response = await apiClient.patch(`/user/${mainStore.$state.user?.id}/upload`, photoFile.value, {
+        const response = await api.patch(`/user/${mainStore.$state.user?.id}/upload`, photoFile.value, {
             headers: {
                 'Content-type': 'multipart/form-data',
                 'Authorization': `Bearer ${mainStore.$state.token}`

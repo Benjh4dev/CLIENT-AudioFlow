@@ -37,7 +37,7 @@
                       name="email"
                       autocomplete="off"
                       placeholder="ejemplo@correo"
-                      :class="{ 'border-red-500': error }"
+                      :class="{ 'border-red-500': errors }"
                       v-model="formData.email"
                       class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm ">
                   </div>
@@ -51,9 +51,9 @@
                       autocomplete="off"
                       placeholder="contraseña"
                       v-model="formData.password"
-                      :class="{ 'border-red-500': error }"
+                      :class="{ 'border-red-500': errors }"
                       class="w-[90%] h-10 my-2 py-3 px-4 block border-2 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
-                    <p v-if="error" class="text-xs text-red-600 mt-2">{{ error }}</p>
+                    <p v-if="errors" class="text-xs text-red-600 mt-2">{{ errors }}</p>
                   </div>
 
                   <div class="mt-8 flex justify-center pr-8">
@@ -65,7 +65,6 @@
                 </form>
               </div>
 
-              
               <div class="w-1/2 flex items-center justify-center">
                 <img src="/images/icons/audioflow-logo.png" alt="Icono de AudioFlow" class="w-1/2">
               </div>
@@ -82,45 +81,41 @@
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
 import { ref, defineEmits } from 'vue';
 import { useMainStore } from '@/stores/main'
-import apiClient from '@/services/api.js';
-
-const isOpen = ref<boolean>(true);
-const emits = defineEmits(['close']);
-function closeModal(): void {
-  isOpen.value = false;
-  setTimeout(() => { emits('close') }, 300);
-}
-
-const mainStore = useMainStore();
 
 interface FormData {
   email: string;
   password: string;
 }
 
+const mainStore = useMainStore();
+
+const isOpen = ref<boolean>(true);
+const emits = defineEmits(['close']);
+const errors = ref<string>('');
 const formData = ref<FormData>({
   email: '',
   password: '',
 });
 
-const error = ref<string>('');
+function closeModal(): void {
+  isOpen.value = false;
+  setTimeout(() => { emits('close') }, 300);
+}
 
 async function submitForm(): Promise<void> {
-  error.value = '';
+  errors.value = '';
   
   try {
-    const response = await apiClient.post('/auth/', formData.value);
-    if (response.status === 200) {
-      mainStore.loginUser(response.data);
-      closeModal();
-    }
-  } catch (errorResponse: any) {
-      if (errorResponse.response) {
-        if (errorResponse.response.status == 400) {
-        error.value = 'Ingrese los campos correctamente';
-        return
+    await mainStore.loginUser(formData.value);
+    closeModal()
+
+  } catch (error: any) {
+    if (error.response) {
+      if (error.response.status == 400) {
+        errors.value = 'Ingrese los campos correctamente';
+        return;
         }
-        error.value = errorResponse.response.data.message;
+        errors.value = error.response.data.message;
       }
   }
 }
