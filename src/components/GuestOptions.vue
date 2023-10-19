@@ -2,7 +2,7 @@
     <RegisterModal v-if="showRegisterModal" @close="showRegisterModal = false" />
     <LoginModal v-if="showLoginModal" @close="showLoginModal = false" />
 
-    <Menu as="div" class="relative inline-block text-left mr-5">
+    <Menu as="div" class="relative inline-block text-left mr-6">
         <div>
             <MenuButton
             class="flex items-center h-10 gap-1 rounded-full bg-black bg-opacity-20 

@@ -1,6 +1,6 @@
 <template>
     <ChangePasswordModal v-if="showChangePasswordModal" @close="showChangePasswordModal = false"/>
-    <Menu as="div" class="relative inline-block text-left mr-5">
+    <Menu as="div" class="relative inline-block text-left mr-6">
         <div>
             <MenuButton
             class="flex items-center h-10 gap-1 rounded-full bg-black bg-opacity-20 
@@ -91,7 +91,7 @@ import { ref } from 'vue';
 import { RouterLink } from 'vue-router'
 import { useMainStore } from '@/stores/main';
 
-import { showSuccessToast } from '@/utils/toast';
+import { showErrorToast } from '@/utils/toast';
 
 const mainStore = useMainStore();
 
@@ -103,7 +103,9 @@ function openChangePasswordModal() {
 }
 
 function logoutUser() {
-    mainStore.logoutUser()
-    showSuccessToast("Sesión cerrada con éxito");
+    showErrorToast("Cerrando sesión...", 2000);
+    setTimeout(() => {
+        mainStore.logoutUser();
+    }, 2000);
 }
 </script>

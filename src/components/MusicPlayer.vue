@@ -18,7 +18,7 @@
     >
         <div class="flex items-center w-1/4">
             <div class="flex items-center ml-4">
-                <img class="rounded-sm shadow-2xl" width="55" :src="currentArtist.albumCover">
+                <img class="rounded-lg shadow-2xl" width="70" :src="currentArtist.albumCover">
                 <div class="ml-4">
                     <div class="text-[14px] text-white hover:underline cursor-pointer">
                         {{ currentTrack.name }}
@@ -33,23 +33,22 @@
                 <!-- <PictureInPictureBottomRight class="ml-4" fillColor="#FFFFFF" :size="18" /> -->
             </div>
         </div>
-
-        <div class="max-w-[35%] mx-auto w-2/4 mb-3">
+        
+        <div class="max-w-[40%] mx-auto w-2/4 mb-3">
             <div class="flex-col items-center justify-center">
                 <div class="buttons flex items-center justify-center h-[30px]">
                     <button class="mx-2">
                         <SkipBackward fillColor="#FFFFFF" :size="25" @click="useSong.prevSong(currentTrack)"/>
                     </button>
                     <button class="p-1 rounded-full mx-3 bg-white" @click="useSong.playOrPauseThisSong(currentArtist, currentTrack)">
-                        <Play v-if="!isPlaying" fillColor="#181818" :size="25" />
+                        <Play v-if="!isPlaying" :size="25"/>
                         <Pause v-else fillColor="#181818" :size="25" />
                     </button>
                     <button class="mx-2">
                         <SkipForward fillColor="#FFFFFF" :size="25" @click="useSong.nextSong(currentTrack)"/>
                     </button>
                 </div>
-
-
+            
                 <div class="flex items-center h-[25px]">
                     <div v-if="isTrackTimeCurrent" class="text-white text-[12px] pr-2 pt-[11px]">{{ isTrackTimeCurrent }}</div>
                     <div
@@ -58,6 +57,7 @@
                         @mouseenter="isHover = true"
                         @mouseleave="isHover = false"
                     >
+                    
                         <input
                             v-model="range"
                             ref="seeker"
@@ -76,12 +76,13 @@
                             "
                             :class="{ 'rangeDotHidden': !isHover }"
                         >
+                        
                         <div
-                            class="pointer-events-none mt-[6px] absolute h-[4px] z-10 inset-y-0 left-0 w-0"
+                            class="pointer-events-none mt-[6px] absolute h-[4px] z-10 inset-y-0 left-0 w-0 bg-green-500"
                             :style="`width: ${range}%;`"
                             :class="isHover ? 'bg-green-500' : 'bg-white'"
                         />
-                        <div class="absolute h-[4px] z-[-0] mt-[6px] inset-y-0 left-0 w-full bg-gray-500 rounded-full" />
+                        <div class="absolute h-[4px] z-[-0] mt-[6px] inset-y-0 left-0 w-full bg-gray-700 rounded-full" />
 
                     </div>
                     <div v-if="isTrackTimeTotal" class="text-white text-[12px] pl-2 pt-[11px]">{{ isTrackTimeTotal }}</div>

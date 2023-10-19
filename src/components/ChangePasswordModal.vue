@@ -38,6 +38,7 @@
                     id="currentPassword" 
                     name="currentPassword"
                     autocomplete="off"
+                    placeholder="contraseña actual"
                     v-model="formData.currentPassword"
                     class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
                   <p v-if="errors.currentPassword" class="text-xs text-red-600 mt-2">{{ errors.currentPassword[0] }}</p>
@@ -49,6 +50,7 @@
                     type="password" 
                     id="password" 
                     name="password"
+                    placeholder="nueva contraseña"
                     autocomplete="off"
                     v-model="formData.password"
                     class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
@@ -62,6 +64,7 @@
                     id="confirmPassword" 
                     name="confirmPassword"
                     autocomplete="off"
+                    placeholder="confirma contraseña"
                     v-model="formData.confirmPassword"
                     class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
                   <p v-if="errors.confirmPassword" class="text-xs text-red-600 mt-2">{{ errors.confirmPassword[0] }}</p>

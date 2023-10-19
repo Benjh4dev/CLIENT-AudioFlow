@@ -39,6 +39,7 @@
                     name="email"
                     autocomplete="off"
                     v-model="formData.email"
+                    placeholder="nuevo correo electrónico"
                     class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
                   <p v-if="errors.email" class="text-xs text-red-600 mt-2">{{ errors.email[0] }}</p>
                 </div>

@@ -14,7 +14,7 @@
     </li>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, toRefs, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -28,27 +28,27 @@ const props = defineProps({
 })
 const { iconString, pageUrl, name, iconSize } = toRefs(props)
 
-let icon = ref(null)
-let textIsHover = ref(false)
+let icon = ref<string>('');
+let textIsHover = ref<boolean>(false);
 
 watchEffect(() => {
-    if (route.path == pageUrl.value) {
-        icon.value = iconString.value + '-active'
+    if (route.path == pageUrl?.value) {
+        icon.value = iconString?.value + '-active'
         textIsHover.value = true
     } else {
-        icon.value = iconString.value + '-inactive'
+        icon.value = iconString?.value + '-inactive'
         textIsHover.value = false
     }
 })
 
 const isHover = () => {
-    if (icon.value === iconString.value + '-active') return
+    if (icon.value === iconString?.value + '-active') return
 
-    if (icon.value === iconString.value + '-inactive') {
-        icon.value = iconString.value + '-inactive-hover'
+    if (icon.value === iconString?.value + '-inactive') {
+        icon.value = iconString?.value + '-inactive-hover'
         textIsHover.value = true
-    } else if (icon.value === iconString.value + '-inactive-hover') {
-        icon.value = iconString.value + '-inactive'
+    } else if (icon.value === iconString?.value + '-inactive-hover') {
+        icon.value = iconString?.value + '-inactive'
         textIsHover.value = false
     }
 }

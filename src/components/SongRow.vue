@@ -38,7 +38,6 @@
         </div>
         <div class="flex items-center">
             <button type="button" v-if="isHover">
-                <!-- <Heart fillColor="#1BD760" :size="22"/> -->
             </button>
             <div
                 v-if="isTrackTime"
@@ -52,7 +51,6 @@
 
 <script setup>
 import { ref, toRefs, onMounted } from 'vue'
-// import Heart from 'vue-material-design-icons/Heart.vue';
 import Play from 'vue-material-design-icons/Play.vue';
 import Pause from 'vue-material-design-icons/Pause.vue';
 

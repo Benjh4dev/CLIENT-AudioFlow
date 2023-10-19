@@ -28,11 +28,16 @@
     </RouterLink>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, toRefs } from 'vue'
 import { RouterLink } from 'vue-router';
 import uniqolor from 'uniqolor';
-let randColor = ref('')
+
+interface UniqolorResult {
+    color: string;
+};
+
+let randColor = ref<UniqolorResult>({ color: '' });
 randColor.value = uniqolor.random()
 
 const props = defineProps({ category: String, image: String })

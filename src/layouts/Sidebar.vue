@@ -8,21 +8,21 @@
             <div class="my-14"></div>
             <ul>
                 <RouterLink to="/">
-                    <MenuItem class="ml-[1px]" :iconSize="24" name="Inicio" iconString="home" pageUrl="/" />
+                    <SidebarItem class="ml-[1px]" :iconSize="24" name="Inicio" iconString="home" pageUrl="/" />
                 </RouterLink>
                 <RouterLink to="/search">
-                    <MenuItem class="ml-[1px]" :iconSize="24" name="Buscar" iconString="search" pageUrl="/search" />
+                    <SidebarItem class="ml-[1px]" :iconSize="24" name="Buscar" iconString="search" pageUrl="/search" />
                 </RouterLink>
                 <RouterLink to="/profile" v-if="mainStore.$state.token">
-                    <MenuItem class="ml-[1px]" :iconSize="24" name="Mis canciones" iconString="library" pageUrl="/library" />
+                    <SidebarItem class="ml-[1px]" :iconSize="24" name="Mis canciones" iconString="library" pageUrl="/library" />
                 </RouterLink>
                 
                 <div class="border-b border-b-gray-700 w-[200px]"></div>
                 <h2 v-if="!mainStore.$state.token" class="text-white pt-5">¡Inicia sesión para más funcionalidades!</h2>
                 <div v-if="mainStore.$state.token">
                     <div class="mt-4">
-                        <MenuItem :iconSize="24" name="Crear Playlist" iconString="playlist" pageUrl="/playlist" />
-                        <MenuItem :iconSize="24" name="Subir Canción" iconString="upload" pageUrl="/addsong" class="ml-[1px]"/>
+                        <SidebarItem :iconSize="24" name="Crear Playlist" iconString="playlist" pageUrl="/playlist" />
+                        <SidebarItem :iconSize="24" name="Subir Canción" iconString="upload" pageUrl="/addsong" class="ml-[1px]"/>
                     </div>
                 </div>
             </ul>
@@ -43,7 +43,7 @@
 
 <script setup lang="ts">    
 import { RouterLink } from 'vue-router'
-import MenuItem from '../components/MenuItem.vue';
+import SidebarItem from '../components/SidebarItem.vue';
 import { useMainStore } from '@/stores/main';
 
 const mainStore = useMainStore();
