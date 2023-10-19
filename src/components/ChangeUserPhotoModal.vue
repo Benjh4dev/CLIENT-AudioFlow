@@ -116,7 +116,7 @@ function handleFileChange(event: Event): void {
         const selectedFile = input.files[0];
         
         if (!selectedFile.type.startsWith('image/')) {
-            showErrorToast('El archivo seleccionado no es una imagen.')
+            showErrorToast('El archivo seleccionado no es una imagen')
             return;
         }
 
