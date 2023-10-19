@@ -1,21 +1,8 @@
 import api from '@/services/api';
 import { useMainStore } from '@/stores/main';
+import { ChangePasswordForm, ChangeEmailForm, ChangePhotoForm } from '@/interfaces';
 
-interface ChangePasswordData {
-    currentPassword: string;
-    password: string;
-    confirmPassword: string;
-}
-
-interface ChangeEmail {
-    email: string;
-}
-
-interface ChangePhoto {
-    file: File | null
-};
-
-export async function changePassword(data: ChangePasswordData) {
+export async function changePassword(data: ChangePasswordForm) {
     const mainStore = useMainStore();
     mainStore.verifyTokenValidity();
 
@@ -23,11 +10,11 @@ export async function changePassword(data: ChangePasswordData) {
         headers: {
           'Authorization': `Bearer ${mainStore.$state.token}`
         }
-      });
+    });
     return response.data;
 };
 
-export async function changeEmail(data: ChangeEmail) {
+export async function changeEmail(data: ChangeEmailForm) {
     const mainStore = useMainStore();
     mainStore.verifyTokenValidity();
     
@@ -35,11 +22,11 @@ export async function changeEmail(data: ChangeEmail) {
         headers: {
           'Authorization': `Bearer ${mainStore.$state.token}`
         }
-      });
+    });
     return response.data;
 };
 
-export async function changePhoto(data: ChangePhoto) {
+export async function changePhoto(data: ChangePhotoForm) {
     const mainStore = useMainStore();
     mainStore.verifyTokenValidity();
 
@@ -49,6 +36,5 @@ export async function changePhoto(data: ChangePhoto) {
             'Authorization': `Bearer ${mainStore.$state.token}`
         }
     });
-    console.log(response.data)
     return response.data;
 };

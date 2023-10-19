@@ -95,23 +95,15 @@ import { ref, defineEmits } from 'vue';
 import { useMainStore } from '@/stores/main';
 import { changePassword as changeUserPassword } from '@/api/user';
 import { mapZodErrors } from '@/utils/utils';
+import { ChangePasswordForm, FormErrors } from '@/interfaces'
 import { showSuccessToast } from '@/utils/toast';
-
-interface FormData {
-  currentPassword: string;
-  password: string;
-  confirmPassword: string;
-};
-interface Errors {
-  [key: string]: string;
-};
 
 const mainStore = useMainStore();
 
 const isOpen = ref<boolean>(true);
 const emits = defineEmits(['close']);
-const errors = ref<Errors>({});
-const formData = ref<FormData>({
+const errors = ref<FormErrors>({});
+const formData = ref<ChangePasswordForm>({
   currentPassword: '',
   password: '',
   confirmPassword: ''

@@ -112,27 +112,17 @@ import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } fro
 import { ref, defineEmits } from 'vue';
 import { mapZodErrors } from '@/utils/utils';
 import { useMainStore } from '@/stores/main';
-import { register as registerUser } from '@/api/auth';
+import { register as registerUser, login as loginUser } from '@/api/auth';
+import { RegisterForm, FormErrors } from '@/interfaces'
 
 import { showSuccessToast, showErrorToast } from '@/utils/toast';
-
-interface FormData {
-    username: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-};
-
-interface Errors {
-  [key: string]: string;
-};
 
 const mainStore = useMainStore();
 
 const isOpen = ref<boolean>(true);
 const emits = defineEmits(['close']);
-let errors = ref<Errors>({});
-const formData = ref<FormData>({
+let errors = ref<FormErrors>({});
+const formData = ref<RegisterForm>({
     username: '',
     email: '',
     password: '',
@@ -157,10 +147,11 @@ async function submitForm(): Promise<void> {
     closeModal();
     
     try {
-      await mainStore.loginUser({
+      const response = await loginUser({
         email: formData.value.email,
         password: formData.value.password
       });
+      mainStore.loginUser(response);
       showSuccessToast("Inicio de sesión exitoso");
 
     } catch (error: any) {

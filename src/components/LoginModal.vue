@@ -80,20 +80,16 @@
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
 import { ref, defineEmits } from 'vue';
 import { useMainStore } from '@/stores/main'
-
+import { login as loginUser } from '@/api/auth'
+import { LoginForm } from '@/interfaces'
 import { showSuccessToast } from '@/utils/toast';
-
-interface FormData {
-  email: string;
-  password: string;
-}
 
 const mainStore = useMainStore();
 
 const isOpen = ref<boolean>(true);
 const emits = defineEmits(['close']);
 const errors = ref<string>('');
-const formData = ref<FormData>({
+const formData = ref<LoginForm>({
   email: '',
   password: '',
 });
@@ -107,7 +103,8 @@ async function submitForm(): Promise<void> {
   errors.value = '';
   
   try {
-    await mainStore.loginUser(formData.value);
+    const response = await loginUser(formData.value);
+    mainStore.loginUser(response);
     closeModal()
     showSuccessToast("Inicio de sesión exitoso");
 

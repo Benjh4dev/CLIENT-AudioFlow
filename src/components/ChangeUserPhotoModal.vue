@@ -79,24 +79,19 @@ import { useMainStore } from '@/stores/main';
 import Avatar from 'vue-avatar/src/Avatar.vue';
 import { changePhoto as changeUserPhoto } from '@/api/user';
 import { showErrorToast } from '@/utils/toast';
+import { ChangePhotoForm, FormErrors } from '@/interfaces';
 
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
-interface PhotoFile {
-    file: File | null
-};
-interface Errors {
-    [key: string]: string
-};
 
 const mainStore = useMainStore();
 
 const isOpen = ref<boolean>(true);
 const emits = defineEmits(['close']);
-const errors = ref<Errors>({});
+const errors = ref<FormErrors>({});
 const previewImageUrl = ref<string | null>(null);
-const photoFile = ref<PhotoFile>({
+const formData = ref<ChangePhotoForm>({
     file: null
 });
 
@@ -115,21 +110,21 @@ function handlePhotoFileChange(event: Event): void {
             return;
         }
 
-        photoFile.value.file = selectedFile;
+        formData.value.file = selectedFile;
         const reader = new FileReader();
         reader.onload = (e) => {
             if (e.target && typeof e.target.result === 'string') {
                 previewImageUrl.value = e.target.result;
             }
         };
-        reader.readAsDataURL(photoFile.value.file);
+        reader.readAsDataURL(formData.value.file);
     }
 }
 
 async function uploadPhoto(): Promise<void> {
     errors.value = {};
 
-    if(!photoFile.value.file?.name) {
+    if(!formData.value.file?.name) {
         showErrorToast('No hay una foto seleccionada');
         return;
     }
@@ -139,7 +134,7 @@ async function uploadPhoto(): Promise<void> {
     });
 
     try {    
-        const response = await changeUserPhoto(photoFile.value)
+        const response = await changeUserPhoto(formData.value)
         toast.update(uploadPhotoToast, {
             render: "Imagen subida exitosamente",
             autoClose: 3000,

@@ -72,21 +72,15 @@ import { ref, defineEmits } from 'vue';
 import { useMainStore } from '@/stores/main';
 import { changeEmail as changeUserEmail } from '@/api/user';
 import { mapZodErrors } from '@/utils/utils';
+import { ChangeEmailForm, FormErrors } from '@/interfaces';
 import { showSuccessToast } from '@/utils/toast';
-
-interface FormData {
-  email: string; 
-}
-interface Errors { 
-  [key: string]: string; 
-}
 
 const mainStore = useMainStore();
 
 const isOpen = ref<boolean>(true);
 const emits = defineEmits(['close']);
-const errors = ref<Errors>({});
-const formData = ref<FormData>({
+const errors = ref<FormErrors>({});
+const formData = ref<ChangeEmailForm>({
   email: mainStore.$state.user?.email || '',
 });
 
@@ -97,7 +91,12 @@ function closeModal(): void {
 
 async function submitForm(): Promise<void> {
   errors.value = {};
-
+  
+  if(formData.value.email == mainStore.$state.user?.email) {
+    closeModal();
+    return;
+  }
+  
   try {
     await changeUserEmail(formData.value);
     closeModal();
