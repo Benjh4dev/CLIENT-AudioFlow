@@ -36,7 +36,7 @@
                                                 <p class="mb-2 text-sm text-gray-500 dark:text-white"><span class="font-semibold">Click para buscar tu imagen</span></p>
                                                 <p class="text-xs text-gray-500 dark:text-white">PNG, JPG o JPEG (MAX. 800x400px)</p>
                                             </div>
-                                            <input @change="handleFileChange" id="dropzone-file" type="file" class="hidden" accept="image/jpeg, image/png, image/jpg"/>
+                                            <input @change="handlePhotoFileChange" id="dropzone-file" type="file" class="hidden" accept="image/jpeg, image/png, image/jpg"/>
                                         </label>
                                     </div>
                                     
@@ -77,40 +77,35 @@ import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } fro
 import { ref, defineEmits } from 'vue';
 import { useMainStore } from '@/stores/main';
 import Avatar from 'vue-avatar/src/Avatar.vue';
-import api from '@/services/api';
+import { changePhoto as changeUserPhoto } from '@/api/user';
+import { showErrorToast } from '@/utils/toast';
 
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
+interface PhotoFile {
+    file: File | null
+};
+interface Errors {
+    [key: string]: string
+};
+
+const mainStore = useMainStore();
+
 const isOpen = ref<boolean>(true);
 const emits = defineEmits(['close']);
+const errors = ref<Errors>({});
+const previewImageUrl = ref<string | null>(null);
+const photoFile = ref<PhotoFile>({
+    file: null
+});
+
 function closeModal(): void { 
     isOpen.value = false;
     setTimeout(() => { emits('close'); }, 300);
 };
 
-const mainStore = useMainStore();
-
-interface PhotoFile { file: File | null };
-interface Errors { [key: string]: string };
-
-const photoFile = ref<PhotoFile>({ file: null });
-const errors = ref<Errors>({});
-const previewImageUrl = ref<string | null>(null);
-
-const showErrorToast = (message: string) => {
-    toast(message, {
-    position: "bottom-right",
-    theme: "dark",
-    autoClose: 3000,
-    closeOnClick: true,
-    closeButton: true,
-    type: 'error',
-    isLoading: false,
-    });
-};
-
-function handleFileChange(event: Event): void {
+function handlePhotoFileChange(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
         const selectedFile = input.files[0];
@@ -138,22 +133,13 @@ async function uploadPhoto(): Promise<void> {
         showErrorToast('No hay una foto seleccionada');
         return;
     }
-
-    mainStore.verifyTokenValidity();
-
     const uploadPhotoToast = toast.loading('Subiendo imagen...', {
         position: "bottom-right",
         theme: "dark"
     });
 
     try {    
-        const response = await api.patch(`/user/${mainStore.$state.user?.id}/upload`, photoFile.value, {
-            headers: {
-                'Content-type': 'multipart/form-data',
-                'Authorization': `Bearer ${mainStore.$state.token}`
-            }
-        });
-
+        const response = await changeUserPhoto(photoFile.value)
         toast.update(uploadPhotoToast, {
             render: "Imagen subida exitosamente",
             autoClose: 3000,
@@ -163,11 +149,10 @@ async function uploadPhoto(): Promise<void> {
             isLoading: false,
         });
 
-        mainStore.$state.user = response.data.userWithId;
+        mainStore.$state.user = response.userWithId;
         closeModal();
 
     } catch (error: any) {
-        console.log(error)
         showErrorToast('Error al subir la imagen');
         errors.value = error.response.data.error;
     }

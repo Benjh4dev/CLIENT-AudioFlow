@@ -8,7 +8,7 @@
             class="flex items-center h-10 gap-1 rounded-full bg-black bg-opacity-20 
             text-sm font-medium text-white hover:bg-[#282828] cursor-pointer"
             >
-            <avatar 
+            <Avatar 
             :size="25"
             color="white"
             username="username"

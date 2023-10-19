@@ -49,7 +49,7 @@
                     
                     <MenuItem v-slot="{ active } " >
                     <button
-                        @click="mainStore.verifyTokenValidity(), openChangePasswordModal()"
+                        @click="openChangePasswordModal()"
                         :class="[
                         active ? 'bg-[#3E3D3D] text-white' : 'text-gray-400',
                         'group flex w-full items-center rounded-md px-2 py-2 text-sm',
@@ -63,7 +63,7 @@
 
                     <MenuItem v-slot="{ active }">
                     <button
-                        @click="mainStore.logoutUser()"
+                        @click="logoutUser()"
                         :class="[
                         active ? 'bg-red-950 text-white' : 'text-gray-400',
                         'group flex w-full items-center rounded-md px-2 py-2 text-sm',
@@ -91,10 +91,27 @@ import { ref } from 'vue';
 import { RouterLink } from 'vue-router'
 import { useMainStore } from '@/stores/main';
 
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+
 let showChangePasswordModal = ref(false)
 function openChangePasswordModal() {
+    mainStore.verifyTokenValidity()
     showChangePasswordModal.value = true
 }
 
 const mainStore = useMainStore();
+
+function logoutUser() {
+    mainStore.logoutUser()
+    toast("Sesión cerrada con éxito", {
+      position: "bottom-right",
+      theme: "dark",
+      autoClose: 3000,
+      closeOnClick: true,
+      closeButton: true,
+      type: 'success',
+      isLoading: false,
+    });
+}
 </script>

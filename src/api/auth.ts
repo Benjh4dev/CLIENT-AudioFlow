@@ -13,7 +13,6 @@ interface LoginCredentials {
 
 export async function login(credentials: LoginCredentials) {
   const response = await api.post('/auth', credentials);
-  //console.log("JEJE: ", response)
   return response.data;
 };
 

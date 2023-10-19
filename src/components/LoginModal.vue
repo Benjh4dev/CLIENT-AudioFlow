@@ -61,7 +61,6 @@
                       Iniciar sesión
                     </button>
                   </div>
-
                 </form>
               </div>
 
@@ -81,6 +80,8 @@
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
 import { ref, defineEmits } from 'vue';
 import { useMainStore } from '@/stores/main'
+
+import { showSuccessToast } from '@/utils/toast';
 
 interface FormData {
   email: string;
@@ -108,6 +109,7 @@ async function submitForm(): Promise<void> {
   try {
     await mainStore.loginUser(formData.value);
     closeModal()
+    showSuccessToast("Inicio de sesión exitoso");
 
   } catch (error: any) {
     if (error.response) {

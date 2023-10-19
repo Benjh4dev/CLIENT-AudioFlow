@@ -114,6 +114,8 @@ import { mapZodErrors } from '@/utils/utils';
 import { useMainStore } from '@/stores/main';
 import { register as registerUser } from '@/api/auth';
 
+import { showSuccessToast, showErrorToast } from '@/utils/toast';
+
 interface FormData {
     username: string;
     email: string;
@@ -143,17 +145,24 @@ function closeModal(): void {
 async function submitForm(): Promise<void> {
   errors.value = {};
 
+  if (formData.value.password !== formData.value.confirmPassword) {
+    errors.value.confirmPassword = "Las contraseñas no coinciden";
+    return;
+  }
+
   try {
     await registerUser(formData.value);
     closeModal();
+    
     try {
       await mainStore.loginUser({
         email: formData.value.email,
         password: formData.value.password
       });
+      showSuccessToast("Inicio de sesión exitoso");
+
     } catch (error: any) {
-      console.log(error.data)
-      //TOAST
+      showErrorToast("Error al iniciar sesión")
     }
     
   } catch (error: any) {

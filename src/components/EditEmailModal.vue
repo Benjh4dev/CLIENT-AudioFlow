@@ -70,51 +70,46 @@
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
 import { ref, defineEmits } from 'vue';
 import { useMainStore } from '@/stores/main';
-import api from '@/services/api';
+import { changeEmail as changeUserEmail } from '@/api/user';
+import { mapZodErrors } from '@/utils/utils';
+import { showSuccessToast } from '@/utils/toast';
+
+interface FormData {
+  email: string; 
+}
+interface Errors { 
+  [key: string]: string; 
+}
+
+const mainStore = useMainStore();
 
 const isOpen = ref<boolean>(true);
 const emits = defineEmits(['close']);
+const errors = ref<Errors>({});
+const formData = ref<FormData>({
+  email: mainStore.$state.user?.email || '',
+});
+
 function closeModal(): void {
   isOpen.value = false;
   setTimeout(() => { emits('close'); }, 300);
 }
 
-const mainStore = useMainStore();
-
-interface FormData { email: string; }
-interface Errors { [key: string]: string; }
-
-const formData = ref<FormData>({ email: mainStore.$state.user?.email || '', });
-const errors = ref<Errors>({});
-
 async function submitForm(): Promise<void> {
   errors.value = {};
 
   try {
-    mainStore.verifyTokenValidity();
-    const response = await api.patch(`/user/${mainStore.$state.user?.id}/changeEmail`, formData.value, {
-      headers: {
-        'Authorization': `Bearer ${mainStore.$state.token}`
-      }
-    });
+    await changeUserEmail(formData.value);
     closeModal();
-    mainStore.logoutUser();
+    showSuccessToast("Correo electrónico actualizado", 2000);
+    setTimeout(() => { mainStore.logoutUser(); }, 2000);
 
   } catch (error: any) {
-      console.log(error)
       if (error.response && error.response.data.error) {
-        const zodErrors = error.response.data.error.issues;
-        const mappedErrors: Record<string, any> = {};
-        zodErrors.forEach((err: any) => {
-          const fieldName = err.path[0];
-
-          if (!mappedErrors[fieldName]) {
-            mappedErrors[fieldName] = [];
-          }
-          mappedErrors[fieldName].push(err.message);
-          });
-          errors.value = mappedErrors;
-      }
-    }
-}
+        console.log(error.response);
+        const mappedErrors = await mapZodErrors(error);
+        errors.value = mappedErrors;
+      };
+    };
+};
 </script>
