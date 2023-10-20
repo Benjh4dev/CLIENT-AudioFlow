@@ -103,8 +103,8 @@ async function submitForm(): Promise<void> {
   errors.value = '';
   
   try {
-    const response = await loginUser(formData.value);
-    mainStore.loginUser(response);
+    const user = await loginUser(formData.value);
+    mainStore.loginUser(user);
     closeModal()
     showSuccessToast("Inicio de sesión exitoso");
 
