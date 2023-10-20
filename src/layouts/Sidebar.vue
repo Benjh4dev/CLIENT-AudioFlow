@@ -19,6 +19,9 @@
                 
                 <div class="border-b border-b-gray-700 w-[200px]"></div>
                 <h2 v-if="!mainStore.$state.token" class="text-white pt-5">¡Inicia sesión para más funcionalidades!</h2>
+                <div v-if="!mainStore.$state.token" class="bg-black h-[70px]">
+                    assafas
+                </div>
                 <div v-if="mainStore.$state.token">
                     <div class="mt-4">
                         <SidebarItem :iconSize="24" name="Crear Playlist" iconString="playlist" pageUrl="/playlist" />
