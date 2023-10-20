@@ -12,8 +12,6 @@
             z-50
             h-[90px]
             bg-black
-            border-t
-            border-t-[#272727]
         "
     >
         <div class="flex items-center w-1/4">
