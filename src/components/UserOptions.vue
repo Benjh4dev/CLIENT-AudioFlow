@@ -28,7 +28,7 @@
         >
             <MenuItems
             class="absolute right-0 mt-2 w-40 origin-top-right divide-y divide-gray-100 rounded-md 
-            bg-[#282828] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+            bg-[#282828] shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none"
             >
                 <div class="px-1 py-1">
                     <RouterLink to="/profile">
@@ -36,7 +36,7 @@
                     <button
                         @click="mainStore.verifyTokenValidity()"
                         :class="[
-                        active ? 'bg-gray-900 text-white' : 'text-gray-400',
+                        active ? 'bg-gray-900 text-white' : 'text-gray-300',
                         'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                         ]"
                     >
@@ -51,7 +51,7 @@
                     <button
                         @click="openChangePasswordModal()"
                         :class="[
-                        active ? 'bg-gray-900 text-white' : 'text-gray-400',
+                        active ? 'bg-gray-900 text-white' : 'text-gray-300',
                         'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                         ]"
 
@@ -65,7 +65,7 @@
                     <button
                         @click="logoutUser()"
                         :class="[
-                        active ? 'bg-red-950 text-white' : 'text-gray-400',
+                        active ? 'bg-red-950 text-white' : 'text-gray-300',
                         'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                         ]"
                     >

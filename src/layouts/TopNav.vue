@@ -2,15 +2,14 @@
     <div 
         id="TopNav"
         class="
-        w-[calc(100%-240px)] 
-        h-[60px] 
-        fixed 
-        right-0 
+        w-[100%]
+        h-[60px]
+        sticky top-0
         z-50 
-        bg-black
+        bg-gradient-to-b
+        from-[#505a88]
+        to-[#2d373f]
         shadow-2xl
-        border-b
-        border-b-[#272727]
         flex 
         items-center 
         justify-between

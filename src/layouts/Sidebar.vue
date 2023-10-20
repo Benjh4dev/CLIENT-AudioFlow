@@ -3,13 +3,15 @@
         <div id="Navigation" class="h-[108px] bg-[#121212] rounded-lg">
             <div class="grid grid-rows-2 gap-y-9 ">
                 <ul class="p-1.5">
-                    <SidebarItem 
+                    <SidebarItem
+                        pageUrl="/"
                         iconUrl="public\images\icons\home-icon.png" 
                         message="Inicio" 
                         ml="ml-[19px]" mt="mt-[10px]" w="w-7" h="h-7" 
                         pl="pl-[16px]" pt="pt-[10px]">
                     </SidebarItem>
                     <SidebarItem 
+                        pageUrl="/search"
                         iconUrl="public\images\icons\search-icon.png" 
                         message="Buscar" 
                         ml="ml-[19px]" mt="mt-[10px]" w="w-7" h="h-7" 

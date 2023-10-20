@@ -1,31 +1,15 @@
 <template>
-  <div class="bg-black p-2 flex">
-    
-    <!-- <TopNav></TopNav> -->
+  <div class="bg-black p-2 flex min-h-[850px]">
     <Sidebar></Sidebar>
-  
-    <div
-    class="
-        text-white
-        w-[100%]
-        ml-2
-        rounded-lg
-        overflow-auto
-        h-[850px]
-        bg-[#121212]
-        "
-        >
-        TOPBAR AQUI
-        <RouterView />
-        <div class="right-0 w-[88%] text-white">
-        </div>
-        <div class="mb-[90px]"></div>
+
+    <div class="bg-[#121212] text-white w-[100%] h-[850px] ml-2 rounded-lg overflow-auto">
+      <TopNav></TopNav>
+      <RouterView />
     </div>
         
-    <MusicPlayer v-if="currentTrack"/>
   </div>
-  <footer class="text-white bg-black h-[89px]">
-    Reproductor
+  <footer class="bg-black h-[89px]">
+    <MusicPlayer v-if="currentTrack"/>
   </footer>
 </template>
 

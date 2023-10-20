@@ -1,6 +1,6 @@
 <template>
     <RouterLink 
-      to="/profile" 
+      to="/library" 
       class="flex h-18 hover:bg-[#1A1A1A] transition-all duration-300 ease-in-out rounded-lg" 
       @mouseenter="isHover" 
       @mouseleave="isHover">
