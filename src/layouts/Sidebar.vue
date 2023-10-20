@@ -19,7 +19,7 @@
                 
                 <div class="border-b border-b-gray-700 w-[200px]"></div>
                 <h2 v-if="!mainStore.$state.token" class="text-white pt-5">¡Inicia sesión para más funcionalidades!</h2>
-                <div v-if="!mainStore.$state.token" class="bg-black h-[70px]">
+                <div v-if="!mainStore.$state.token" class="bg-black h-[200px]">
                     assafas
                 </div>
                 <div v-if="mainStore.$state.token">
