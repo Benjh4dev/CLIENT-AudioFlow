@@ -1,7 +1,3 @@
-<script setup lang="ts">
-    import PlaylistCard from '../components/PlaylistCard.vue';
-</script>
-
 <template>
     <div class="p-8 pl-10 pt-12">
         <button
@@ -27,3 +23,7 @@
         </div>
     </div>
 </template>
+
+<script setup lang="ts">
+import PlaylistCard from '../components/PlaylistCard.vue';
+</script>
