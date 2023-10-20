@@ -1,26 +1,31 @@
 <template>
-  <TopNav></TopNav>
-  <Sidebar></Sidebar>
-
-  <div
-  class="
-      fixed
-      right-0
-      top-0
-      w-[calc(100%-240px)]
-      overflow-auto
-      h-full
-      bg-gradient-to-b
-      from-[#1C1C1C]
-      to-[#070707]
-      "
-      >
-      <div class="mt-[60px]"></div>
-      <RouterView />
-      <div class="mb-[90px]"></div>
+  <div class="bg-black p-2">
+    
+    <!-- <TopNav></TopNav> -->
+    <Sidebar></Sidebar>
+  
+    <div
+    class="
+        fixed
+        right-0
+        top-0
+        overflow-auto
+        h-full
+        bg-gradient-to-b
+        from-[#1C1C1C]
+        to-[#070707]
+        "
+        >
+        <!-- <div class="mt-[60px]"></div>
+        <RouterView />
+        <div class="mb-[90px]"></div> -->
+    </div>
+        
+    <MusicPlayer v-if="currentTrack"/>
   </div>
-      
-  <MusicPlayer v-if="currentTrack"/>
+  <footer class="text-white bg-black h-[89px]">
+    Reproductor
+  </footer>
 </template>
 
 <script setup lang="ts">
