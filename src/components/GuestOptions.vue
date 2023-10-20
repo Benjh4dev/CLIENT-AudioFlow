@@ -5,8 +5,8 @@
     <Menu as="div" class="relative inline-block text-left mr-6">
         <div>
             <MenuButton
-            class="flex items-center h-10 gap-1 rounded-full bg-black bg-opacity-20 
-            text-sm font-medium text-white hover:bg-[#282828] cursor-pointer"
+            class="flex items-center h-10 gap-1 rounded-full bg-[#282828] bg-opacity-40 
+            text-sm font-medium text-white hover:bg-gray-900 cursor-pointer"
             >
             <Avatar 
             :size="25"
@@ -36,7 +36,7 @@
                     <button
                         @click="openLoginModal"
                         :class="[
-                        active ? 'bg-[#3E3D3D] text-white' : 'text-gray-400',
+                        active ? 'bg-gray-900 text-white' : 'text-gray-400',
                         'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                         ]"
                     >
@@ -48,7 +48,7 @@
                     <button
                         @click="openRegisterModal"
                         :class="[
-                        active ? 'bg-[#3E3D3D] text-white' : 'text-gray-400',
+                        active ? 'bg-gray-900 text-white' : 'text-gray-400',
                         'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                         ]"
                     >

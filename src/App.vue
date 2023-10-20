@@ -12,7 +12,7 @@
       h-full
       bg-gradient-to-b
       from-[#1C1C1C]
-      to-black
+      to-[#070707]
       "
       >
       <div class="mt-[60px]"></div>

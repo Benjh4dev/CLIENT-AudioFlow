@@ -7,18 +7,20 @@
         fixed 
         right-0 
         z-50 
-        bg-[#101010] 
-        bg-opacity-80 
+        bg-black
+        shadow-2xl
+        border-b
+        border-b-[#272727]
         flex 
         items-center 
         justify-between
         "
     >
         <div class="flex items-center ml-6">
-            <button type="button" class="rounded-full bg-black p-[1px] cursor-pointer hover:bg-[#282828]">
+            <button type="button" class="rounded-full bg-[#282828] p-[1px] cursor-pointer hover:bg-gray-900">
                 <ChevronLeft @click="historyNav('back')" fillColor="#FFFFFF" :size="30"/>
             </button>
-            <button @click="historyNav('forward')" type="button" class="rounded-full bg-black p-[1px] hover:bg-[#] ml-4 cursor-pointer hover:bg-[#282828]">
+            <button @click="historyNav('forward')" type="button" class="rounded-full bg-[#282828] p-[1px] hover:bg-[#] ml-4 cursor-pointer hover:bg-gray-900">
                 <ChevronRight fillColor="#FFFFFF" :size="30"/>
             </button>
         </div>

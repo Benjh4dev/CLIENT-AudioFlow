@@ -1,11 +1,11 @@
 <template>
     <div class="flex flex-col h-screen">
         <div id="UserOptions" class="pl-6 w-[240px] bg-black">
-            <RouterLink to="/"  class="flex items-center mt-10">
+            <RouterLink to="/"  class="flex items-center mt-20">
                 <img src="/images/icons/audioflow-logo-nombre.png" class="w-[80%] ml-2.5">
             </RouterLink>
             
-            <div class="my-14"></div>
+            <div class="mt-16"></div>
             <ul>
                 <RouterLink to="/">
                     <SidebarItem class="ml-[1px]" :iconSize="24" name="Inicio" iconString="home" pageUrl="/" />
@@ -28,9 +28,9 @@
             </ul>
         </div>
 
-        <div id="UserPlaylists" class="h-[100%] pl-6 w-[240px] bg-black">
+        <div id="UserPlaylists" class="h-[40%] pl-6 w-[240px] bg-black">
             <div v-if="mainStore.$state.token" class="border-b border-b-gray-700 w-[200px]"></div>
-                <ul v-if="mainStore.$state.token" class="mt-6">
+                <ul v-if="mainStore.$state.token" class="mt-10">
                     <li class="font-semibold text-[15px] mt-3 text-gray-300 hover:text-white">Tu Playlist #1</li>
                     <li class="font-semibold text-[15px] mt-3 text-gray-300 hover:text-white">Tu Playlist #2</li>
                     <li class="font-semibold text-[15px] mt-3 text-gray-300 hover:text-white">Tu Playlist #3</li>

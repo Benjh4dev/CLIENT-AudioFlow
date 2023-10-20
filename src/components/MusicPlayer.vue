@@ -11,7 +11,7 @@
             w-[calc(100%)] 
             z-50
             h-[90px]
-            bg-[#181818]
+            bg-black
             border-t
             border-t-[#272727]
         "
