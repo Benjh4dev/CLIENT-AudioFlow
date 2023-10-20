@@ -1,24 +1,25 @@
 <template>
-  <div class="bg-black p-2">
+  <div class="bg-black p-2 flex">
     
     <!-- <TopNav></TopNav> -->
     <Sidebar></Sidebar>
   
     <div
     class="
-        fixed
-        right-0
-        top-0
+        text-white
+        w-[100%]
+        ml-2
+        rounded-lg
         overflow-auto
-        h-full
-        bg-gradient-to-b
-        from-[#1C1C1C]
-        to-[#070707]
+        h-[850px]
+        bg-[#121212]
         "
         >
-        <!-- <div class="mt-[60px]"></div>
+        TOPBAR AQUI
         <RouterView />
-        <div class="mb-[90px]"></div> -->
+        <div class="right-0 w-[88%] text-white">
+        </div>
+        <div class="mb-[90px]"></div>
     </div>
         
     <MusicPlayer v-if="currentTrack"/>
