@@ -23,14 +23,12 @@
                     <div class="text-[14px] text-white hover:underline cursor-pointer">
                         {{ currentTrack.name }}
                     </div>
-                    <div class="text-[11px] text-gray-500 hover:underline hover:text-white cursor-pointer">
+                    <div class="text-[11px] text-gray-400 font-semibold hover:underline hover:text-white cursor-pointer">
                         {{ currentArtist.name }}
                     </div>
                 </div>
             </div>
             <div class="flex items-center ml-8">
-                <!-- <Heart fillColor="#1BD760" :size="20" /> -->
-                <!-- <PictureInPictureBottomRight class="ml-4" fillColor="#FFFFFF" :size="18" /> -->
             </div>
         </div>
         
@@ -99,8 +97,6 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue'
 import MusicPlayerVolume from '../components/MusicPlayerVolume.vue'
-// import Heart from 'vue-material-design-icons/Heart.vue';
-// import PictureInPictureBottomRight from 'vue-material-design-icons/PictureInPictureBottomRight.vue';
 import Play from 'vue-material-design-icons/Play.vue';
 import Pause from 'vue-material-design-icons/Pause.vue';
 import SkipBackward from 'vue-material-design-icons/SkipBackward.vue';

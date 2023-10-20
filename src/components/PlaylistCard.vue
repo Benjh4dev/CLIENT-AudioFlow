@@ -10,9 +10,15 @@
                 aspect-square 
                 relative 
                 overflow-hidden
+                w-[200px]
+                shadow-2xl
+                hover:scale-105
+                transition-transform
+                duration-300 
+                ease-in-out
             "
         >
-            <div class="text-white pt-3 pl-4 font-semibold text-[23px]">{{ category }}</div>
+            <div class="text-white pt-3 pl-4 font-semibold text-[23px]">{{ name }}</div>
             <img
                 class="
                     absolute 
@@ -40,6 +46,6 @@ interface UniqolorResult {
 let randColor = ref<UniqolorResult>({ color: '' });
 randColor.value = uniqolor.random()
 
-const props = defineProps({ category: String, image: String })
-const { category } = toRefs(props)
+const props = defineProps({ name: String, image: String })
+const { name } = toRefs(props)
 </script>

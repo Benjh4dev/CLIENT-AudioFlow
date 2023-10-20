@@ -5,6 +5,7 @@ import Avatar from 'vue-avatar/src/Avatar.vue';
 import Pencil from 'vue-material-design-icons/Pencil.vue';
 import EditEmailModal from '../components/EditEmailModal.vue';
 import ChangeUserPhotoModal from '@/components/ChangeUserPhotoModal.vue';
+import SongCard from '../components/SongCard.vue';
 
 const mainStore = useMainStore();
 const showPencil = ref(false);
@@ -23,7 +24,7 @@ function openChangeUserPhotoModal() {
 <template>
     <EditEmailModal v-if="showEditEmailModal" @close="showEditEmailModal = false"/>
     <ChangeUserPhotoModal v-if="showChangeUserPhotoModal" @close="showChangeUserPhotoModal = false"/>
-    <div class="pl-8 pt-4 bg-gradient-to-b from-[#5A7D8E] to-[#2E3F4D] h-[30%] w-[100%] ">
+    <div class="pl-8 pt-4 h-[30%] w-[100%] bg-gradient-to-b from-[#5A7D8E] to-[#2E3F4D]">
         <div class="flex">
             <div class="relative group hover:bg-opacity-50 cursor-pointer" @mouseover="showPencil = true" @mouseleave="showPencil = false">
                 <button @click="openChangeUserPhotoModal">
@@ -40,7 +41,7 @@ function openChangeUserPhotoModal() {
                 </button>
             </div>
             
-            <div class="block mt-16 ml-5">
+            <div class="block mt-10 ml-5">
                 <h1 class="text-white text-sm text-bold">Perfil</h1>
                 <h1 class="text-white text-7xl font-extrabold">{{ mainStore.$state.user?.username }}</h1>
                 <div class="flex mt-4">
@@ -53,10 +54,17 @@ function openChangeUserPhotoModal() {
                 <h6 class="text-white mt-7 text-bold">0 Playlists • 0 Canciones </h6>
             </div>
         </div>
-
-        <div class="py-1.5"></div>
     </div>
     <div>
         <h1 class="p-8 text-white text-xl font-bold">Tus canciones</h1>
+    </div>
+    <div class="flex items-center gap-7 pl-8">
+        <SongCard pic_url="https://picsum.photos/id/30/300/300" name="name is here" artist="artist is here" />
+        <SongCard pic_url="https://picsum.photos/id/45/300/300" name="name is here" artist="artist is here" />
+        <SongCard class="md:block hidden" pic_url="https://picsum.photos/id/65/300/300" name="name is here" artist="artist is here" />
+        <SongCard class="lg:block hidden" pic_url="https://picsum.photos/id/67/300/300" name="name is here" artist="artist is here" />
+        <SongCard class="xl:block hidden" pic_url="https://picsum.photos/id/100/300/300" name="name is here" artist="artist is here" />
+        <SongCard pic_url="https://picsum.photos/id/30/300/300" name="name is here" artist="artist is here" />
+        <SongCard pic_url="https://picsum.photos/id/45/300/300" name="name is here" artist="artist is here" />
     </div>
 </template>

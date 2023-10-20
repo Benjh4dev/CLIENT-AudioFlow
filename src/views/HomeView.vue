@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import HomeCard from '../components/HomeCard.vue';
+    import SongCard from '../components/SongCard.vue';
 </script>
 
 <template>
@@ -11,13 +11,13 @@
         <div class="py-2"></div>
 
         <div class="flex items-center gap-7">
-            <HomeCard pic_url="https://picsum.photos/id/30/300/300" name="name is here" artist="artist is here" />
-            <HomeCard pic_url="https://picsum.photos/id/45/300/300" name="name is here" artist="artist is here" />
-            <HomeCard class="md:block hidden" pic_url="https://picsum.photos/id/65/300/300" name="name is here" artist="artist is here" />
-            <HomeCard class="lg:block hidden" pic_url="https://picsum.photos/id/67/300/300" name="name is here" artist="artist is here" />
-            <HomeCard class="xl:block hidden" pic_url="https://picsum.photos/id/100/300/300" name="name is here" artist="artist is here" />
-            <HomeCard pic_url="https://picsum.photos/id/30/300/300" name="name is here" artist="artist is here" />
-            <HomeCard pic_url="https://picsum.photos/id/45/300/300" name="name is here" artist="artist is here" />
+            <SongCard pic_url="https://picsum.photos/id/30/300/300" name="name is here" artist="artist is here" />
+            <SongCard pic_url="https://picsum.photos/id/45/300/300" name="name is here" artist="artist is here" />
+            <SongCard class="md:block hidden" pic_url="https://picsum.photos/id/65/300/300" name="name is here" artist="artist is here" />
+            <SongCard class="lg:block hidden" pic_url="https://picsum.photos/id/67/300/300" name="name is here" artist="artist is here" />
+            <SongCard class="xl:block hidden" pic_url="https://picsum.photos/id/100/300/300" name="name is here" artist="artist is here" />
+            <SongCard pic_url="https://picsum.photos/id/30/300/300" name="name is here" artist="artist is here" />
+            <SongCard pic_url="https://picsum.photos/id/45/300/300" name="name is here" artist="artist is here" />
         </div>
     </div>
 
@@ -28,13 +28,13 @@
         <div class="py-2"></div>
 
         <div class="flex items-center gap-7">
-            <HomeCard pic_url="https://picsum.photos/id/30/300/300" name="name is here" artist="artist is here" />
-            <HomeCard pic_url="https://picsum.photos/id/45/300/300" name="name is here" artist="artist is here" />
-            <HomeCard class="md:block hidden" pic_url="https://picsum.photos/id/65/300/300" name="name is here" artist="artist is here" />
-            <HomeCard class="lg:block hidden" pic_url="https://picsum.photos/id/67/300/300" name="name is here" artist="artist is here" />
-            <HomeCard class="xl:block hidden" pic_url="https://picsum.photos/id/100/300/300" name="name is here" artist="artist is here" />
-            <HomeCard pic_url="https://picsum.photos/id/30/300/300" name="name is here" artist="artist is here" />
-            <HomeCard pic_url="https://picsum.photos/id/45/300/300" name="name is here" artist="artist is here" />
+            <SongCard pic_url="https://picsum.photos/id/30/300/300" name="name is here" artist="artist is here" />
+            <SongCard pic_url="https://picsum.photos/id/45/300/300" name="name is here" artist="artist is here" />
+            <SongCard class="md:block hidden" pic_url="https://picsum.photos/id/65/300/300" name="name is here" artist="artist is here" />
+            <SongCard class="lg:block hidden" pic_url="https://picsum.photos/id/67/300/300" name="name is here" artist="artist is here" />
+            <SongCard class="xl:block hidden" pic_url="https://picsum.photos/id/100/300/300" name="name is here" artist="artist is here" />
+            <SongCard pic_url="https://picsum.photos/id/30/300/300" name="name is here" artist="artist is here" />
+            <SongCard pic_url="https://picsum.photos/id/45/300/300" name="name is here" artist="artist is here" />
         </div>
     </div>
 
@@ -45,13 +45,13 @@
         <div class="py-2"></div>
 
         <div class="flex items-center gap-7">
-            <HomeCard pic_url="https://picsum.photos/id/30/300/300" name="name is here" artist="artist is here" />
-            <HomeCard pic_url="https://picsum.photos/id/45/300/300" name="name is here" artist="artist is here" />
-            <HomeCard class="md:block hidden" pic_url="https://picsum.photos/id/65/300/300" name="name is here" artist="artist is here" />
-            <HomeCard class="lg:block hidden" pic_url="https://picsum.photos/id/67/300/300" name="name is here" artist="artist is here" />
-            <HomeCard class="xl:block hidden" pic_url="https://picsum.photos/id/100/300/300" name="name is here" artist="artist is here" />
-            <HomeCard pic_url="https://picsum.photos/id/30/300/300" name="name is here" artist="artist is here" />
-            <HomeCard pic_url="https://picsum.photos/id/45/300/300" name="name is here" artist="artist is here" />
+            <SongCard pic_url="https://picsum.photos/id/30/300/300" name="name is here" artist="artist is here" />
+            <SongCard pic_url="https://picsum.photos/id/45/300/300" name="name is here" artist="artist is here" />
+            <SongCard class="md:block hidden" pic_url="https://picsum.photos/id/65/300/300" name="name is here" artist="artist is here" />
+            <SongCard class="lg:block hidden" pic_url="https://picsum.photos/id/67/300/300" name="name is here" artist="artist is here" />
+            <SongCard class="xl:block hidden" pic_url="https://picsum.photos/id/100/300/300" name="name is here" artist="artist is here" />
+            <SongCard pic_url="https://picsum.photos/id/30/300/300" name="name is here" artist="artist is here" />
+            <SongCard pic_url="https://picsum.photos/id/45/300/300" name="name is here" artist="artist is here" />
         </div>
     </div>
 </template>

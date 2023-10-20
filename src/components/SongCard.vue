@@ -1,6 +1,6 @@
 <template>
     <RouterLink to="library">
-        <div class="bg-black p-4 rounded-md m-2 shadow-xlhover:bg-[#252525] cursor-pointer h-[250px] w-[180px] group transition-all duration-300 ease-in-out">
+        <div class="bg-black hover:bg-[#282828] p-4 rounded-md m-2 shadow-xlhover:bg-[#252525] cursor-pointer h-[250px] w-[180px] group transition-all duration-300 ease-in-out">
             <div class="flex justify-center items-center relative h-[150px] w-[148px]">
                 <img class="rounded-md shadow-2xl" :src="pic_url" alt="">
                 <img class="absolute bottom-0 right-0 h-[45px] w-[45px] rounded-md shadow-2xl hover:scale-110 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out mb-3 mr-2" src="public\images\icons\play-icon.png" alt="">
