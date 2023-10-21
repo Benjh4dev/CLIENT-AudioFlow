@@ -1,15 +1,15 @@
 <template>
-    <div class="p-8 pl-10 pt-12">
+    <div class="p-8">
         <button
             type="button"
-            class="text-white text-2xl font-semibold hover:underline cursor-pointer"
+            class="text-white text-2xl font-semibold hover:underline cursor-pointer pl-2"
         >
             Buscar todo
         </button>
 
         <div class="py-4"></div>
 
-        <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-y-16">
+        <div class="gap-6 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-y-16">
             <PlaylistCard name="Podcasts" image="https://picsum.photos/id/40/300/300"/>
             <PlaylistCard name="Audiobooks" image="https://picsum.photos/id/45/300/300"/>
             <PlaylistCard name="Made For You" image="https://picsum.photos/id/76/300/300"/>

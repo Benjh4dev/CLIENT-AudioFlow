@@ -8,7 +8,7 @@
             Tus canciones
         </h1>
 
-        <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
+        <div class="pt-4 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
             <SongCard pic_url="https://picsum.photos/id/30/300/300" name="name is here" artist="artist is here" />
             <SongCard pic_url="https://picsum.photos/id/45/300/300" name="name is here" artist="artist is here" />
             <SongCard pic_url="https://picsum.photos/id/65/300/300" name="name is here" artist="artist is here" />
