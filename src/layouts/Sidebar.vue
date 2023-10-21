@@ -39,7 +39,7 @@
             </div>
         </div>
 
-        <div v-if="mainStore.$state.token" id="Playlists" class="h-screen bg-[#121212] rounded-lg">
+        <div v-if="mainStore.$state.token" id="Playlists" class="h-[100%] bg-[#121212] rounded-lg">
             <div class="grid grid-rows-1">
                 <ul class="p-1.5">
                     <SidebarItem 
@@ -59,7 +59,7 @@
             </div>
         </div>
 
-        <div v-if="!mainStore.$state.token" id="Guest" class="h-screen bg-[#121212] rounded-lg">
+        <div v-if="!mainStore.$state.token" id="Guest" class="h-[100%] bg-[#121212] rounded-lg">
             <div class="grid grid-rows-2 gap-y-9">
                 <ul class="p-1.5">
                 </ul>

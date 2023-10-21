@@ -2,7 +2,7 @@
     <EditEmailModal v-if="showEditEmailModal" @close="showEditEmailModal = false"/>
     <ChangeUserPhotoModal v-if="showChangeUserPhotoModal" @close="showChangeUserPhotoModal = false"/>
     <div class="pl-8 pt-1.5 h-[30%] w-[100%] bg-gradient-to-b from-[#505a88] to-[#2d373f]">
-        <div class="flex">
+        <div class="flex pl-8 sm:p-0">
             <div class="relative group hover:bg-opacity-50 cursor-pointer" @mouseover="showPencil = true" @mouseleave="showPencil = false">
                 <button @click="openChangeUserPhotoModal">
                     <Avatar 
@@ -18,7 +18,7 @@
                 </button>
             </div>
             
-            <div class="block mt-10 ml-5">
+            <div class="mt-10 ml-5 hidden sm:block">
                 <h1 class="text-white text-sm text-bold">Perfil</h1>
                 <h1 class="text-white text-7xl font-extrabold">{{ mainStore.$state.user?.username }}</h1>
                 <div class="flex mt-4">
