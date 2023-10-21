@@ -8,8 +8,8 @@
         </button>
 
         <div class="py-1.5"></div>
-        <div class="flex items-center w-full relative h-full ml-20">
-            <img width="140" :src="artist.albumCover">
+        <div class="flex items-center w-full relative h-full ml-20 sm:ml-0">
+            <img width="140" :src="artist.albumCover" class="rounded-md">
 
             <div class="w-full ml-5">
 
