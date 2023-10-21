@@ -1,5 +1,5 @@
 <template>
-    <RouterLink to="library">
+    <RouterLink to="/library">
         <div
             v-if="randColor.color"
             :style="`background-color: ${randColor.color};`"
@@ -10,12 +10,14 @@
                 aspect-square 
                 relative 
                 overflow-hidden
-                w-[200px]
-                shadow-2xl
+                w-[150px]
+                sm:w-[200px]
+                group
                 hover:scale-105
-                transition-transform
+                transition-all
                 duration-300 
                 ease-in-out
+                shadow-2xl
             "
         >
             <div class="text-white pt-3 pl-4 font-semibold text-[23px]">{{ name }}</div>

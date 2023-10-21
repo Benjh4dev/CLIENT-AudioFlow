@@ -1,26 +1,3 @@
-<script setup>
-import SongRow from '../components/SongRow.vue'
-import Play from 'vue-material-design-icons/Play.vue';
-import Pause from 'vue-material-design-icons/Pause.vue';
-import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue';
-// import Heart from 'vue-material-design-icons/Heart.vue';
-import ClockTimeThreeOutline from 'vue-material-design-icons/ClockTimeThreeOutline.vue';
-import artist from '../artist.json'
-
-import { useSongStore } from '../stores/song'
-import { storeToRefs } from 'pinia';
-const useSong = useSongStore()
-const { isPlaying, currentTrack, currentArtist } = storeToRefs(useSong)
-
-const playFunc = () => {
-    if (currentTrack.value) {
-        useSong.playOrPauseThisSong(currentArtist.value, currentTrack.value)
-        return
-    } 
-    useSong.playFromFirst()
-}
-</script>
-
 <template>
     <div class="p-8 overflow-x-hidden">
         <button
@@ -61,9 +38,6 @@ const playFunc = () => {
                         <Pause v-else fillColor="#181818" :size="25"/>
                     </button>
                     <button type="button">
-                        <!-- <Heart fillColor="#1BD760" :size="30"/> -->
-                    </button>
-                    <button type="button">
                         <DotsHorizontal fillColor="#FFFFFF" :size="25"/>
                     </button>
                 </div>
@@ -94,3 +68,26 @@ const playFunc = () => {
         border-radius: 100%;
     }
 </style>
+
+
+<script setup>
+import SongRow from '../components/SongRow.vue'
+import Play from 'vue-material-design-icons/Play.vue';
+import Pause from 'vue-material-design-icons/Pause.vue';
+import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue';
+import ClockTimeThreeOutline from 'vue-material-design-icons/ClockTimeThreeOutline.vue';
+import artist from '../artist.json'
+
+import { useSongStore } from '../stores/song'
+import { storeToRefs } from 'pinia';
+const useSong = useSongStore()
+const { isPlaying, currentTrack, currentArtist } = storeToRefs(useSong)
+
+const playFunc = () => {
+    if (currentTrack.value) {
+        useSong.playOrPauseThisSong(currentArtist.value, currentTrack.value)
+        return
+    } 
+    useSong.playFromFirst()
+}
+</script>

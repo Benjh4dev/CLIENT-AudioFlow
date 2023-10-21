@@ -1,26 +1,16 @@
 <template>
-  <TopNav></TopNav>
-  <Sidebar></Sidebar>
+  <div class="bg-black p-2 flex min-h-[850px]">
+    <Sidebar></Sidebar>
 
-  <div
-  class="
-      fixed
-      right-0
-      top-0
-      w-[calc(100%-240px)]
-      overflow-auto
-      h-full
-      bg-gradient-to-b
-      from-[#1C1C1C]
-      to-[#070707]
-      "
-      >
-      <div class="mt-[60px]"></div>
+    <div class="bg-[#121212] text-white w-[100%] h-[850px] ml-2 rounded-lg overflow-auto">
+      <TopNav></TopNav>
       <RouterView />
-      <div class="mb-[90px]"></div>
+    </div>
+        
   </div>
-      
-  <MusicPlayer v-if="currentTrack"/>
+  <footer class="bg-black h-[89px]">
+    <MusicPlayer v-if="currentTrack"/>
+  </footer>
 </template>
 
 <script setup lang="ts">
