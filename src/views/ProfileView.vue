@@ -18,7 +18,7 @@
                 </button>
             </div>
             
-            <div class="mt-10 ml-5 hidden sm:block">
+            <div class="mt-10 ml-5 opacity-0 sm:opacity-100 group transition-all duration-300 ease-in-out">
                 <h1 class="text-white text-sm text-bold">Perfil</h1>
                 <h1 class="text-white text-7xl font-extrabold">{{ mainStore.$state.user?.username }}</h1>
                 <div class="flex mt-4">
