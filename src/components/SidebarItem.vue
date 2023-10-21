@@ -2,7 +2,7 @@
     <RouterLink 
         v-if="pageUrl"
         :to="pageUrl || '/'"
-        class="flex h-12 hover:bg-[#1A1A1A] transition-all duration-300 ease-in-out rounded-lg" 
+        class="w-[67px] md:w-[100%] flex h-12 hover:bg-[#1A1A1A] transition-all duration-300 ease-in-out rounded-lg" 
         @mouseenter="isHover" 
         @mouseleave="isHover">
         
@@ -20,7 +20,7 @@
     <div 
         v-if="!pageUrl"
         @click=""
-        class="flex h-12 hover:bg-[#1A1A1A] transition-all duration-300 ease-in-out rounded-lg cursor-pointer" 
+        class="w-[67px] md:w-[100%] flex h-12 hover:bg-[#1A1A1A] transition-all duration-300 ease-in-out rounded-lg cursor-pointer" 
         @mouseenter="isHover" 
         @mouseleave="isHover">
         

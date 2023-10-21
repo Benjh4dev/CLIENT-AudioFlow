@@ -1,7 +1,7 @@
 <template>
     <RouterLink 
       to="/library" 
-      class="flex h-18 hover:bg-[#1A1A1A] transition-all duration-300 ease-in-out rounded-lg" 
+      class="w-[67px] md:w-[100%] flex h-18 hover:bg-[#1A1A1A] transition-all duration-300 ease-in-out rounded-lg" 
       @mouseenter="isHover" 
       @mouseleave="isHover">
       

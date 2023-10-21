@@ -1,7 +1,7 @@
 <template>
     <EditEmailModal v-if="showEditEmailModal" @close="showEditEmailModal = false"/>
     <ChangeUserPhotoModal v-if="showChangeUserPhotoModal" @close="showChangeUserPhotoModal = false"/>
-    <div class="pl-8 pt-4 h-[30%] w-[100%] bg-gradient-to-b from-[#505a88] to-[#2d373f]">
+    <div class="pl-8 pt-1.5 h-[30%] w-[100%] bg-gradient-to-b from-[#505a88] to-[#2d373f]">
         <div class="flex">
             <div class="relative group hover:bg-opacity-50 cursor-pointer" @mouseover="showPencil = true" @mouseleave="showPencil = false">
                 <button @click="openChangeUserPhotoModal">
