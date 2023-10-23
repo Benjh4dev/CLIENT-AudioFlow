@@ -62,6 +62,7 @@
                                             <input @change="updateSongName" class="absolute w-0 h-0 opacity-0" id="song" type="file" accept="audio/wav, audio/mp3">
                                             {{ songName || 'Selecciona una canción' }}
                                         </label>
+                                        <p v-if="errors.audio_file" class="text-xs text-red-600 mt-2">{{ errors.audio_file[0] }}</p>
                                     </div>
 
                                     <div class="mt-4">
@@ -75,6 +76,7 @@
                                             class="absolute w-0 h-0 opacity-0">
                                             {{ coverArtName || 'Selecciona una imagen' }}
                                         </label>
+                                        <p v-if="errors.cover_art" class="text-xs text-red-600 mt-2">{{ errors.cover_art[0] }}</p>
                                     </div>
 
                                 </div>
@@ -94,9 +96,6 @@
                             </div>
                             <!-- Bloque de Abajo Full Width -->
                             <div class="w-full flex flex-col items-center">
-                                <div class="flex justify-center pb-4">
-                                    <!-- <p v-if="Object.keys(errors).length > 0" class="text-xs text-red-600 mt-2">{{ errors }}</p> -->
-                                </div>
                                 <button @click="uploadSong" class="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:text-black hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                                     Subir canción
                                 </button>
@@ -145,21 +144,29 @@ function closeModal(): void {
 };
 
 const updateSongName = (event: Event) => {
-    const input = event.target as HTMLInputElement;
+    const file = (event.target as HTMLInputElement).files?.[0];
 
-    if (input.files && input.files.length > 0) {
-        const file = input.files[0];
+    if (file) {
+        if (!file.type.startsWith('audio/')) {
+            showErrorToast('El archivo seleccionado no es un audio');
+            return;
+        };
         songName.value = file.name;
         formData.value.audio_file = file;
-    }
+    };
 };
 
 const updateCoverArt = (event: Event) => {
     const file = (event.target as HTMLInputElement).files?.[0];
 
     if (file) {
+        if (!file.type.startsWith('image/')) {
+            showErrorToast('El archivo seleccionado no es una imagen');
+            return;
+        };
         formData.value.cover_art = file;
         coverArtName.value = file.name;
+
         const reader = new FileReader();
         reader.onload = (e) => {
             coverArtPreview.value = e.target?.result as string;
@@ -177,14 +184,14 @@ async function uploadSong(): Promise<void> {
         return;
     };
 
-    const uploadPhotoToast = toast.loading('Subiendo canción...', {
+    const uploadSongToast = toast.loading('Subiendo canción...', {
         position: "bottom-right",
         theme: "dark"
     });
 
     try {    
         const response = await userUploadSong(formData.value)
-        toast.update(uploadPhotoToast, {
+        toast.update(uploadSongToast, {
             render: "Canción subida exitosamente",
             autoClose: 3000,
             closeOnClick: true,
@@ -195,8 +202,11 @@ async function uploadSong(): Promise<void> {
         closeModal();
 
     } catch (error: any) {
+        toast.remove(uploadSongToast);
+        showErrorToast('Error al subir la canción');
         if (error.response && error.response.data.error) {
             const mappedErrors = await mapZodErrors(error);
+            console.log(mappedErrors);
             errors.value = mappedErrors;
         };
     };

@@ -148,8 +148,9 @@ async function uploadPhoto(): Promise<void> {
         closeModal();
 
     } catch (error: any) {
+        toast.remove(uploadPhotoToast);
         showErrorToast('Error al subir la imagen');
         errors.value = error.response.data.error;
-    }
+    };
 }
 </script>
