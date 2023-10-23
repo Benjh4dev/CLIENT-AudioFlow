@@ -39,6 +39,7 @@
                                         autocomplete="off"
                                         placeholder="Thriller"
                                         class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm ">
+                                        <p v-if="errors.name" class="text-xs text-red-600 mt-2">{{ errors.name[0] }}</p>
                                     </div>
 
                                     <div class="mt-4">
@@ -52,6 +53,7 @@
                                         autocomplete="off"
                                         placeholder="Michael Jackson"
                                         class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm ">
+                                        <p v-if="errors.artist" class="text-xs text-red-600 mt-2">{{ errors.artist[0] }}</p>
                                     </div>
 
                                     <div class="mt-4">
@@ -65,7 +67,12 @@
                                     <div class="mt-4">
                                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Imagen de la canción</label>
                                         <label class="bg-[#121212] w-[90%] pt-[9px] pl-2 block h-10 text-sm text-white border border-gray-200 rounded-lg cursor-pointer relative overflow-hidden" accept="image/jpeg, image/png, image/jpg">
-                                            <input @change="updateCoverArt" class="absolute w-0 h-0 opacity-0" id="cover_art" type="file" accept="image/jpeg, image/png, image/jpg">
+                                            <input 
+                                            @change="updateCoverArt"
+                                            id="cover_art" 
+                                            type="file" 
+                                            accept="image/jpeg, image/png, image/jpg"
+                                            class="absolute w-0 h-0 opacity-0">
                                             {{ coverArtName || 'Selecciona una imagen' }}
                                         </label>
                                     </div>
@@ -106,9 +113,11 @@
 <script setup lang="ts">
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
 import { ref, defineEmits } from 'vue';
+import { mapZodErrors } from '@/utils/utils';
 import { useMainStore } from '@/stores/main';
-import { showErrorToast } from '@/utils/toast';
 import { UploadSongForm, FormErrors } from '@/interfaces';
+import { showErrorToast } from '@/utils/toast';
+import { uploadSong as userUploadSong } from '@/api/song';
 
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
@@ -117,7 +126,7 @@ const mainStore = useMainStore();
 
 const isOpen = ref<boolean>(true);
 const emits = defineEmits(['close']);
-
+const errors = ref<FormErrors>({});
 const formData = ref<UploadSongForm>({
     name: '',
     artist: '',
@@ -125,14 +134,15 @@ const formData = ref<UploadSongForm>({
     cover_art: null,
 });
 
+const songName = ref<string>('');
+const coverArtName = ref<string>('');
+const coverArtPreview = ref<string | null>(null);
+
+
 function closeModal(): void { 
     isOpen.value = false;
     setTimeout(() => { emits('close'); }, 300);
 };
-
-
-const songName = ref<string>('');
-const coverArtName = ref<string>('');
 
 const updateSongName = (event: Event) => {
     const input = event.target as HTMLInputElement;
@@ -140,15 +150,15 @@ const updateSongName = (event: Event) => {
     if (input.files && input.files.length > 0) {
         const file = input.files[0];
         songName.value = file.name;
+        formData.value.audio_file = file;
     }
 };
-
-const coverArtPreview = ref<string | null>(null);
 
 const updateCoverArt = (event: Event) => {
     const file = (event.target as HTMLInputElement).files?.[0];
 
     if (file) {
+        formData.value.cover_art = file;
         coverArtName.value = file.name;
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -159,5 +169,36 @@ const updateCoverArt = (event: Event) => {
 };
 
 async function uploadSong(): Promise<void> {
+    errors.value = {};
+
+    if(formData.value.name == '' || formData.value.artist == '' ||
+            !formData.value.audio_file?.name || !formData.value.cover_art?.name) {
+        showErrorToast('No pueden haber campos vacíos');
+        return;
+    };
+
+    const uploadPhotoToast = toast.loading('Subiendo canción...', {
+        position: "bottom-right",
+        theme: "dark"
+    });
+
+    try {    
+        const response = await userUploadSong(formData.value)
+        toast.update(uploadPhotoToast, {
+            render: "Canción subida exitosamente",
+            autoClose: 3000,
+            closeOnClick: true,
+            closeButton: true,
+            type: 'success',
+            isLoading: false,
+        });
+        closeModal();
+
+    } catch (error: any) {
+        if (error.response && error.response.data.error) {
+            const mappedErrors = await mapZodErrors(error);
+            errors.value = mappedErrors;
+        };
+    };
 }
 </script>
