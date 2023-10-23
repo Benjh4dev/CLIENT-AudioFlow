@@ -13,3 +13,8 @@ export async function uploadSong(data: UploadSongForm) {
     });
     return response.data;
 };
+
+export async function fetchSongs() {
+    const response = await api.get("/song");
+    return response.data;
+};
