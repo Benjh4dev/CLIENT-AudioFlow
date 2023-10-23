@@ -31,27 +31,27 @@
                 <DialogTitle as="h3" class="text-lg font-medium leading-6 text-white mb-4">¡Cambia tu correo electrónico!</DialogTitle>
                 <form @submit.prevent="submitForm" class="mt-6">
 
-                <div class="mt-4">
-                  <label for="email" class="block text-sm text-gray-400">Nuevo correo electrónico</label>
-                  <input 
-                    type="text" 
-                    id="email" 
-                    name="email"
-                    autocomplete="off"
-                    v-model="formData.email"
-                    placeholder="nuevo correo electrónico"
-                    class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
-                  <p v-if="errors.email" class="text-xs text-red-600 mt-2">{{ errors.email[0] }}</p>
-                </div>
-                
+                  <div class="mt-4">
+                    <label for="email" class="block text-sm text-gray-400">Nuevo correo electrónico</label>
+                    <input 
+                      type="text" 
+                      id="email" 
+                      name="email"
+                      autocomplete="off"
+                      v-model="formData.email"
+                      placeholder="nuevo correo electrónico"
+                      class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
+                    <p v-if="errors.email" class="text-xs text-red-600 mt-2">{{ errors.email[0] }}</p>
+                  </div>
+                  
 
-                <div class="mt-8 flex justify-center pr-8">
-                  <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:text-black hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
-                      Actualizar
-                  </button>
-                </div>
+                  <div class="mt-8 flex justify-center pr-8">
+                    <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:text-black hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                        Actualizar
+                    </button>
+                  </div>
 
-              </form>
+                </form>
               </div>
               
               <!-- Bloque Derecho -->

@@ -1,4 +1,6 @@
 <template>
+    <UploadSongModal v-if="showUploadSongModal" @close="showUploadSongModal = false"></UploadSongModal>
+
     <div class="flex flex-col flex-shrink-0 h-[850px] w-[80px] md:w-[223px] lg:w-[22%] bg-black rounded-lg gap-2">
         <div id="Navigation" class="h-[108px] bg-[#121212] rounded-lg">
             <div class="grid grid-rows-2 gap-y-9">
@@ -10,7 +12,7 @@
                         ml="ml-[19px]" mt="mt-[10px]" w="w-7" h="h-7" 
                         pl="pl-[16px]" pt="pt-[10px]">
                     </SidebarItem>
-                    <SidebarItem 
+                    <SidebarItem
                         pageUrl="/search"
                         iconUrl="/images/icons/search-icon.png" 
                         message="Buscar" 
@@ -23,12 +25,16 @@
         <div v-if="mainStore.$state.token" id="Actions" class="h-[108px] bg-[#121212] rounded-lg">
             <div class="grid grid-rows-2 gap-y-9">
                 <ul class="p-1.5">
-                    <SidebarItem 
-                        iconUrl="/images/icons/upload-icon.png" 
-                        message="Subir Canción" 
-                        ml="ml-[17px]" mt="mt-[10px]" w="w-8" h="h-8" 
-                        pl="pl-[16px]" pt="pt-[10px]">
-                    </SidebarItem>
+                    <button 
+                        @click="openUploadSongModal"
+                        class="w-[67px] md:w-[100%] flex h-12 hover:bg-[#1A1A1A] transition-all duration-300 ease-in-out rounded-lg">
+                        <SidebarItem 
+                            iconUrl="/images/icons/upload-icon.png" 
+                            message="Subir Canción" 
+                            ml="ml-[17px]" mt="mt-[10px]" w="w-8" h="h-8" 
+                            pl="pl-[16px]" pt="pt-[10px]">
+                        </SidebarItem>
+                    </button>
                     <SidebarItem 
                         iconUrl="/images/icons/playlist-icon.png" 
                         message="Crear Playlist" 
@@ -69,9 +75,19 @@
 </template>
 
 <script setup lang="ts">    
+import { ref } from 'vue';
 import PlaylistItem from '@/components/PlaylistItem.vue';
 import SidebarItem from '@/components/SidebarItem.vue';
 import { useMainStore } from '@/stores/main';
+
+import UploadSongModal from '@/components/UploadSongModal.vue';
+
+let showUploadSongModal = ref(false);
+
+function openUploadSongModal() {
+    mainStore.verifyTokenValidity()
+    showUploadSongModal.value = true
+}
 
 const mainStore = useMainStore();
 </script>
