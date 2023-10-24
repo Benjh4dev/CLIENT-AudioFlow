@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { User, StoreUser, DecodedToken } from '@/interfaces';
+import { User, Song,  StoreUser, DecodedToken } from '@/interfaces';
 import router from '@/router';
 import jwtDecode from "jwt-decode";
 
@@ -9,9 +9,11 @@ export const useMainStore = defineStore({
     state: (): {
         user: User | null;
         token: string;
+        song_playing: Song | null;
     } => ({
         user: null,
         token: "",
+        song_playing: null,
     }),
 
     actions: {
@@ -40,6 +42,10 @@ export const useMainStore = defineStore({
     
             return true;
         },
+
+        playSong(song: Song) {
+            this.song_playing = song;
+        }
     },
     persist: true
 });

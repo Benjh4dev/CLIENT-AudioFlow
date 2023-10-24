@@ -1,5 +1,5 @@
 <template>
-    <RouterLink to="library">
+    <div @click="playSong">
         <div class="bg-[#181818] hover:bg-[#282828] p-4 rounded-md m-2 shadow-xlhover:bg-[#252525] cursor-pointer h-[260px] w-[130px] sm:w-[180px] group transition-all duration-300 ease-in-out">
             <div class="flex justify-center items-center relative h-[150px] w-[100px] sm:w-[148px] transition-all duration-300 ease-in-out">
                 <img class="rounded-md shadow-2xl" :src="coverURL" alt="">
@@ -14,16 +14,15 @@
                 </h6>
             </div>
         </div>
-    </RouterLink>
+    </div>
 </template>
 
 <script setup lang="ts">
 import { toRefs } from 'vue'
-import { RouterLink } from 'vue-router';
-import { useSongStore } from '@/stores/song';
 import { Song } from '@/interfaces';
+import { usePlayerStore } from '@/stores/player';
 
-const songStore = useSongStore();
+const playerStore = usePlayerStore();
 
 const props = defineProps({
     song: {
@@ -32,5 +31,9 @@ const props = defineProps({
     }
 });
 
-const { coverURL, name, artist, audioURL } = toRefs(props.song);
+const { coverURL, name, artist } = toRefs(props.song);
+
+const playSong = () => {
+    playerStore.playSong(props.song);
+};
 </script>

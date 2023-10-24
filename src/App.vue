@@ -8,7 +8,7 @@
     </div>
         
   </div>
-  <footer class="bg-black h-[89px]">
+  <footer class="bg-black h-[96px]">
     <MusicPlayer v-if="currentTrack"/>
   </footer>
 </template>
