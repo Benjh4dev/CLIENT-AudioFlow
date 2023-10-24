@@ -21,6 +21,7 @@ export const usePlayerStore = defineStore({
                     this.lastPlayed.pop();
                 }
             }
+            this.isPlaying = true;
             this.currentSong = song;
         },
         
@@ -30,9 +31,10 @@ export const usePlayerStore = defineStore({
 
         nextSong() {
             if (this.queue.length > 0) {
+                this.isPlaying = true;
                 this.playSong(this.queue.shift()!);
             }
-        },
+        },        
 
         prevSong() {
             if (this.lastPlayed.length > 0) {

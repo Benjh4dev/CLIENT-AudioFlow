@@ -2,7 +2,7 @@
     <div
         id="MusicPlayer"
         v-if="player.currentSong"
-        class="fixed flex items-center justify-between bottom-0 w-[calc(100%)] z-50 h-[90px] bg-black"
+        class="fixed flex items-center justify-between bottom-0 w-[calc(100%)] z-50 h-[105px] bg-black"
     >
         <div class="flex items-center ml-4 w-1/4">
             <img class="rounded-lg shadow-2xl" width="70" :src="player.currentSong.coverURL">
@@ -23,7 +23,7 @@
                         <SkipBackward fillColor="#FFFFFF" :size="25" @click="prevSong"/>
                     </button>
                     <button class="p-1 rounded-full mx-3 bg-white" @click="togglePlay">
-                        <Play v-if="!isPlaying" :size="25"/>
+                        <Play v-if="!player.isPlaying" :size="25"/>
                         <Pause v-else fillColor="#181818" :size="25" />
                     </button>
                     <button class="mx-2">
@@ -77,7 +77,6 @@ import { usePlayerStore } from '@/stores/player';
 const player = usePlayerStore();
 
 let audio = ref(new Audio(player.currentSong?.audioURL));
-let isPlaying = ref(false);
 let isHover = ref(false);
 let range = ref(0);
 
@@ -98,9 +97,10 @@ watch(() => player.volume, (newVolume) => {
 watch(() => player.currentSong, (newSong, oldSong) => {
     if (newSong) {
         audio.value.pause();
-        isPlaying.value = false;
+        player.isPlaying = false;
         audio.value.src = newSong.audioURL;
         audio.value.load();
+        audio.value.onended = handleSongEnd;
         togglePlay();
     }
 });
@@ -118,8 +118,16 @@ const updateAudioTime = () => {
     }
 };
 
+const handleSongEnd = () => {
+    if (player.queue.length === 0) {
+        player.isPlaying = false;
+    } else {
+        player.nextSong();
+    }
+};
+
 const togglePlay = async () => {
-    if (isPlaying.value) {
+    if (player.isPlaying) {
         audio.value.pause();
     } else {
         try {
@@ -129,7 +137,7 @@ const togglePlay = async () => {
             console.error("Error al reproducir el audio:", error);
         }
     }
-    isPlaying.value = !isPlaying.value;
+    player.isPlaying = !player.isPlaying;
 }
 
 const nextSong = () => {
