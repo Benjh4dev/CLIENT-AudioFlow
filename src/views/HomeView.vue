@@ -50,13 +50,20 @@ import SongCard from '@/components/SongCard.vue';
 import { fetchSongs } from '@/api';
 import { onMounted, ref } from 'vue';
 import { Song } from '@/interfaces';
+import { usePlayerStore } from '@/stores/player';
 
+const playerStore = usePlayerStore();
 const systemSongs = ref<Song[]>([]);
 
 onMounted(async () => {
       try {
         const response = await fetchSongs();
         systemSongs.value = response;
+
+        if(playerStore.currentSong === null) {
+          playerStore.playSong(systemSongs.value[0]);
+        }
+        
         console.log(response);
       } catch (error) {
         console.error('Hubo un error al hacer fetch:', error);
