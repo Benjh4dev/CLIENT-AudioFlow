@@ -5,18 +5,13 @@
         </h1>
 
         <div class="pt-4 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
-            <SongCard 
-                v-for="song in systemSongs" 
-                :key="song.id" 
-                :coverURL="song.coverURL" 
-                :name="song.name" 
-                :artist="song.artist" 
-                :audioURL="song.audioURL"
-            />
+            <SongCard
+            v-for="song in systemSongs"
+            :song="song"/>
         </div>
     </div>
 
-    <div class="p-8">
+    <!-- <div class="p-8">
         <h1 class="text-white text-2xl font-semibold pl-2">
             Recientemente añadidas
         </h1>
@@ -46,7 +41,7 @@
             <SongCard coverURL="https://picsum.photos/id/100/300/300" name="name is here" artist="artist is here" />
             <SongCard coverURL="https://picsum.photos/id/65/300/300" name="name is here" artist="artist is here" />
         </div>
-    </div>
+    </div> -->
 </template>
 
 

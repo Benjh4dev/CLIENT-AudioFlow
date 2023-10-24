@@ -21,14 +21,16 @@
 import { toRefs } from 'vue'
 import { RouterLink } from 'vue-router';
 import { useSongStore } from '@/stores/song';
+import { Song } from '@/interfaces';
 
-const songStore = useSongStore()
+const songStore = useSongStore();
 
 const props = defineProps({
-    audioURL: String,
-    coverURL: String,
-    name: String,
-    artist: String
-})
-const { coverURL, name, artist, audioURL } = toRefs(props)
+    song: {
+        type: Object as () => Song,
+        required: true
+    }
+});
+
+const { coverURL, name, artist, audioURL } = toRefs(props.song);
 </script>
