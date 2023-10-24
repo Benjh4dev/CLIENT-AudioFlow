@@ -1,7 +1,7 @@
 <template>
     <UploadSongModal v-if="showUploadSongModal" @close="showUploadSongModal = false"></UploadSongModal>
 
-    <div class="flex flex-col flex-shrink-0 h-[850px] w-[80px] md:w-[223px] lg:w-[22%] bg-black rounded-lg gap-2">
+    <div class="bg-black w-[80px] md:w-[223px] lg:w-[22%] flex flex-col flex-shrink-0 rounded-lg gap-2">
         <div id="Navigation" class="h-[108px] bg-[#121212] rounded-lg">
             <div class="grid grid-rows-2 gap-y-9">
                 <ul class="p-1.5">

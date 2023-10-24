@@ -2,7 +2,7 @@
     <div
         id="MusicPlayer"
         v-if="player.currentSong"
-        class="fixed flex items-center justify-between bottom-0 w-[calc(100%)] z-50 h-[105px] bg-black"
+        class="bg-black w-[calc(100%)] sm:h-[110px] z-50 fixed flex items-center justify-between bottom-0"
     >
         <div class="flex items-center ml-4 w-1/4">
             <img class="rounded-lg shadow-2xl" width="70" :src="player.currentSong.coverURL">
