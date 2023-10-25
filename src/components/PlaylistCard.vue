@@ -10,7 +10,7 @@
                 aspect-square 
                 relative 
                 overflow-hidden
-                w-[150px]
+                w-[130px]
                 sm:w-[200px]
                 group
                 hover:scale-105

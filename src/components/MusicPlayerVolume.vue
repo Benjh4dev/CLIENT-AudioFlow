@@ -34,28 +34,31 @@
     </div>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue'
-
+<script lang="ts" setup>
+import { ref, onMounted, watch } from 'vue'
 import VolumeMute from 'vue-material-design-icons/VolumeMute.vue';
 import VolumeHigh from 'vue-material-design-icons/VolumeHigh.vue';
+import { usePlayerStore } from '@/stores/player';
 
-import { useSongStore } from '../stores/song'
-import { storeToRefs } from 'pinia';
-const useSong = useSongStore()
-const { audio } = storeToRefs(useSong)
+const player = usePlayerStore();
 
 let isHover = ref(false)
+let vol = ref(player.volume)
+let volume = ref<HTMLInputElement | null>(null)
 
-// PLAYER REFS
-let vol = ref(80)
-let volume = ref(null)
+watch(vol, (newVolume) => {
+    player.updateVolume(newVolume);
+});
 
 onMounted(() => {
-    volume.value.addEventListener("input", (e) => {
-        audio.value.volume = e.currentTarget.value / 100;
-    });
-})
+    if (volume.value) {
+        volume.value.addEventListener("input", (e) => {
+            const volumeValue = parseInt((e.currentTarget as HTMLInputElement).value);  // <-- Afirmación de tipo aquí
+            vol.value = volumeValue;
+        });
+    }
+});
+
 </script>
 
 <style>

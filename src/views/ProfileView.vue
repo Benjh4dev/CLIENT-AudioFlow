@@ -1,7 +1,7 @@
 <template>
     <EditEmailModal v-if="showEditEmailModal" @close="showEditEmailModal = false"/>
     <ChangeUserPhotoModal v-if="showChangeUserPhotoModal" @close="showChangeUserPhotoModal = false"/>
-    <div class="pl-8 pt-1.5 h-[30%] w-[100%] bg-gradient-to-b from-[#505a88] to-[#2d373f]">
+    <div class="pl-8 pt-1.5 bg-gradient-to-b from-[#505a88] to-[#2d373f] overflow-hidden">
         <div class="flex pl-8 sm:p-0">
             <div class="relative group hover:bg-opacity-50 cursor-pointer" @mouseover="showPencil = true" @mouseleave="showPencil = false">
                 <button @click="openChangeUserPhotoModal">
@@ -39,12 +39,12 @@
         <div class="py-2"></div>
 
         <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
-            <SongCard pic_url="https://picsum.photos/id/30/300/300" name="name is here" artist="artist is here" />
-            <SongCard pic_url="https://picsum.photos/id/45/300/300" name="name is here" artist="artist is here" />
-            <SongCard pic_url="https://picsum.photos/id/65/300/300" name="name is here" artist="artist is here" />
-            <SongCard pic_url="https://picsum.photos/id/67/300/300" name="name is here" artist="artist is here" />
-            <SongCard pic_url="https://picsum.photos/id/100/300/300" name="name is here" artist="artist is here" />
-            <SongCard pic_url="https://picsum.photos/id/65/300/300" name="name is here" artist="artist is here" />
+            <!-- <SongCard coverURL="https://picsum.photos/id/30/300/300" name="name is here" artist="artist is here" />
+            <SongCard coverURL="https://picsum.photos/id/45/300/300" name="name is here" artist="artist is here" />
+            <SongCard coverURL="https://picsum.photos/id/65/300/300" name="name is here" artist="artist is here" />
+            <SongCard coverURL="https://picsum.photos/id/67/300/300" name="name is here" artist="artist is here" />
+            <SongCard coverURL="https://picsum.photos/id/100/300/300" name="name is here" artist="artist is here" />
+            <SongCard coverURL="https://picsum.photos/id/65/300/300" name="name is here" artist="artist is here" /> -->
         </div>
     </div>
 </template>

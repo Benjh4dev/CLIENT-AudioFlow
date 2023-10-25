@@ -27,3 +27,11 @@ export interface ChangePasswordForm {
 export interface ChangePhotoForm {
   file: File | null
 };
+
+
+export interface UploadSongForm {
+  name: string;
+  artist: string;
+  audio_file: File | null;
+  cover_art: File | null;
+};
