@@ -2,7 +2,7 @@
   <div class="bg-black p-2 flex h-[86vh] sm:h-[86vh] xl:h-[89vh]">
     <Sidebar></Sidebar>
 
-    <div class="bg-[#121212] text-white w-[100vw] ml-2 rounded-lg overflow-hidden">
+    <div class="bg-[#121212] text-white w-[100vw] ml-2 rounded-lg overflow-auto">
       <TopNav></TopNav>
       <RouterView />
     </div>
