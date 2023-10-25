@@ -1,14 +1,14 @@
 <template>
-  <div class="bg-black p-2 flex h-[70vh] sm:h-[86vh] xl:h-[89vh]">
+  <div class="bg-black p-2 flex h-[86vh] sm:h-[86vh] xl:h-[89vh]">
     <Sidebar></Sidebar>
 
-    <div class="bg-[#121212] text-white w-[100%] ml-2 rounded-lg overflow-auto">
+    <div class="bg-[#121212] text-white w-[100vw] ml-2 rounded-lg overflow-hidden">
       <TopNav></TopNav>
       <RouterView />
     </div>
         
   </div>
-  <footer class="bg-black h-[30vh] sm:h-[14vh] xl:h-[11vh]">
+  <footer class="bg-black h-[14vh] sm:h-[14vh] xl:h-[11vh]">
     <MusicPlayer v-if="currentSong"/>
   </footer>
 </template>
