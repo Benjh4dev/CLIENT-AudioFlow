@@ -6,8 +6,9 @@ export async function uploadSong(data: UploadSongForm) {
     const mainStore = useMainStore();
     mainStore.verifyTokenValidity();
 
-    const response = await api.post(`/song`, data, {
+    const response = await api.post(`/song/${mainStore.$state.user?.id}`, data, {
         headers: {
+            'Authorization': `Bearer ${mainStore.$state.token}`,
             'Content-type': 'multipart/form-data',
         }
     });

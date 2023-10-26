@@ -202,6 +202,7 @@ async function uploadSong(): Promise<void> {
         closeModal();
 
     } catch (error: any) {
+        console.log(error)
         toast.remove(uploadSongToast);
         showErrorToast('Error al subir la canción');
         if (error.response && error.response.data.error) {

@@ -38,6 +38,6 @@ const playSong = () => {
 };
 
 const doSomething = () => {
-    console.log('do something');
+    console.log('do something', props.song.user_id);
 };
 </script>
