@@ -87,7 +87,7 @@ import { useMainStore } from '@/stores/main';
 import { changeEmail as changeUserEmail } from '@/api/user';
 import { mapZodErrors } from '@/utils/utils';
 import { ChangeEmailForm, FormErrors } from '@/interfaces';
-import { showSuccessToast } from '@/utils/toast';
+import { showSuccessToast, showErrorToast } from '@/utils/toast';
 
 const mainStore = useMainStore();
 
@@ -107,14 +107,14 @@ function closeModal(): void {
 async function submitForm(): Promise<void> {
   errors.value = {};
   
-  if(formData.value.email == mainStore.$state.user?.email) {
-    closeModal();
-    return;
-  }
-  
   try {
     console.log(formData.value);
     await changeUserEmail(formData.value);
+    if(formData.value.email == mainStore.$state.user?.email) {
+      showErrorToast('Tu email es el mismo que el anterior');
+      return;
+    };
+
     closeModal();
     showSuccessToast("Correo electrónico actualizado", 2000);
     setTimeout(() => { mainStore.logoutUser(); }, 2000);

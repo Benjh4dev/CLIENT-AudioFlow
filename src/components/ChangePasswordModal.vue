@@ -99,7 +99,7 @@ import { useMainStore } from '@/stores/main';
 import { changePassword as changeUserPassword } from '@/api/user';
 import { mapZodErrors } from '@/utils/utils';
 import { ChangePasswordForm, FormErrors } from '@/interfaces'
-import { showSuccessToast } from '@/utils/toast';
+import { showSuccessToast, showErrorToast } from '@/utils/toast';
 
 const mainStore = useMainStore();
 
