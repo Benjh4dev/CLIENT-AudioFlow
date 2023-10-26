@@ -28,7 +28,7 @@
                     </button>
                 </div>
                 
-                <h6 class="text-white mt-7 text-bold">0 Playlists • 0 Canciones </h6>
+                <h6 class="text-white mt-7 text-bold">{{ userPlaylistCounter }} Playlists • {{ userSongsCounter }} Canciones </h6>
             </div>
         </div>
     </div>
@@ -61,10 +61,13 @@ const showPencil = ref(false);
 
 const userSongs = ref<Song[]>([]);
 
+const userSongsCounter = ref(0);
+const userPlaylistCounter = ref(0);
+
 onMounted(async () => {
     try {
     const response = await fetchUserSongs();
-    console.log(response.data);
+    userSongsCounter.value = response.length;
     userSongs.value = response;
     
     } catch (error) {
