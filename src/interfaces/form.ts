@@ -15,6 +15,7 @@ export interface LoginForm {
 };
 
 export interface ChangeEmailForm {
+  password: string;
   email: string; 
 };
 

@@ -32,6 +32,19 @@
                 <form @submit.prevent="submitForm" class="mt-6">
 
                   <div class="mt-4">
+                    <label for="password" class="block text-sm text-gray-400">Contraseña actual</label>
+                    <input 
+                      type="password" 
+                      id="password" 
+                      name="password"
+                      autocomplete="off"
+                      v-model="formData.password"
+                      placeholder="contraseña actual"
+                      class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm">
+                    <p v-if="errors.password" class="text-xs text-red-600 mt-2">{{ errors.password[0] }}</p>
+                  </div>
+
+                  <div class="mt-4">
                     <label for="email" class="block text-sm text-gray-400">Nuevo correo electrónico</label>
                     <input 
                       type="text" 
@@ -82,6 +95,7 @@ const isOpen = ref<boolean>(true);
 const emits = defineEmits(['close']);
 const errors = ref<FormErrors>({});
 const formData = ref<ChangeEmailForm>({
+  password: '',
   email: mainStore.$state.user?.email || '',
 });
 
@@ -99,6 +113,7 @@ async function submitForm(): Promise<void> {
   }
   
   try {
+    console.log(formData.value);
     await changeUserEmail(formData.value);
     closeModal();
     showSuccessToast("Correo electrónico actualizado", 2000);
