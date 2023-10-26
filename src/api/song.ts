@@ -19,3 +19,11 @@ export async function fetchSongs() {
     const response = await api.get("/song");
     return response.data;
 };
+
+export async function fetchUserSongs() {
+    const mainStore = useMainStore();
+    mainStore.verifyTokenValidity();
+    
+    const response = await api.get(`/song/${mainStore.$state.user?.id}`);
+    return response.data;
+};

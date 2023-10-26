@@ -1,7 +1,7 @@
 <template>
     <div class="p-8">
         <h1 class="text-white text-2xl font-semibold pl-2">
-            Tus canciones
+            Todas las canciones
         </h1>
 
         <div class="pt-4 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">

@@ -36,22 +36,20 @@
         <h1 class="text-white text-2xl font-semibold pl-2">
             Tus canciones
         </h1>
-        <div class="py-2"></div>
 
-        <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
-            <!-- <SongCard coverURL="https://picsum.photos/id/30/300/300" name="name is here" artist="artist is here" />
-            <SongCard coverURL="https://picsum.photos/id/45/300/300" name="name is here" artist="artist is here" />
-            <SongCard coverURL="https://picsum.photos/id/65/300/300" name="name is here" artist="artist is here" />
-            <SongCard coverURL="https://picsum.photos/id/67/300/300" name="name is here" artist="artist is here" />
-            <SongCard coverURL="https://picsum.photos/id/100/300/300" name="name is here" artist="artist is here" />
-            <SongCard coverURL="https://picsum.photos/id/65/300/300" name="name is here" artist="artist is here" /> -->
+        <div class="pt-4 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
+            <SongCard
+            v-for="song in userSongs"
+            :song="song"/>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { Song } from '@/interfaces';
 import { useMainStore } from '@/stores/main';
+import { fetchUserSongs } from '@/api'
 import Avatar from 'vue-avatar/src/Avatar.vue';
 import Pencil from 'vue-material-design-icons/Pencil.vue';
 import EditEmailModal from '../components/EditEmailModal.vue';
@@ -60,6 +58,19 @@ import SongCard from '../components/SongCard.vue';
 
 const mainStore = useMainStore();
 const showPencil = ref(false);
+
+const userSongs = ref<Song[]>([]);
+
+onMounted(async () => {
+    try {
+    const response = await fetchUserSongs();
+    console.log(response.data);
+    userSongs.value = response;
+    
+    } catch (error) {
+    console.error('Hubo un error al hacer fetch de las canciones del usuario:', error);
+    }
+});
 
 let showEditEmailModal = ref(false);
 function openEditUserModal() {
