@@ -24,6 +24,11 @@ export async function fetchUserSongs() {
     const mainStore = useMainStore();
     mainStore.verifyTokenValidity();
     
-    const response = await api.get(`/song/${mainStore.$state.user?.id}`);
+    const response = await api.get(`/song/${mainStore.$state.user?.id}`, {
+        headers: {
+        'Authorization': `Bearer ${mainStore.$state.token}`,
+    }
+});
+
     return response.data;
 };
