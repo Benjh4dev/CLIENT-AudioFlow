@@ -25,8 +25,8 @@ const systemSongs = ref<Song[]>([]);
 
 onMounted(async () => {
     try {
-    const response = await fetchSongs();
-    systemSongs.value = response;
+    const response = await fetchSongs('');
+    systemSongs.value = response.songs;
 
     if(playerStore.currentSong === null) {
         playerStore.playSong(systemSongs.value[0]);
