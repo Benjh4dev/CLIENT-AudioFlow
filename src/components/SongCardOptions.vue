@@ -1,5 +1,9 @@
 <template>
-    <LoginModal v-if="showLoginModal" @close="showLoginModal = false" />
+    <ConfirmationModal
+    v-if="showConfirmationModal"
+    @close="showConfirmationModal = false"
+    @confirm="deleteSongAndCloseModal"
+    />
 
     <Menu as="div" class="relative pl-1" id="songOptions">
         <div>
@@ -47,7 +51,7 @@
                     </MenuItem>
                     <MenuItem v-if="isUserSong" v-slot="{ active }">
                     <button
-                        @click="deleteSong()"
+                        @click="showConfirmationModal = true"
                         :class="[
                         active ? 'bg-red-950 text-white' : 'text-red-500',
                         'group flex w-full items-center px-2 py-2 text-sm border-t border-gray-700',
@@ -60,19 +64,30 @@
             </MenuItems>
         </transition>
     </Menu>
+
+
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
+import { Song } from '@/interfaces';
 import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue';
 import { usePlayerStore } from '@/stores/player';
 import { useMainStore } from '@/stores/main';
-import { Song } from '@/interfaces';
-import { showSuccessToast } from '@/utils/toast';
+import { showErrorToast, showSuccessToast } from '@/utils/toast';
+import { deleteUserSong } from '@/api'
+import ConfirmationModal from '@/components/ConfirmationModal.vue';
+
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 const playerStore = usePlayerStore();
 const mainStore = useMainStore();
+const isUserSong = ref(false);
+
+const errors = ref<string>('');
+const showConfirmationModal = ref(false);
 
 const props = defineProps({
     song: {
@@ -81,18 +96,11 @@ const props = defineProps({
     }
 });
 
-let showLoginModal = ref(false);
-const isUserSong = ref(false);
-
 onMounted(() => {
     if (props.song.user_id == mainStore.user?.id) {
         isUserSong.value = true;
     }
 })
-
-function openLoginModal() {
-    showLoginModal.value = true;
-}
 
 const addToQueue = () => {
     playerStore.addToQueue(props.song)
@@ -104,10 +112,35 @@ const addToPlaylist = () => {
     console.log('Add to playlist WIP');
 };
 
-const deleteSong = () => {
-    console.log('Delete song');
-};
 
+const deleteSongAndCloseModal = async () => {
+    errors.value = '';
+
+    const deleteSongToast = toast.loading('Eliminando canción...', {
+        position: "bottom-right",
+        theme: "dark"
+    });
+
+    try {
+        const response = await deleteUserSong(props.song.id);
+        toast.update(deleteSongToast, {
+            render: "Canción eliminada exitosamente",
+            autoClose: 3000,
+            closeOnClick: true,
+            closeButton: true,
+            type: 'success',
+            isLoading: false,
+        });
+        showConfirmationModal.value = false;
+        console.log(response);
+    } catch (error: any) {
+        toast.remove(deleteSongToast);
+        if (error.response) {
+            errors.value = error.response.data.message;
+        }
+        showErrorToast(errors.value);
+    }
+};
 </script>
 
 <style scoped>
