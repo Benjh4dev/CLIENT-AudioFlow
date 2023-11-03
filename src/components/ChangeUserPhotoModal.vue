@@ -60,7 +60,7 @@
                                 <div class="flex justify-center pb-4">
                                     <p v-if="Object.keys(errors).length > 0" class="text-xs text-red-600 mt-2">{{ errors }}</p>
                                 </div>
-                                <button @click="uploadPhoto" :disabled="isUploading" class="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:text-black hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                                <button @click="uploadPhoto" :disabled="isUploading" :class="{'bg-red-600 hover:bg-red-200': isUploading}" class="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:text-black hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                                     Actualizar foto
                                 </button>
                             </div>
