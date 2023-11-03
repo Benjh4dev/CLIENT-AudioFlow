@@ -149,13 +149,12 @@ async function uploadPhoto(): Promise<void> {
 
         mainStore.$state.user = response.userWithId;
         closeModal();
-        isUploading.value = false;
 
     } catch (error: any) {
         toast.remove(uploadPhotoToast);
         showErrorToast('Error al subir la imagen');
         errors.value = error.response.data.error;
         isUploading.value = false;
-    };
+    }
 }
 </script>

@@ -201,7 +201,6 @@ async function uploadSong(): Promise<void> {
             isLoading: false,
         });
         closeModal();
-        isUploading.value = false;
 
     } catch (error: any) {
         toast.remove(uploadSongToast);
