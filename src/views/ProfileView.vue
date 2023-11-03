@@ -72,25 +72,29 @@ const isFetching = ref(true);
 const userSongsCounter = ref(0);
 const userPlaylistCounter = ref(0);
 
-onMounted(async () => {
-    try {
-    const response = await fetchUserSongs();
-    isFetching.value = false;
-    userSongsCounter.value = response.length;
-    userSongs.value = response;
-    
-    } catch (error) {
-    console.error('Hubo un error al hacer fetch de las canciones del usuario:', error);
-    }
-});
-
 let showEditEmailModal = ref(false);
 function openEditUserModal() {
     showEditEmailModal.value = true;
-}
+};
 
 let showChangeUserPhotoModal = ref(false);
 function openChangeUserPhotoModal() {
     showChangeUserPhotoModal.value = true;
-}
+};
+
+const getUserSongs = async () => {
+    try {
+        const response = await fetchUserSongs();
+        isFetching.value = false;
+        userSongsCounter.value = response.length;
+        userSongs.value = response;
+    
+    } catch (error) {
+    console.error('Hubo un error al hacer fetch de las canciones del usuario:', error);
+    }
+};
+
+onMounted(async () => {
+    getUserSongs();
+});
 </script>

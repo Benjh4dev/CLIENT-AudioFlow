@@ -112,18 +112,22 @@ const setActiveFilter = (filter: string) => {
   handleSearch();
 };
 
-onMounted(async () => {
-  try {
-    const response = await fetchSongs('');
-    isFetching.value = false;
-    systemSongs.value = response.songs;
-    console.log(response);
+const getSongs = async () => {
+    try {
+        const response = await fetchSongs('');
+        isFetching.value = false;
+        systemSongs.value = response.songs;
 
-    if (playerStore.currentSong === null) {
-      playerStore.playSong(systemSongs.value[0]);
-    }
-  } catch (error) {
+        if(playerStore.currentSong === null) {
+            playerStore.playSong(systemSongs.value[0]);
+        }
+        console.log(response);
+    } catch (error) {
     console.error('Hubo un error al hacer fetch:', error);
-  }
+    }
+};
+
+onMounted(async () => {
+    getSongs();
 });
 </script>
