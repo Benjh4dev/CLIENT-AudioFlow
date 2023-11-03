@@ -4,6 +4,11 @@
         <h1 class="text-white text-2xl font-semibold pl-1">Busca lo que te apetezca...</h1>
         <div class="bg-[#313030] rounded-full p-2 w-[280px] mt-4 sm:w-[400px]">
             <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 pt-0.5 flex items-center pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="16" height="16" viewBox="0,0,256,256">
+                    <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(5.12,5.12)"><path d="M21,3c-9.39844,0 -17,7.60156 -17,17c0,9.39844 7.60156,17 17,17c3.35547,0 6.46094,-0.98437 9.09375,-2.65625l12.28125,12.28125l4.25,-4.25l-12.125,-12.09375c2.17969,-2.85937 3.5,-6.40234 3.5,-10.28125c0,-9.39844 -7.60156,-17 -17,-17zM21,7c7.19922,0 13,5.80078 13,13c0,7.19922 -5.80078,13 -13,13c-7.19922,0 -13,-5.80078 -13,-13c0,-7.19922 5.80078,-13 13,-13z"></path></g></g>
+                    </svg>
+                </div>
             <input
                 v-model="searchTerm"
                 @input="handleSearch"
@@ -34,7 +39,7 @@
             <h1 v-if="searchTerm" class="text-white text-2xl font-semibold pl-2">Tu búsqueda...</h1>
             <h1 v-else class="text-white text-2xl font-semibold pl-2">Últimas canciones</h1>
 
-            <div class="pt-4 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div class="pt-4 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-12">
                 <SongCard
                 v-if="!searchTerm"
                 v-for="song in systemSongs"
