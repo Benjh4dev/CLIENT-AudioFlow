@@ -32,3 +32,16 @@ export async function fetchUserSongs() {
 
     return response.data;
 };
+
+export async function deleteUserSong(song_id: string) {
+    const mainStore = useMainStore();
+    mainStore.verifyTokenValidity();
+    
+    const response = await api.delete(`/song/${song_id}`, {
+        headers: {
+        'Authorization': `Bearer ${mainStore.$state.token}`,
+        }
+    });
+
+    return response.data;
+};
