@@ -96,7 +96,7 @@
                             </div>
                             <!-- Bloque de Abajo Full Width -->
                             <div class="w-full flex flex-col items-center">
-                                <button @click="uploadSong" class="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:text-black hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                                <button @click="uploadSong" :disabled="isUploading" class="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:text-black hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                                     Subir canción
                                 </button>
                             </div>
@@ -113,7 +113,6 @@
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
 import { ref, defineEmits } from 'vue';
 import { mapZodErrors } from '@/utils/utils';
-import { useMainStore } from '@/stores/main';
 import { UploadSongForm, FormErrors } from '@/interfaces';
 import { showErrorToast } from '@/utils/toast';
 import { uploadSong as userUploadSong } from '@/api/song';
@@ -121,7 +120,6 @@ import { uploadSong as userUploadSong } from '@/api/song';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
-const mainStore = useMainStore();
 
 const isOpen = ref<boolean>(true);
 const emits = defineEmits(['close']);
@@ -136,6 +134,8 @@ const formData = ref<UploadSongForm>({
 const songName = ref<string>('');
 const coverArtName = ref<string>('');
 const coverArtPreview = ref<string | null>(null);
+
+const isUploading = ref<boolean>(false);
 
 
 function closeModal(): void { 
@@ -188,8 +188,9 @@ async function uploadSong(): Promise<void> {
         position: "bottom-right",
         theme: "dark"
     });
-
-    try {    
+    isUploading.value = true;
+    
+    try {
         const response = await userUploadSong(formData.value)
         toast.update(uploadSongToast, {
             render: "Canción subida exitosamente",
@@ -200,9 +201,9 @@ async function uploadSong(): Promise<void> {
             isLoading: false,
         });
         closeModal();
+        isUploading.value = false;
 
     } catch (error: any) {
-        console.log(error)
         toast.remove(uploadSongToast);
         showErrorToast('Error al subir la canción');
         if (error.response && error.response.data.error) {
@@ -210,6 +211,7 @@ async function uploadSong(): Promise<void> {
             console.log(mappedErrors);
             errors.value = mappedErrors;
         };
+        isUploading.value = false;
     };
 }
 </script>

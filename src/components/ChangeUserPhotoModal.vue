@@ -60,7 +60,7 @@
                                 <div class="flex justify-center pb-4">
                                     <p v-if="Object.keys(errors).length > 0" class="text-xs text-red-600 mt-2">{{ errors }}</p>
                                 </div>
-                                <button @click="uploadPhoto" class="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:text-black hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                                <button @click="uploadPhoto" :disabled="isUploading" class="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:text-black hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                                     Actualizar foto
                                 </button>
                             </div>
@@ -94,6 +94,8 @@ const previewImageUrl = ref<string | null>(null);
 const formData = ref<ChangePhotoForm>({
     file: null
 });
+
+const isUploading = ref<boolean>(false);
 
 function closeModal(): void { 
     isOpen.value = false;
@@ -132,6 +134,7 @@ async function uploadPhoto(): Promise<void> {
         position: "bottom-right",
         theme: "dark"
     });
+    isUploading.value = true;
 
     try {    
         const response = await changeUserPhoto(formData.value)
@@ -146,11 +149,13 @@ async function uploadPhoto(): Promise<void> {
 
         mainStore.$state.user = response.userWithId;
         closeModal();
+        isUploading.value = false;
 
     } catch (error: any) {
         toast.remove(uploadPhotoToast);
         showErrorToast('Error al subir la imagen');
         errors.value = error.response.data.error;
+        isUploading.value = false;
     };
 }
 </script>
