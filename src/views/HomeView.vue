@@ -4,7 +4,7 @@
             Todas las canciones
         </h1>
 
-        <div class="pt-4 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-y-12">
+        <div class="pt-4 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-y-12">
             <SongCard
             v-for="song in systemSongs"
             :song="song"/>

@@ -39,7 +39,7 @@
             <h1 v-if="searchTerm" class="text-white text-2xl font-semibold pl-2">Tu búsqueda...</h1>
             <h1 v-else class="text-white text-2xl font-semibold pl-2">Últimas canciones</h1>
 
-            <div class="pt-4 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-12">
+            <div class="pt-4 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-y-12">
                 <SongCard
                 v-if="!searchTerm"
                 v-for="song in systemSongs"

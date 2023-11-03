@@ -37,7 +37,7 @@
             Tus canciones
         </h1>
 
-        <div class="pt-4 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-12">
+        <div class="pt-4 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-y-12">
             <SongCard
             v-for="song in userSongs"
             :song="song"/>
