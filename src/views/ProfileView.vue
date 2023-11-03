@@ -39,7 +39,7 @@
 
         <div class="pt-4 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-y-12">
             <SongCard
-            v-for="song in userSongs"
+            v-for="song in mainStore.mySongs"
             :song="song"/>
         </div>
     </div>
@@ -54,7 +54,6 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { Song } from '@/interfaces';
 import { useMainStore } from '@/stores/main';
 import { fetchUserSongs } from '@/api'
 import Avatar from 'vue-avatar/src/Avatar.vue';
@@ -66,7 +65,6 @@ import SongCard from '../components/SongCard.vue';
 const mainStore = useMainStore();
 const showPencil = ref(false);
 
-const userSongs = ref<Song[]>([]);
 const isFetching = ref(true);
 
 const userSongsCounter = ref(0);
@@ -87,7 +85,7 @@ const getUserSongs = async () => {
         const response = await fetchUserSongs();
         isFetching.value = false;
         userSongsCounter.value = response.length;
-        userSongs.value = response;
+        mainStore.loadMySongs(response)
     
     } catch (error) {
     console.error('Hubo un error al hacer fetch de las canciones del usuario:', error);
@@ -95,6 +93,7 @@ const getUserSongs = async () => {
 };
 
 onMounted(async () => {
+    if(!mainStore.mySongs) return;
     getUserSongs();
 });
 </script>

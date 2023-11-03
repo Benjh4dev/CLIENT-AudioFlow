@@ -6,7 +6,7 @@
 
         <div class="pt-4 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-y-12">
             <SongCard
-            v-for="song in systemSongs"
+            v-for="song in mainStore.systemSongs"
             :song="song"/>
         </div>
     </div>
@@ -23,21 +23,22 @@
 import SongCard from '@/components/SongCard.vue';
 import { fetchSongs } from '@/api';
 import { onMounted, ref } from 'vue';
-import { Song } from '@/interfaces';
+import { useMainStore } from '@/stores/main';
 import { usePlayerStore } from '@/stores/player';
 
+const mainStore = useMainStore();
 const playerStore = usePlayerStore();
-const systemSongs = ref<Song[]>([]);
+
 const isFetching = ref(true);
 
 const getSongs = async () => {
     try {
         const response = await fetchSongs('');
         isFetching.value = false;
-        systemSongs.value = response.songs;
+        mainStore.loadSongs(response.songs);
 
         if(playerStore.currentSong === null) {
-            playerStore.playSong(systemSongs.value[0]);
+            playerStore.playSong(mainStore.systemSongs[0]);
         }
         console.log(response);
     } catch (error) {
@@ -46,6 +47,7 @@ const getSongs = async () => {
 };
 
 onMounted(async () => {
+    mainStore.clearSystemSongs();
     getSongs();
 });
 </script>

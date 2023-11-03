@@ -116,10 +116,12 @@ import { mapZodErrors } from '@/utils/utils';
 import { UploadSongForm, FormErrors } from '@/interfaces';
 import { showErrorToast } from '@/utils/toast';
 import { uploadSong as userUploadSong } from '@/api/song';
+import { useMainStore } from '@/stores/main';
 
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
+const mainStore = useMainStore();
 
 const isOpen = ref<boolean>(true);
 const emits = defineEmits(['close']);
@@ -200,6 +202,7 @@ async function uploadSong(): Promise<void> {
             type: 'success',
             isLoading: false,
         });
+        mainStore.addSystemSong(response.song);
         closeModal();
 
     } catch (error: any) {

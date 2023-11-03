@@ -42,7 +42,7 @@
                 <div class="pt-4 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-y-12">
                     <SongCard
                     v-if="!searchTerm"
-                    v-for="song in systemSongs"
+                    v-for="song in mainStore.systemSongs"
                     :song="song"/>
                     <SongCard
                     v-else
@@ -85,9 +85,10 @@ import { ref, defineEmits, onMounted } from 'vue';
 import { fetchSongs } from '@/api';
 import { Song } from '@/interfaces';
 import { usePlayerStore } from '@/stores/player';
+import { useMainStore } from '@/stores/main';
 
 const playerStore = usePlayerStore();
-const systemSongs = ref<Song[]>([]);
+const mainStore = useMainStore();
 const isFetching = ref(true);
 
 const searchTerm = ref('');
@@ -98,7 +99,7 @@ const emit = defineEmits(['search']);
 let searchResults = ref<Song[]>([]);
 
 const handleSearch = () => {
-    searchResults.value = systemSongs.value.filter((song) =>
+    searchResults.value = mainStore.systemSongs.filter((song) =>
         song.name.toLowerCase().includes(searchTerm.value.toLowerCase()) || song.artist.toLowerCase().includes(searchTerm.value.toLowerCase())
     );
 
@@ -116,10 +117,10 @@ const getSongs = async () => {
     try {
         const response = await fetchSongs('');
         isFetching.value = false;
-        systemSongs.value = response.songs;
+        mainStore.loadSongs(response.songs);
 
         if(playerStore.currentSong === null) {
-            playerStore.playSong(systemSongs.value[0]);
+            playerStore.playSong(mainStore.systemSongs[0]);
         }
         console.log(response);
     } catch (error) {
@@ -128,6 +129,7 @@ const getSongs = async () => {
 };
 
 onMounted(async () => {
+    mainStore.clearSystemSongs();
     getSongs();
 });
 </script>

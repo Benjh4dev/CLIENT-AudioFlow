@@ -132,7 +132,7 @@ const deleteSongAndCloseModal = async () => {
     });
 
     try {
-        const response = await deleteUserSong(props.song.id);
+        await deleteUserSong(props.song.id);
         toast.update(deleteSongToast, {
             render: "Canción eliminada exitosamente",
             autoClose: 3000,
@@ -142,7 +142,7 @@ const deleteSongAndCloseModal = async () => {
             isLoading: false,
         });
         showConfirmationModal.value = false;
-        console.log(response);
+        mainStore.deleteSystemSong(props.song);
     } catch (error: any) {
         toast.remove(deleteSongToast);
         if (error.response) {

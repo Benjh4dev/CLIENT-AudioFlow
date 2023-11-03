@@ -9,9 +9,13 @@ export const useMainStore = defineStore({
     state: (): {
         user: User | null;
         token: string;
+        mySongs: Song[];
+        systemSongs: Song[];
     } => ({
         user: null,
         token: "",
+        mySongs: [],
+        systemSongs: [],
     }),
 
     actions: {
@@ -23,6 +27,7 @@ export const useMainStore = defineStore({
         logoutUser() {
             this.user = null;
             this.token = "";
+            this.mySongs = [];
             router.push('/');
             window.location.reload();
         },
@@ -40,6 +45,28 @@ export const useMainStore = defineStore({
     
             return true;
         },
+
+
+        loadMySongs(songs: Song[]) {
+            this.mySongs = songs;
+        },
+        loadSongs(songs: Song[]) {
+            this.systemSongs = songs;
+        },
+        addSystemSong(song: Song) {
+            this.systemSongs.push(song);
+            this.mySongs.push(song);
+        },
+        clearSystemSongs() {
+            this.systemSongs = [];
+        },
+        clearMySongs() {
+            this.mySongs = [];
+        },
+        deleteSystemSong(song: Song) {
+            this.systemSongs = this.systemSongs.filter(s => s.id !== song.id);
+            this.mySongs = this.mySongs.filter(s => s.id !== song.id);
+        }
     },
     persist: true
 });
