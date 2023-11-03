@@ -1,7 +1,7 @@
 <template>
 
     <div @contextmenu.prevent="doSomething">
-        <div class="bg-[#181818] hover:bg-[#282828] p-4 rounded-md m-2 shadow-xlhover:bg-[#252525] cursor-pointer h-[260px] w-[130px] sm:w-[180px] group transition-all duration-300 ease-in-out">
+        <div class="bg-[#181818] hover:bg-[#282828] pr-4 pl-4 rounded-md m-2 shadow-xlhover:bg-[#252525] cursor-pointer h-[260px] w-[130px] sm:w-[180px] sm:pt-4 group transition-all duration-300 ease-in-out">
             <div class="flex justify-center items-center relative h-[150px] w-[100px] sm:w-[148px] transition-all duration-300 ease-in-out">
                 <img class="rounded-md shadow-2xl" :src="props.song.coverURL" alt="">
                 <img @click="playSong"
