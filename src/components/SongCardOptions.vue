@@ -24,7 +24,7 @@
             leave-to-class="transform scale-95 opacity-0"
         >
             <MenuItems
-            class="absolute right-0 w-40 rounded-md bg-black shadow-2xl"
+            class="absolute right-1 w-40 rounded-md bg-black shadow-2xl"
             >
                 <div class="px-1 py-1">
                     <MenuItem v-slot="{ active }">
@@ -155,6 +155,6 @@ const deleteSongAndCloseModal = async () => {
 
 <style scoped>
 #songOptions {
-  z-index: 50;
+  z-index: 10;
 }
 </style>

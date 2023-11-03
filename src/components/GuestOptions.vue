@@ -29,7 +29,7 @@
         >
             <MenuItems
             class="absolute right-0 mt-2 w-38 origin-top-right divide-y divide-gray-100 rounded-md 
-            bg-[#282828] shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none"
+            bg-black shadow-xl ring-1 ring-black ring-opacity-5 focus:outline-none"
             >
                 <div class="px-1 py-1">
                     <MenuItem v-slot="{ active }">
@@ -37,7 +37,7 @@
                         @click="openLoginModal"
                         :class="[
                         active ? 'bg-gray-900 text-white' : 'text-gray-300',
-                        'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                        'group flex w-full items-center px-2 py-2 text-sm border-b border-gray-700',
                         ]"
                     >
                         Iniciar sesión
@@ -49,7 +49,7 @@
                         @click="openRegisterModal"
                         :class="[
                         active ? 'bg-gray-900 text-white' : 'text-gray-300',
-                        'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                        'group flex w-full items-center px-2 py-2 text-sm',
                         ]"
                     >
                         Registrarse
