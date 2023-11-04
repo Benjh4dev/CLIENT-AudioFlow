@@ -4,6 +4,7 @@
             Todas las canciones
         </h1>
 
+
         <div class="pt-4 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-y-12">
             <SongCard
             v-for="song in mainStore.systemSongs"
@@ -25,6 +26,8 @@ import { fetchSongs } from '@/api';
 import { onMounted, ref } from 'vue';
 import { useMainStore } from '@/stores/main';
 import { usePlayerStore } from '@/stores/player';
+
+import { getMusicPlayer } from '@/api';
 
 const mainStore = useMainStore();
 const playerStore = usePlayerStore();
