@@ -6,4 +6,4 @@ export interface Playlist {
     name: string;
     pic_url: string;
     songs: Song[];
-}
+};

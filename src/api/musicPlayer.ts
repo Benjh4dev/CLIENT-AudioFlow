@@ -1,7 +1,6 @@
-// DEFINIR FUNCIONES DE ESCRITURA Y LECTURA DE DATOS DE LA API DEL MUSIC PLAYER
-import { Song } from "@/interfaces";
 import { firestore } from "@/services/firestore";
 import { collection, getDocs, query, where } from "firebase/firestore";
+import { Song } from "@/interfaces";
 
 export async function getMusicPlayer(user_id: string) {
     try {
