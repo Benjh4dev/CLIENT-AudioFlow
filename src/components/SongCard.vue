@@ -29,6 +29,7 @@ import { toRefs } from 'vue'
 import { Song } from '@/interfaces';
 import { usePlayerStore } from '@/stores/player';
 import SongCardOptions from './SongCardOptions.vue';
+import { setSong } from '@/api';
 
 const playerStore = usePlayerStore();
 
@@ -44,6 +45,8 @@ const { coverURL, name, artist } = toRefs(props.song);
 const playSong = () => {
     console.log("play song")
     playerStore.playSong(props.song);
+    playerStore.player.currentTime = 0;
+    setSong(playerStore.player.id, props.song);
 };
 
 

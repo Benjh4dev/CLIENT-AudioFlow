@@ -39,6 +39,7 @@ import { ref, onMounted, watch } from 'vue'
 import VolumeMute from 'vue-material-design-icons/VolumeMute.vue';
 import VolumeHigh from 'vue-material-design-icons/VolumeHigh.vue';
 import { usePlayerStore } from '@/stores/player';
+import { updateVolume } from '@/api';
 
 const playerStore = usePlayerStore();
 const player = playerStore.player;
@@ -47,8 +48,15 @@ let isHover = ref(false)
 let vol = ref(player.volume)
 let volume = ref<HTMLInputElement | null>(null)
 
+let volumeTimeout: NodeJS.Timeout | null = null;
 watch(vol, (newVolume) => {
     playerStore.updateVolume(newVolume);
+    if (volumeTimeout) {
+        clearTimeout(volumeTimeout);
+    }
+    volumeTimeout = setTimeout(() => {
+        if (playerStore.player.id !== "") updateVolume(playerStore.player.id, newVolume);
+    }, 1000);
 });
 
 watch(() => player.volume, (newVolume) => {

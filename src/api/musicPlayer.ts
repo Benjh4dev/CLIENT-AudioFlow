@@ -1,5 +1,5 @@
 import { firestore } from "@/services/firestore";
-import { collection, getDocs, query, where, doc, onSnapshot, getDoc } from "firebase/firestore";
+import { collection, getDocs, getDoc, query, where, doc, onSnapshot, updateDoc, addDoc, FieldValue } from "firebase/firestore";
 import { Song } from "@/interfaces";
 
 export async function getMusicPlayer(user_id: string) {
@@ -14,28 +14,50 @@ export async function getMusicPlayer(user_id: string) {
     }
 };
 
-export function playMusicPlayer() {
+export async function togglePlay(playerDocId: string) {
+  const playerDocRef = doc(firestore, "player", playerDocId);
+  const playerDoc = await getDoc(playerDocRef);
 
+  if (playerDoc.exists()) {
+    const isPlaying = playerDoc.data().isPlaying;
+    await updateDoc(playerDocRef, {
+      isPlaying: !isPlaying,
+    });
+    console.log("isPlaying cambiado.");
+  } else {
+    console.log("El documento del reproductor no existe.");
+  }
 };
 
-export function stopMusicPlayer() {
 
+export async function updateVolume(playerDocId: string, volume: number) {
+  const playerDocRef = doc(firestore, "player", playerDocId);
+  await updateDoc(playerDocRef, {
+    volume: volume,
+  });
+  console.log("Volumen cambiado.");
 };
 
-export function updateVolume(volume: number) {
-
+export async function updateCurrentTime(playerDocId: string, currentTime: number) {
+  const playerDocRef = doc(firestore, "player", playerDocId);
+  await updateDoc(playerDocRef, {
+    currentTime: currentTime,
+  });
 };
 
-export function updateCurrentTime(currentTime: number) {
-
+export async function setSong(playerDocId: string, song: Song) {
+  const playerDocRef = doc(firestore, "player", playerDocId);
+  await updateDoc(playerDocRef, {
+    currentSong: song,
+  });
 };
 
-export function setSong(song: Song) {
-
-};
-
-export function addSongToQueue(song: Song) {
-
+export async function addToQueue(playerDocId: string, song: Song) {
+  const playerDocRef = doc(firestore, "player", playerDocId);
+  const queueRef = collection(playerDocRef, "queue");
+  await addDoc(queueRef, {
+    song: song,
+  });
 };
 
 let unsubscribe: (() => void) | null = null;

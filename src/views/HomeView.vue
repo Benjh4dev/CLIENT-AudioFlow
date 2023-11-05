@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 import SongCard from '@/components/SongCard.vue';
-import { fetchSongs } from '@/api';
+import { fetchSongs, setSong } from '@/api';
 import { onMounted, ref } from 'vue';
 import { useMainStore } from '@/stores/main';
 import { usePlayerStore } from '@/stores/player';
@@ -47,9 +47,10 @@ const getSongs = async () => {
         isFetching.value = false;
         mainStore.loadSongs(response.songs);
 
-        if(playerStore.player?.currentSong === null) {
+        if(playerStore.player?.currentSong === null || playerStore.player?.currentSong == undefined) {
+            console.log('asd')
             playerStore.player.currentSong = mainStore.systemSongs[0];
-            // playerStore.playSong(mainStore.systemSongs[0]);
+            setSong(playerStore.player.id, mainStore.systemSongs[0]);
         }
         console.log(response);
     } catch (error) {

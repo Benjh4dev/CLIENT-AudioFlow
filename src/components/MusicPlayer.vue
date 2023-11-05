@@ -73,6 +73,7 @@ import Pause from 'vue-material-design-icons/Pause.vue';
 import SkipBackward from 'vue-material-design-icons/SkipBackward.vue';
 import SkipForward from 'vue-material-design-icons/SkipForward.vue';
 import { usePlayerStore } from '@/stores/player';
+import { updateCurrentTime } from '@/api';
 
 const playerStore = usePlayerStore();
 const player = playerStore.player;
@@ -100,6 +101,18 @@ watch(() => player.currentTime, (newCurrentTime) => {
 });
 
 watch(() => player.currentSong, (newSong, oldSong) => {
+    if(player.currentTime > 0) {
+        if(newSong) {
+            audio.value.pause();
+            player.isPlaying = false;
+            audio.value.src = newSong.audioURL;
+            audio.value.load();
+            audio.value.onended = handleSongEnd;
+            range.value = playerStore.player.currentTime / audio.value.duration * 100;
+            audio.value.currentTime = playerStore.player.currentTime;
+            return;
+        };
+    };
     if (newSong) {
         audio.value.pause();
         player.isPlaying = false;
@@ -107,7 +120,7 @@ watch(() => player.currentSong, (newSong, oldSong) => {
         audio.value.load();
         audio.value.onended = handleSongEnd;
         togglePlay();
-    }
+    };
 });
 
 audio.value.ontimeupdate = () => {
@@ -132,8 +145,10 @@ const handleSongEnd = () => {
 };
 
 const togglePlay = async () => {
+    console.log("toggleplayyyy")
     if (player.isPlaying) {
         audio.value.pause();
+        updateCurrentTime(playerStore.player.id, playerStore.player.currentTime);
     } else {
         try {
             await audio.value.play();
