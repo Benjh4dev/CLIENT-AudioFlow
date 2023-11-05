@@ -27,14 +27,12 @@
 
 <script setup lang="ts">
 import SongCard from '@/components/SongCard.vue';
-import { fetchSongs, setSong } from '@/api';
+import { fetchSongs } from '@/api';
 import { onMounted, ref } from 'vue';
 import { useMainStore } from '@/stores/main';
 import { usePlayerStore } from '@/stores/player';
 
-import { subscribeMusicPlayer } from '@/api';
-
-import { getMusicPlayer } from '@/api';
+import { subscribeMusicPlayer, setSong } from '@/firestore';
 
 const mainStore = useMainStore();
 const playerStore = usePlayerStore();

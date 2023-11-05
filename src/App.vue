@@ -16,17 +16,13 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { RouterView } from 'vue-router'
-import MusicPlayer from './components/MusicPlayer.vue'
-
-import { usePlayerStore } from './stores/player'
-import { storeToRefs } from 'pinia';
-
-import TopNav from './layouts/TopNav.vue';
-import Sidebar from './layouts/Sidebar.vue';
+import TopNav from '@/layouts/TopNav.vue';
+import Sidebar from '@/layouts/Sidebar.vue';
+import MusicPlayer from '@/layouts/MusicPlayer.vue'
+import { usePlayerStore } from '@/stores/player'
 
 const playerStore = usePlayerStore();
 const player = playerStore.player;
-// const { currentSong } = storeToRefs(playerStore)
 
 onMounted(() => { player.isPlaying = false })
 </script>

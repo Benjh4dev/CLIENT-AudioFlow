@@ -1,5 +1,5 @@
 import { firestore } from "@/services/firestore";
-import { collection, getDocs, getDoc, query, where, doc, onSnapshot, updateDoc, addDoc, FieldValue } from "firebase/firestore";
+import { collection, getDocs, getDoc, query, where, doc, onSnapshot, updateDoc, addDoc } from "firebase/firestore";
 import { Song } from "@/interfaces";
 
 export async function getMusicPlayer(user_id: string) {

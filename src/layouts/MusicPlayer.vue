@@ -67,13 +67,13 @@
 
 <script lang="ts" setup>
 import { ref, watch, computed, onMounted, nextTick } from 'vue';
-import MusicPlayerVolume from '../components/MusicPlayerVolume.vue'
+import MusicPlayerVolume from '@/components/MusicPlayerVolume.vue'
 import Play from 'vue-material-design-icons/Play.vue';
 import Pause from 'vue-material-design-icons/Pause.vue';
 import SkipBackward from 'vue-material-design-icons/SkipBackward.vue';
 import SkipForward from 'vue-material-design-icons/SkipForward.vue';
 import { usePlayerStore } from '@/stores/player';
-import { updateCurrentTime } from '@/api';
+import { updateCurrentTime } from '@/firestore';
 
 const playerStore = usePlayerStore();
 const player = playerStore.player;

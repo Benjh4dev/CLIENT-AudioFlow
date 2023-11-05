@@ -1,5 +1,5 @@
 <template>
-    <ChangePasswordModal v-if="showChangePasswordModal" @close="showChangePasswordModal = false"/>
+    <EditPasswordModal v-if="showEditPasswordModal" @close="showEditPasswordModal = false"/>
     <Menu as="div" class="relative inline-block text-left mr-6">
         <div>
             <MenuButton
@@ -80,26 +80,28 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+import { RouterLink } from 'vue-router'
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
+
 import Avatar from 'vue-avatar/src/Avatar.vue';
 import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
 import AccountBox from 'vue-material-design-icons/AccountBox.vue';
 import ShieldEdit from 'vue-material-design-icons/ShieldEdit.vue';
 import AccountRemove from 'vue-material-design-icons/AccountRemove.vue';
-import ChangePasswordModal from '@/components/ChangePasswordModal.vue';
-import { ref } from 'vue';
-import { RouterLink } from 'vue-router'
-import { useMainStore } from '@/stores/main';
 
+import EditPasswordModal from '@/components/modal/EditPasswordModal.vue';
+
+import { useMainStore } from '@/stores/main';
 import { showErrorToast } from '@/utils/toast';
 
 const mainStore = useMainStore();
 
-let showChangePasswordModal = ref(false);
+let showEditPasswordModal = ref(false);
 
 function openChangePasswordModal() {
     mainStore.verifyTokenValidity()
-    showChangePasswordModal.value = true
+    showEditPasswordModal.value = true
 }
 
 function logoutUser() {

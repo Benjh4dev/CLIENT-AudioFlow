@@ -39,7 +39,7 @@ import { ref, onMounted, watch } from 'vue'
 import VolumeMute from 'vue-material-design-icons/VolumeMute.vue';
 import VolumeHigh from 'vue-material-design-icons/VolumeHigh.vue';
 import { usePlayerStore } from '@/stores/player';
-import { updateVolume } from '@/api';
+import { updateVolume } from '@/firestore';
 
 const playerStore = usePlayerStore();
 const player = playerStore.player;
