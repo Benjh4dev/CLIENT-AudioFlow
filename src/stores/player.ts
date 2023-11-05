@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { Player, Song } from '@/interfaces';
+import { loadQueue } from '@/firestore';
 
 export const usePlayerStore = defineStore({
     id: 'player',
@@ -13,7 +14,7 @@ export const usePlayerStore = defineStore({
             id: '',
             user_id: '',
             currentSong: null,
-            queue: [],
+            queue: [] as Song[],
             currentTime: 0,
             volume: 100,
             isPlaying: false,
@@ -24,12 +25,13 @@ export const usePlayerStore = defineStore({
 
     actions: {
         storePlayer(player: Player) {
-            const { id, currentTime, volume, user_id, currentSong } = player;
+            const { id, currentTime, volume, user_id, currentSong, queue } = player;
             this.player.id = id;
+            this.player.user_id = user_id;
             this.player.currentSong = currentSong;
             this.player.currentTime = currentTime;
             this.player.volume = volume;
-            this.player.user_id = user_id;
+            this.player.queue = queue;
         },
         
         destorePlayer() {
@@ -37,7 +39,7 @@ export const usePlayerStore = defineStore({
                 id: '',
                 user_id: '',
                 currentSong: null,
-                queue: [],
+                queue: [] as Song[],
                 currentTime: 0,
                 volume: 100,
                 isPlaying: false,

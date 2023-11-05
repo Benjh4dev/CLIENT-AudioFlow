@@ -1,5 +1,5 @@
 import { firestore } from "@/services/firestore";
-import { collection, getDoc, doc, onSnapshot, updateDoc, addDoc } from "firebase/firestore";
+import { collection, getDocs, getDoc, doc, onSnapshot, updateDoc, addDoc, where, query, deleteDoc, orderBy } from "firebase/firestore";
 import { Song } from "@/interfaces";
 
 
@@ -42,10 +42,36 @@ export async function setSong(playerDocId: string, song: Song) {
 export async function addToQueue(playerDocId: string, song: Song) {
   const playerDocRef = doc(firestore, "player", playerDocId);
   const queueRef = collection(playerDocRef, "queue");
+  const clientTimestamp = new Date();
   await addDoc(queueRef, {
     song: song,
+    timestamp: clientTimestamp,
   });
 };
+
+export async function removeFromQueue(playerDocId: string, song: Song) {
+  const playerDocRef = doc(firestore, "player", playerDocId);
+  const queueRef = collection(playerDocRef, "queue");
+  const q = query(queueRef, where("song.id", "==", song.id));
+  
+  const querySnapshot = await getDocs(q);
+
+  querySnapshot.forEach((doc: any) => {
+    deleteDoc(doc.ref);
+  });
+}
+
+export async function loadQueue(playerDocId: string) {
+  const playerDocRef = doc(firestore, "player", playerDocId);
+  const queueRef = collection(playerDocRef, "queue");
+  const q = query(queueRef, orderBy("timestamp"));
+  const querySnapshot = await getDocs(q);
+  const queue: Song[] = [];
+  querySnapshot.forEach((doc) => {
+    queue.push(doc.data().song);
+  });
+  return queue;
+}
 
 let unsubscribe: (() => void) | null = null;
 export function subscribeMusicPlayer(docId: string, callback: (data: any) => void) {

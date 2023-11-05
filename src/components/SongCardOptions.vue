@@ -95,6 +95,8 @@ import { showErrorToast, showSuccessToast } from '@/utils/toast';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
+import { addToQueue as addToQueueFS } from '@/firestore';
+
 const playerStore = usePlayerStore();
 const mainStore = useMainStore();
 const isUserSong = ref(false);
@@ -117,6 +119,7 @@ onMounted(() => {
 
 const addToQueue = () => {
     playerStore.addToQueue(props.song)
+    if(mainStore.user) addToQueueFS(playerStore.player.id, props.song);
     showSuccessToast("Canción agregada a la cola")
     console.log('Add to queue');
 };

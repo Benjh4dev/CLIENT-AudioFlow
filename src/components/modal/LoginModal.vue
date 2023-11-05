@@ -85,6 +85,8 @@ import { LoginForm } from '@/interfaces'
 import { showSuccessToast } from '@/utils/toast';
 import { usePlayerStore } from '@/stores/player';
 
+import { loadQueue } from '@/firestore';
+
 const mainStore = useMainStore();
 const playerStore = usePlayerStore();
 
@@ -108,8 +110,9 @@ async function submitForm(): Promise<void> {
     const user = await loginUser(formData.value);
     console.log(user);
     mainStore.loginUser(user);
+    user.player.queue = await loadQueue(user.player.id);
     playerStore.storePlayer(user.player);
-    closeModal()
+    closeModal();
     showSuccessToast("Inicio de sesión exitoso");
 
   } catch (error: any) {
