@@ -44,7 +44,6 @@ const getSongs = async () => {
             playerStore.player.currentSong = mainStore.systemSongs[0];
             if(mainStore.user) setSong(playerStore.player.id, mainStore.systemSongs[0]);
         }
-        console.log(response);
     } catch (error) {
     console.error('Hubo un error al hacer fetch:', error);
     }

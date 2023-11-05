@@ -210,7 +210,6 @@ async function uploadSong(): Promise<void> {
         showErrorToast('Error al subir la canción');
         if (error.response && error.response.data.error) {
             const mappedErrors = await mapZodErrors(error);
-            console.log(mappedErrors);
             errors.value = mappedErrors;
         };
         isUploading.value = false;

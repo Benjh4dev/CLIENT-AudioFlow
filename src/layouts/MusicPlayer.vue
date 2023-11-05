@@ -141,7 +141,7 @@ const togglePlay = async () => {
         
     } else {
         try {
-            await audio.value.play();
+            audio.value.play();
             audio.value.currentTime = player.currentTime;
         } catch (error) {
             console.error("Error al reproducir el audio:", error);
@@ -149,7 +149,6 @@ const togglePlay = async () => {
     };
     player.isPlaying = !player.isPlaying;
     if(mainStore.user) togglePlayFS(playerStore.player.id, player.isPlaying);
-    
 };
 
 const nextSong = () => {
@@ -162,6 +161,10 @@ const nextSong = () => {
 };
 
 const prevSong = () => {
+    if(mainStore.user && playerStore.lastPlayed.length > 0) {
+        let nextSong = playerStore.lastPlayed[0];
+        setSong(playerStore.player.id, nextSong);
+    }
     playerStore.prevSong();
 };
 
@@ -169,7 +172,7 @@ const handleSongEnd = () => {
     if (player.queue.length === 0) {
         player.isPlaying = false;
     } else {
-        playerStore.nextSong();
+        nextSong();
     };
 };
 

@@ -11,7 +11,6 @@ export async function togglePlay(playerDocId: string, isPlaying: boolean) {
     await updateDoc(playerDocRef, {
       isPlaying: isPlaying,
     });
-    console.log("isPlaying cambiado.");
   } else {
     console.log("El documento del reproductor no existe.");
   }
@@ -22,7 +21,6 @@ export async function updateVolume(playerDocId: string, volume: number) {
   await updateDoc(playerDocRef, {
     volume: volume,
   });
-  console.log("Volumen cambiado.");
 };
 
 export async function updateCurrentTime(playerDocId: string, currentTime: number) {

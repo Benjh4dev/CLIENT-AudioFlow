@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 import { Player, Song } from '@/interfaces';
-import { loadQueue } from '@/firestore';
 
 export const usePlayerStore = defineStore({
     id: 'player',

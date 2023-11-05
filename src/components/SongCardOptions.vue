@@ -121,7 +121,6 @@ const addToQueue = () => {
     playerStore.addToQueue(props.song)
     if(mainStore.user) addToQueueFS(playerStore.player.id, props.song);
     showSuccessToast("Canción agregada a la cola")
-    console.log('Add to queue');
 };
 
 const addToPlaylist = () => {
