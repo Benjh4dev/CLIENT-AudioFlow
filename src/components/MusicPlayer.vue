@@ -74,7 +74,8 @@ import SkipBackward from 'vue-material-design-icons/SkipBackward.vue';
 import SkipForward from 'vue-material-design-icons/SkipForward.vue';
 import { usePlayerStore } from '@/stores/player';
 
-const player = usePlayerStore();
+const playerStore = usePlayerStore();
+const player = playerStore.player;
 
 let audio = ref(new Audio(player.currentSong?.audioURL));
 let isHover = ref(false);
@@ -94,6 +95,10 @@ watch(() => player.volume, (newVolume) => {
     audio.value.volume = newVolume / 100;
 });
 
+watch(() => player.currentTime, (newCurrentTime) => {
+    range.value = newCurrentTime / audio.value.duration * 100;
+});
+
 watch(() => player.currentSong, (newSong, oldSong) => {
     if (newSong) {
         audio.value.pause();
@@ -106,7 +111,7 @@ watch(() => player.currentSong, (newSong, oldSong) => {
 });
 
 audio.value.ontimeupdate = () => {
-    player.updateCurrentTime(audio.value.currentTime);
+    playerStore.updateCurrentTime(audio.value.currentTime);
     range.value = (audio.value.currentTime / audio.value.duration) * 100;
 };
 
@@ -114,7 +119,7 @@ const updateAudioTime = () => {
     if (audio.value.duration) {
         const newTime = (range.value / 100) * audio.value.duration;
         audio.value.currentTime = newTime;
-        player.updateCurrentTime(newTime);
+        playerStore.updateCurrentTime(newTime);
     }
 };
 
@@ -122,7 +127,7 @@ const handleSongEnd = () => {
     if (player.queue.length === 0) {
         player.isPlaying = false;
     } else {
-        player.nextSong();
+        playerStore.nextSong();
     }
 };
 
@@ -141,11 +146,11 @@ const togglePlay = async () => {
 }
 
 const nextSong = () => {
-    player.nextSong();
+    playerStore.nextSong();
 }
 
 const prevSong = () => {
-    player.prevSong();
+    playerStore.prevSong();
 }
 
 const formatTime = (seconds: number) => {

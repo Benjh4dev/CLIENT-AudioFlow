@@ -1,4 +1,9 @@
 <template>
+    <button class="bg-black rounded-md text-white" @click="subscribeMusicPlayer('SC6YygpJ2afQkNTGT50O', (data) => {
+        console.log('aaaaa',data)
+    })">
+        PRESIONAME
+    </button>
     <div class="p-8 transition-opacity duration-500" :class="{'opacity-100': !isFetching, 'opacity-0': isFetching}">
         <h1 class="text-white text-2xl font-semibold pl-2">
             Todas las canciones
@@ -27,6 +32,8 @@ import { onMounted, ref } from 'vue';
 import { useMainStore } from '@/stores/main';
 import { usePlayerStore } from '@/stores/player';
 
+import { subscribeMusicPlayer } from '@/api';
+
 import { getMusicPlayer } from '@/api';
 
 const mainStore = useMainStore();
@@ -40,8 +47,9 @@ const getSongs = async () => {
         isFetching.value = false;
         mainStore.loadSongs(response.songs);
 
-        if(playerStore.currentSong === null) {
-            playerStore.playSong(mainStore.systemSongs[0]);
+        if(playerStore.player?.currentSong === null) {
+            playerStore.player.currentSong = mainStore.systemSongs[0];
+            // playerStore.playSong(mainStore.systemSongs[0]);
         }
         console.log(response);
     } catch (error) {

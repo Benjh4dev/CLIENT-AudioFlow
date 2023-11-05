@@ -40,14 +40,19 @@ import VolumeMute from 'vue-material-design-icons/VolumeMute.vue';
 import VolumeHigh from 'vue-material-design-icons/VolumeHigh.vue';
 import { usePlayerStore } from '@/stores/player';
 
-const player = usePlayerStore();
+const playerStore = usePlayerStore();
+const player = playerStore.player;
 
 let isHover = ref(false)
 let vol = ref(player.volume)
 let volume = ref<HTMLInputElement | null>(null)
 
 watch(vol, (newVolume) => {
-    player.updateVolume(newVolume);
+    playerStore.updateVolume(newVolume);
+});
+
+watch(() => player.volume, (newVolume) => {
+  vol.value = newVolume;
 });
 
 onMounted(() => {

@@ -9,7 +9,7 @@
         
   </div>
   <footer class="bg-black h-[14vh] sm:h-[14vh] xl:h-[11vh]">
-    <MusicPlayer v-if="currentSong"/>
+    <MusicPlayer v-if="player.currentSong"/>
   </footer>
 </template>
 
@@ -25,7 +25,8 @@ import TopNav from './layouts/TopNav.vue';
 import Sidebar from './layouts/Sidebar.vue';
 
 const playerStore = usePlayerStore();
-const { currentSong } = storeToRefs(playerStore)
+const player = playerStore.player;
+// const { currentSong } = storeToRefs(playerStore)
 
-onMounted(() => { playerStore.isPlaying = false })
+onMounted(() => { player.isPlaying = false })
 </script>
