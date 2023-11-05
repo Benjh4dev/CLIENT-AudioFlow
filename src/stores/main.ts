@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { User, Song,  StoreUser, DecodedToken } from '@/interfaces';
 import router from '@/router';
 import jwtDecode from "jwt-decode";
+import { usePlayerStore } from './player';
 
 export const useMainStore = defineStore({
     id: 'main',
@@ -25,9 +26,12 @@ export const useMainStore = defineStore({
             router.push('/');
         },
         logoutUser() {
+            const playerStore = usePlayerStore();
+
             this.user = null;
             this.token = "";
             this.mySongs = [];
+            playerStore.destorePlayer();
             router.push('/');
             window.location.reload();
         },

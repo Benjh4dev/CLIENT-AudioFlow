@@ -107,7 +107,7 @@ async function submitForm(): Promise<void> {
   try {
     const user = await loginUser(formData.value);
     console.log(user);
-    // mainStore.loginUser(user);
+    mainStore.loginUser(user);
     playerStore.storePlayer(user.player);
     closeModal()
     showSuccessToast("Inicio de sesión exitoso");

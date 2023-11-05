@@ -24,7 +24,8 @@ export const usePlayerStore = defineStore({
 
     actions: {
         storePlayer(player: Player) {
-            const { currentTime, volume, user_id } = player;
+            const { id, currentTime, volume, user_id } = player;
+            this.player.id = id;
             this.player.currentTime = currentTime;
             this.player.volume = volume;
             this.player.user_id = user_id;
@@ -101,5 +102,5 @@ export const usePlayerStore = defineStore({
             }
         },
     },
-    // persist: true
+    persist: true
 });
