@@ -66,7 +66,7 @@ watch(() => player.volume, (newVolume) => {
 onMounted(() => {
     if (volume.value) {
         volume.value.addEventListener("input", (e) => {
-            const volumeValue = parseInt((e.currentTarget as HTMLInputElement).value);  // <-- Afirmación de tipo aquí
+            const volumeValue = parseInt((e.currentTarget as HTMLInputElement).value);
             vol.value = volumeValue;
         });
     }

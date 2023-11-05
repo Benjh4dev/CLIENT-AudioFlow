@@ -25,11 +25,12 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs } from 'vue'
-import { Song } from '@/interfaces';
-import { usePlayerStore } from '@/stores/player';
 import SongCardOptions from './SongCardOptions.vue';
-import { setSong } from '@/firestore';
+
+import { Song } from '@/interfaces';
+
+import { setSong, updateCurrentTime } from '@/firestore';
+import { usePlayerStore } from '@/stores/player';
 
 const playerStore = usePlayerStore();
 
@@ -40,14 +41,15 @@ const props = defineProps({
     }
 });
 
-const playSong = () => {
-    console.log("play song")
-    playerStore.playSong(props.song);
+const playSong = async () => {
+    console.log('Reproduciendo canción: ', props.song.name);
     playerStore.player.currentTime = 0;
-    setSong(playerStore.player.id, props.song);
+    playerStore.playSong(props.song);
+    await updateCurrentTime(playerStore.player.id, 0)
+    await setSong(playerStore.player.id, props.song);
 };
 
 const doSomething = () => {
-    console.log('do something', props.song.user_id);
+    console.log('ID de la canción: ', props.song.user_id);
 };
 </script>

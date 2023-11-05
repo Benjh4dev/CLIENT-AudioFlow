@@ -1,18 +1,7 @@
 import { firestore } from "@/services/firestore";
-import { collection, getDocs, getDoc, query, where, doc, onSnapshot, updateDoc, addDoc } from "firebase/firestore";
+import { collection, getDoc, doc, onSnapshot, updateDoc, addDoc } from "firebase/firestore";
 import { Song } from "@/interfaces";
 
-export async function getMusicPlayer(user_id: string) {
-    try {
-        const q = query(collection(firestore, "player"), where("user_id", "==", user_id));
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-            console.log(doc.id, " => ", doc.data());
-        });
-    } catch (error) {
-        console.error(error);
-    }
-};
 
 export async function togglePlay(playerDocId: string) {
   const playerDocRef = doc(firestore, "player", playerDocId);
@@ -28,7 +17,6 @@ export async function togglePlay(playerDocId: string) {
     console.log("El documento del reproductor no existe.");
   }
 };
-
 
 export async function updateVolume(playerDocId: string, volume: number) {
   const playerDocRef = doc(firestore, "player", playerDocId);

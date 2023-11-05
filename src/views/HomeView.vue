@@ -1,9 +1,4 @@
 <template>
-    <button class="bg-black rounded-md text-white" @click="subscribeMusicPlayer('SC6YygpJ2afQkNTGT50O', (data) => {
-        console.log('aaaaa',data)
-    })">
-        PRESIONAME
-    </button>
     <div class="p-8 transition-opacity duration-500" :class="{'opacity-100': !isFetching, 'opacity-0': isFetching}">
         <h1 class="text-white text-2xl font-semibold pl-2">
             Todas las canciones
@@ -32,7 +27,7 @@ import { onMounted, ref } from 'vue';
 import { useMainStore } from '@/stores/main';
 import { usePlayerStore } from '@/stores/player';
 
-import { subscribeMusicPlayer, setSong } from '@/firestore';
+import { setSong } from '@/firestore';
 
 const mainStore = useMainStore();
 const playerStore = usePlayerStore();
@@ -46,7 +41,6 @@ const getSongs = async () => {
         mainStore.loadSongs(response.songs);
 
         if(playerStore.player?.currentSong === null || playerStore.player?.currentSong == undefined) {
-            console.log('asd')
             playerStore.player.currentSong = mainStore.systemSongs[0];
             setSong(playerStore.player.id, mainStore.systemSongs[0]);
         }
