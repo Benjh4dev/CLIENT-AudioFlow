@@ -36,8 +36,10 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, watch } from 'vue'
+
 import VolumeMute from 'vue-material-design-icons/VolumeMute.vue';
 import VolumeHigh from 'vue-material-design-icons/VolumeHigh.vue';
+
 import { usePlayerStore } from '@/stores/player';
 import { updateVolume } from '@/firestore';
 
@@ -47,8 +49,8 @@ const player = playerStore.player;
 let isHover = ref(false)
 let vol = ref(player.volume)
 let volume = ref<HTMLInputElement | null>(null)
-
 let volumeTimeout: NodeJS.Timeout | null = null;
+
 watch(vol, (newVolume) => {
     playerStore.updateVolume(newVolume);
     if (volumeTimeout) {
@@ -56,11 +58,11 @@ watch(vol, (newVolume) => {
     }
     volumeTimeout = setTimeout(() => {
         if (playerStore.player.id !== "") updateVolume(playerStore.player.id, newVolume);
-    }, 1000);
+    }, 650);
 });
 
 watch(() => player.volume, (newVolume) => {
-  vol.value = newVolume;
+    vol.value = newVolume;
 });
 
 onMounted(() => {
@@ -69,16 +71,15 @@ onMounted(() => {
             const volumeValue = parseInt((e.currentTarget as HTMLInputElement).value);
             vol.value = volumeValue;
         });
-    }
+    };
 });
-
 </script>
 
 <style>
 .rangeDotHidden[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 0;
-  height: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 0;
+    height: 0;
 }
 </style>
