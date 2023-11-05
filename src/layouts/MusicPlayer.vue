@@ -163,6 +163,7 @@ const nextSong = () => {
 const prevSong = () => {
     if(mainStore.user && playerStore.lastPlayed.length > 0) {
         let nextSong = playerStore.lastPlayed[0];
+        updateCurrentTime(playerStore.player.id, 0);
         setSong(playerStore.player.id, nextSong);
     }
     playerStore.prevSong();
