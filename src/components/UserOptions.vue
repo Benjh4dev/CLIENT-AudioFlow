@@ -93,9 +93,13 @@ import AccountRemove from 'vue-material-design-icons/AccountRemove.vue';
 import EditPasswordModal from '@/components/modal/EditPasswordModal.vue';
 
 import { useMainStore } from '@/stores/main';
+import { usePlayerStore } from '@/stores/player';
 import { showErrorToast } from '@/utils/toast';
 
+import { togglePlay as togglePlayFS, updateCurrentTime } from '@/firestore';
+
 const mainStore = useMainStore();
+const playerStore = usePlayerStore();
 
 let showEditPasswordModal = ref(false);
 
@@ -104,9 +108,13 @@ function openChangePasswordModal() {
     showEditPasswordModal.value = true
 }
 
-function logoutUser() {
+const logoutUser = () => {
+    togglePlayFS(playerStore.player.id, false);
+    updateCurrentTime(playerStore.player.id, playerStore.player.currentTime);
+    
     showErrorToast("Cerrando sesión...", 2000);
     setTimeout(() => {
+        playerStore.destorePlayer();
         mainStore.logoutUser();
     }, 2000);
 }

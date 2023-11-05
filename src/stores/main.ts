@@ -26,16 +26,16 @@ export const useMainStore = defineStore({
             router.push('/');
         },
         logoutUser() {
-            const playerStore = usePlayerStore();
-
+            
             this.user = null;
             this.token = "";
             this.mySongs = [];
-            playerStore.destorePlayer();
             router.push('/');
             window.location.reload();
         },
         verifyTokenValidity() {
+            const playerStore = usePlayerStore();
+
             if (!this.token) {
                 return false;
             }
@@ -44,6 +44,7 @@ export const useMainStore = defineStore({
     
             if (decodedToken.exp * 1000 < Date.now()) {
                 this.logoutUser();
+                playerStore.destorePlayer();
                 return false;
             }
     

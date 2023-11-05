@@ -31,7 +31,9 @@ import { Song } from '@/interfaces';
 
 import { setSong, updateCurrentTime } from '@/firestore';
 import { usePlayerStore } from '@/stores/player';
+import { useMainStore } from '@/stores/main';
 
+const mainStore = useMainStore();
 const playerStore = usePlayerStore();
 
 const props = defineProps({
@@ -43,10 +45,10 @@ const props = defineProps({
 
 const playSong = async () => {
     console.log('Reproduciendo canción: ', props.song.name);
-    playerStore.player.currentTime = 0;
+    
     playerStore.playSong(props.song);
-    await updateCurrentTime(playerStore.player.id, 0)
-    await setSong(playerStore.player.id, props.song);
+    if(mainStore.user) updateCurrentTime(playerStore.player.id, 0)
+    if(mainStore.user) setSong(playerStore.player.id, props.song);
 };
 
 const doSomething = () => {

@@ -42,7 +42,7 @@ const getSongs = async () => {
 
         if(playerStore.player?.currentSong === null || playerStore.player?.currentSong == undefined) {
             playerStore.player.currentSong = mainStore.systemSongs[0];
-            setSong(playerStore.player.id, mainStore.systemSongs[0]);
+            if(mainStore.user) setSong(playerStore.player.id, mainStore.systemSongs[0]);
         }
         console.log(response);
     } catch (error) {

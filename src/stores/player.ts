@@ -42,64 +42,64 @@ export const usePlayerStore = defineStore({
                 volume: 100,
                 isPlaying: false,
             };
+            this.lastPlayed = [];
         },
 
         playSong(song: Song) {
-            const player = this.player;
-            if (player && player.currentSong) {
-                this.lastPlayed.unshift(player.currentSong);
+            if (this.player && this.player.currentSong) {
+                this.lastPlayed.unshift(this.player.currentSong);
                 if (this.lastPlayed.length > 5) {
                     this.lastPlayed.pop();
                 }
             }
-            if (player) {
-                player.isPlaying = true;
-                player.currentSong = song;
+            if (this.player) {
+                this.player.currentTime = 0;
+                this.player.isPlaying = true;
+                this.player.currentSong = song;
             }
         },
         
         addToQueue(song: Song) {
-            const player = this.player;
-            if (player) {
-                player.queue.push(song);
+            if (this.player) {
+                this.player.queue.push(song);
             }
         },
 
         nextSong() {
-            const player = this.player;
-            if (player && player.queue.length > 0) {
-                if (player) {
-                    player.isPlaying = true;
-                    this.playSong(player.queue.shift()!);
+            if (this.player && this.player.queue.length > 0) {
+                if (this.player) {
+                    this.player.currentTime = 0;
+                    this.player.isPlaying = true;
+                    this.playSong(this.player.queue.shift()!);
                 }
             }
         },        
 
         prevSong() {
             if (this.lastPlayed.length > 0) {
-                const player = this.player;
-                if (player && player.currentSong) {
-                    player.queue.unshift(player.currentSong);
+
+                if (this.player && this.player.currentSong) {
+                    this.player.queue.unshift(this.player.currentSong);
                 }
                 const previousSong = this.lastPlayed.shift();
                 if (previousSong == null) return;
-                if (player) {
-                    player.currentSong = previousSong;
+                if (this.player) {
+                    this.player.currentTime = 0;
+                    this.player.isPlaying = true;
+                    this.player.currentSong = previousSong;
                 }
             }
         },
 
         updateCurrentTime(time: number) {
-            const player = this.player;
-            if (player) {
-                player.currentTime = time;
+            if (this.player) {
+                this.player.currentTime = time;
             }
         },
 
         updateVolume(volume: number) {
-            const player = this.player;
-            if (player) {
-                player.volume = volume;
+            if (this.player) {
+                this.player.volume = volume;
             }
         },
     },

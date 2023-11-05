@@ -75,8 +75,10 @@ import SkipBackward from 'vue-material-design-icons/SkipBackward.vue';
 import SkipForward from 'vue-material-design-icons/SkipForward.vue'
 ;
 import { usePlayerStore } from '@/stores/player';
-import { updateCurrentTime } from '@/firestore';
+import { updateCurrentTime, togglePlay as togglePlayFS } from '@/firestore';
+import { useMainStore } from '@/stores/main';
 
+const mainStore = useMainStore();
 const playerStore = usePlayerStore();
 const player = playerStore.player;
 
@@ -135,7 +137,7 @@ const updateAudioTime = () => {
 const togglePlay = async () => {
     if (player.isPlaying) {
         audio.value.pause();
-        await updateCurrentTime(playerStore.player.id, playerStore.player.currentTime);
+        if(mainStore.user) updateCurrentTime(playerStore.player.id, playerStore.player.currentTime);
         
     } else {
         try {
@@ -146,6 +148,8 @@ const togglePlay = async () => {
         };
     };
     player.isPlaying = !player.isPlaying;
+    if(mainStore.user) togglePlayFS(playerStore.player.id, player.isPlaying);
+    
 };
 
 const nextSong = () => {

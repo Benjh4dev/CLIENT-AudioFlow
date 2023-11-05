@@ -3,14 +3,13 @@ import { collection, getDoc, doc, onSnapshot, updateDoc, addDoc } from "firebase
 import { Song } from "@/interfaces";
 
 
-export async function togglePlay(playerDocId: string) {
+export async function togglePlay(playerDocId: string, isPlaying: boolean) {
   const playerDocRef = doc(firestore, "player", playerDocId);
   const playerDoc = await getDoc(playerDocRef);
 
   if (playerDoc.exists()) {
-    const isPlaying = playerDoc.data().isPlaying;
     await updateDoc(playerDocRef, {
-      isPlaying: !isPlaying,
+      isPlaying: isPlaying,
     });
     console.log("isPlaying cambiado.");
   } else {
