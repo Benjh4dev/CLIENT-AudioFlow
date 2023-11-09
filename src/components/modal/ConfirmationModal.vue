@@ -49,8 +49,8 @@ const isOpen = ref<boolean>(true);
 const emits = defineEmits(['close', 'confirm']);
 
 function closeModal(): void {
-    isOpen.value = false;
-    emits('close');
+  isOpen.value = false;
+  setTimeout(() => { emits('close'); }, 300);
 }
 
 function confirmModal(): void {

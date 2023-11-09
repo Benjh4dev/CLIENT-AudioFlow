@@ -76,11 +76,12 @@
 
 <script setup lang="ts">    
 import { ref } from 'vue';
-import PlaylistItem from '@/components/PlaylistItem.vue';
-import SidebarItem from '@/components/SidebarItem.vue';
+
 import { useMainStore } from '@/stores/main';
 
-import UploadSongModal from '@/components/UploadSongModal.vue';
+import PlaylistItem from '@/components/PlaylistItem.vue';
+import SidebarItem from '@/components/SidebarItem.vue';
+import UploadSongModal from '@/components/modal/UploadSongModal.vue';
 
 let showUploadSongModal = ref(false);
 

@@ -1,10 +1,10 @@
 <template>
     <EditEmailModal v-if="showEditEmailModal" @close="showEditEmailModal = false"/>
-    <ChangeUserPhotoModal v-if="showChangeUserPhotoModal" @close="showChangeUserPhotoModal = false"/>
+    <EditPhotoModal v-if="showEditPhotoModal" @close="showEditPhotoModal = false"/>
     <div class="pl-8 pt-1.5 bg-gradient-to-b from-[#505a88] to-[#2d373f] overflow-hidden">
         <div class="flex pl-8 sm:p-0">
             <div class="relative group hover:bg-opacity-50 cursor-pointer" @mouseover="showPencil = true" @mouseleave="showPencil = false">
-                <button @click="openChangeUserPhotoModal">
+                <button @click="openEditPhotoModal">
                     <Avatar 
                     :size="232"
                     color="white"
@@ -23,7 +23,7 @@
                 <h1 class="text-white text-7xl font-extrabold">{{ mainStore.$state.user?.username }}</h1>
                 <div class="flex mt-4">
                     <h6 class="text-white text-bold">{{ mainStore.$state.user?.email }}</h6>
-                    <button class="ml-2 " @click="openEditUserModal">
+                    <button class="ml-2 " @click="openEditModal">
                         <Pencil class="text-white hover:text-gray-950" :size="20"/>
                     </button>
                 </div>
@@ -56,11 +56,14 @@
 import { ref, onMounted } from 'vue';
 import { useMainStore } from '@/stores/main';
 import { fetchUserSongs } from '@/api'
+
 import Avatar from 'vue-avatar/src/Avatar.vue';
 import Pencil from 'vue-material-design-icons/Pencil.vue';
-import EditEmailModal from '../components/EditEmailModal.vue';
-import ChangeUserPhotoModal from '@/components/ChangeUserPhotoModal.vue';
-import SongCard from '../components/SongCard.vue';
+
+import EditEmailModal from '@/components/modal/EditEmailModal.vue';
+import EditPhotoModal from '@/components/modal/EditPhotoModal.vue';
+
+import SongCard from '@/components/SongCard.vue';
 
 const mainStore = useMainStore();
 const showPencil = ref(false);
@@ -71,13 +74,13 @@ const userSongsCounter = ref(0);
 const userPlaylistCounter = ref(0);
 
 let showEditEmailModal = ref(false);
-function openEditUserModal() {
+function openEditModal() {
     showEditEmailModal.value = true;
 };
 
-let showChangeUserPhotoModal = ref(false);
-function openChangeUserPhotoModal() {
-    showChangeUserPhotoModal.value = true;
+let showEditPhotoModal = ref(false);
+function openEditPhotoModal() {
+    showEditPhotoModal.value = true;
 };
 
 const getUserSongs = async () => {

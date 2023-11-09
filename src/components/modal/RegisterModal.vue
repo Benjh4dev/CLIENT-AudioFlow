@@ -112,12 +112,16 @@ import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } fro
 import { ref, defineEmits } from 'vue';
 import { mapZodErrors } from '@/utils/utils';
 import { useMainStore } from '@/stores/main';
+import { usePlayerStore } from '@/stores/player';
 import { register as registerUser, login as loginUser } from '@/api/auth';
 import { RegisterForm, FormErrors } from '@/interfaces'
+
+import { loadQueue, setSong } from '@/firestore';
 
 import { showSuccessToast, showErrorToast } from '@/utils/toast';
 
 const mainStore = useMainStore();
+const playerStore = usePlayerStore();
 
 const isOpen = ref<boolean>(true);
 const emits = defineEmits(['close']);
@@ -152,6 +156,10 @@ async function submitForm(): Promise<void> {
         password: formData.value.password
       });
       mainStore.loginUser(user);
+  
+      user.player.queue = await loadQueue(user.player.id);
+      playerStore.storePlayer(user.player);
+      if(playerStore.player.currentSong) setSong(playerStore.player.id, playerStore.player.currentSong);
       showSuccessToast("Inicio de sesión exitoso");
 
     } catch (error: any) {

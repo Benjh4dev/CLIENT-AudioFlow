@@ -108,7 +108,6 @@ async function submitForm(): Promise<void> {
   errors.value = {};
   
   try {
-    console.log(formData.value);
     await changeUserEmail(formData.value);
     if(formData.value.email == mainStore.$state.user?.email) {
       showErrorToast('Tu email es el mismo que el anterior');
@@ -121,7 +120,6 @@ async function submitForm(): Promise<void> {
 
   } catch (error: any) {
       if (error.response && error.response.data.error) {
-        console.log(error.response);
         const mappedErrors = await mapZodErrors(error);
         errors.value = mappedErrors;
       };

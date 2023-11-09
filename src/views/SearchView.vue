@@ -78,14 +78,17 @@
 </template>
 
 <script setup lang="ts">
+import { ref, defineEmits, onMounted } from 'vue';
+import { Song } from '@/interfaces';
+
 import SongCard from '@/components/SongCard.vue';
 import PlaylistCard from '@/components/PlaylistCard.vue';
 
-import { ref, defineEmits, onMounted } from 'vue';
-import { fetchSongs } from '@/api';
-import { Song } from '@/interfaces';
 import { usePlayerStore } from '@/stores/player';
 import { useMainStore } from '@/stores/main';
+
+import { fetchSongs } from '@/api';
+import { setSong } from '@/firestore';
 
 const playerStore = usePlayerStore();
 const mainStore = useMainStore();
@@ -115,14 +118,15 @@ const setActiveFilter = (filter: string) => {
 
 const getSongs = async () => {
     try {
-        const response = await fetchSongs('');
+        const response = await fetchSongs();
         isFetching.value = false;
         mainStore.loadSongs(response.songs);
 
-        if(playerStore.currentSong === null) {
-            playerStore.playSong(mainStore.systemSongs[0]);
+        if(playerStore.player?.currentSong === null || playerStore.player?.currentSong == undefined) {
+            playerStore.player.currentTime = 0;
+            playerStore.player.currentSong = mainStore.systemSongs[0];
+            if(mainStore.user) setSong(playerStore.player.id, mainStore.systemSongs[0]);
         }
-        console.log(response);
     } catch (error) {
     console.error('Hubo un error al hacer fetch:', error);
     }

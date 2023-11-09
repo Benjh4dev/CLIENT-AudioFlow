@@ -36,36 +36,50 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, watch } from 'vue'
+
 import VolumeMute from 'vue-material-design-icons/VolumeMute.vue';
 import VolumeHigh from 'vue-material-design-icons/VolumeHigh.vue';
-import { usePlayerStore } from '@/stores/player';
 
-const player = usePlayerStore();
+import { usePlayerStore } from '@/stores/player';
+import { updateVolume } from '@/firestore';
+
+const playerStore = usePlayerStore();
+const player = playerStore.player;
 
 let isHover = ref(false)
 let vol = ref(player.volume)
 let volume = ref<HTMLInputElement | null>(null)
+let volumeTimeout: NodeJS.Timeout | null = null;
 
 watch(vol, (newVolume) => {
-    player.updateVolume(newVolume);
+    playerStore.updateVolume(newVolume);
+    if (volumeTimeout) {
+        clearTimeout(volumeTimeout);
+    }
+    volumeTimeout = setTimeout(() => {
+        if (playerStore.player.id !== "") updateVolume(playerStore.player.id, newVolume);
+    }, 650);
+});
+
+watch(() => player.volume, (newVolume) => {
+    vol.value = newVolume;
 });
 
 onMounted(() => {
     if (volume.value) {
         volume.value.addEventListener("input", (e) => {
-            const volumeValue = parseInt((e.currentTarget as HTMLInputElement).value);  // <-- Afirmación de tipo aquí
+            const volumeValue = parseInt((e.currentTarget as HTMLInputElement).value);
             vol.value = volumeValue;
         });
-    }
+    };
 });
-
 </script>
 
 <style>
 .rangeDotHidden[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 0;
-  height: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 0;
+    height: 0;
 }
 </style>

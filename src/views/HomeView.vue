@@ -4,6 +4,7 @@
             Todas las canciones
         </h1>
 
+
         <div class="pt-4 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-y-12">
             <SongCard
             v-for="song in mainStore.systemSongs"
@@ -26,6 +27,8 @@ import { onMounted, ref } from 'vue';
 import { useMainStore } from '@/stores/main';
 import { usePlayerStore } from '@/stores/player';
 
+import { setSong } from '@/firestore';
+
 const mainStore = useMainStore();
 const playerStore = usePlayerStore();
 
@@ -33,14 +36,15 @@ const isFetching = ref(true);
 
 const getSongs = async () => {
     try {
-        const response = await fetchSongs('');
+        const response = await fetchSongs();
         isFetching.value = false;
         mainStore.loadSongs(response.songs);
 
-        if(playerStore.currentSong === null) {
-            playerStore.playSong(mainStore.systemSongs[0]);
+        if(playerStore.player?.currentSong === null || playerStore.player?.currentSong == undefined) {
+            playerStore.player.currentTime = 0;
+            playerStore.player.currentSong = mainStore.systemSongs[0];
+            if(mainStore.user) setSong(playerStore.player.id, mainStore.systemSongs[0]);
         }
-        console.log(response);
     } catch (error) {
     console.error('Hubo un error al hacer fetch:', error);
     }

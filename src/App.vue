@@ -9,23 +9,20 @@
         
   </div>
   <footer class="bg-black h-[14vh] sm:h-[14vh] xl:h-[11vh]">
-    <MusicPlayer v-if="currentSong"/>
+    <MusicPlayer v-if="player.currentSong"/>
   </footer>
 </template>
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { RouterView } from 'vue-router'
-import MusicPlayer from './components/MusicPlayer.vue'
-
-import { usePlayerStore } from './stores/player'
-import { storeToRefs } from 'pinia';
-
-import TopNav from './layouts/TopNav.vue';
-import Sidebar from './layouts/Sidebar.vue';
+import TopNav from '@/layouts/TopNav.vue';
+import Sidebar from '@/layouts/Sidebar.vue';
+import MusicPlayer from '@/layouts/MusicPlayer.vue'
+import { usePlayerStore } from '@/stores/player'
 
 const playerStore = usePlayerStore();
-const { currentSong } = storeToRefs(playerStore)
+const player = playerStore.player;
 
-onMounted(() => { playerStore.isPlaying = false })
+onMounted(() => { player.isPlaying = false })
 </script>

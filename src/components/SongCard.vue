@@ -25,11 +25,15 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs } from 'vue'
-import { Song } from '@/interfaces';
-import { usePlayerStore } from '@/stores/player';
 import SongCardOptions from './SongCardOptions.vue';
 
+import { Song } from '@/interfaces';
+
+import { setSong, togglePlay as togglePlayFS, updateCurrentTime } from '@/firestore';
+import { usePlayerStore } from '@/stores/player';
+import { useMainStore } from '@/stores/main';
+
+const mainStore = useMainStore();
 const playerStore = usePlayerStore();
 
 const props = defineProps({
@@ -39,15 +43,21 @@ const props = defineProps({
     }
 });
 
-const { coverURL, name, artist } = toRefs(props.song);
+const playSong = async () => {
+    console.log('Reproduciendo canción: ', props.song.name);
 
-const playSong = () => {
-    console.log("play song")
+    const currentSong = playerStore.player.currentSong;
+    if(currentSong && currentSong.id === props.song.id) return;
+    
     playerStore.playSong(props.song);
+    if(mainStore.user) {
+        updateCurrentTime(playerStore.player.id, 0);
+        setSong(playerStore.player.id, props.song);
+        togglePlayFS(playerStore.player.id, playerStore.player.isPlaying);
+    };
 };
 
-
 const doSomething = () => {
-    console.log('do something', props.song.user_id);
+    console.log('ID de la canción: ', props.song.user_id);
 };
 </script>

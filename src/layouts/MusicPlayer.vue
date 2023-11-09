@@ -67,14 +67,20 @@
 
 <script lang="ts" setup>
 import { ref, watch, computed, onMounted, nextTick } from 'vue';
-import MusicPlayerVolume from '../components/MusicPlayerVolume.vue'
+import MusicPlayerVolume from '@/components/MusicPlayerVolume.vue'
+
 import Play from 'vue-material-design-icons/Play.vue';
 import Pause from 'vue-material-design-icons/Pause.vue';
 import SkipBackward from 'vue-material-design-icons/SkipBackward.vue';
-import SkipForward from 'vue-material-design-icons/SkipForward.vue';
+import SkipForward from 'vue-material-design-icons/SkipForward.vue'
+;
 import { usePlayerStore } from '@/stores/player';
+import { updateCurrentTime, togglePlay as togglePlayFS, removeFromQueue, setSong } from '@/firestore';
+import { useMainStore } from '@/stores/main';
 
-const player = usePlayerStore();
+const mainStore = useMainStore();
+const playerStore = usePlayerStore();
+const player = playerStore.player;
 
 let audio = ref(new Audio(player.currentSong?.audioURL));
 let isHover = ref(false);
@@ -94,19 +100,29 @@ watch(() => player.volume, (newVolume) => {
     audio.value.volume = newVolume / 100;
 });
 
-watch(() => player.currentSong, (newSong, oldSong) => {
+watch(() => player.currentTime, (newCurrentTime) => {
+    audio.value.onended = handleSongEnd;
+    range.value = newCurrentTime / audio.value.duration * 100;
+});
+
+watch(() => player.currentSong, (newSong) => {
     if (newSong) {
         audio.value.pause();
         player.isPlaying = false;
         audio.value.src = newSong.audioURL;
         audio.value.load();
         audio.value.onended = handleSongEnd;
+        if(player.currentTime != 0) {
+            range.value = playerStore.player.currentTime / audio.value.duration * 100;
+            audio.value.currentTime = playerStore.player.currentTime;
+            return;
+        }
         togglePlay();
-    }
+    };
 });
 
 audio.value.ontimeupdate = () => {
-    player.updateCurrentTime(audio.value.currentTime);
+    playerStore.updateCurrentTime(audio.value.currentTime);
     range.value = (audio.value.currentTime / audio.value.duration) * 100;
 };
 
@@ -114,49 +130,75 @@ const updateAudioTime = () => {
     if (audio.value.duration) {
         const newTime = (range.value / 100) * audio.value.duration;
         audio.value.currentTime = newTime;
-        player.updateCurrentTime(newTime);
+        playerStore.updateCurrentTime(newTime);
+    };
+};
+
+
+const togglePlay = async () => {
+    if (player.isPlaying) {
+        audio.value.pause();
+        if(mainStore.user) updateCurrentTime(playerStore.player.id, playerStore.player.currentTime);
+        
+    } else {
+        try {
+            audio.value.play();
+            audio.value.currentTime = player.currentTime;
+        } catch (error) {
+            console.error("Error al reproducir el audio:", error);
+        };
+    };
+    player.isPlaying = !player.isPlaying;
+    if(mainStore.user) togglePlayFS(playerStore.player.id, player.isPlaying);
+};
+
+const nextSong = () => {
+    if(mainStore.user && player.queue.length > 0) {
+        let nextSong = player.queue[0];
+        setSong(playerStore.player.id, nextSong);
+        removeFromQueue(playerStore.player.id, nextSong);
     }
+    playerStore.nextSong();
+};
+
+const prevSong = () => {
+    if(playerStore.lastPlayed.length === 0) {
+        audio.value.currentTime = 0;
+        if(mainStore.user) {
+            togglePlayFS(playerStore.player.id, player.isPlaying);
+            updateCurrentTime(playerStore.player.id, 0);
+        }
+        return;
+    }
+
+    if(mainStore.user && playerStore.lastPlayed.length > 0) {
+        let nextSong = playerStore.lastPlayed[0];
+        updateCurrentTime(playerStore.player.id, 0);
+        setSong(playerStore.player.id, nextSong);
+    }
+    playerStore.prevSong();
 };
 
 const handleSongEnd = () => {
     if (player.queue.length === 0) {
         player.isPlaying = false;
-    } else {
-        player.nextSong();
-    }
-};
-
-const togglePlay = async () => {
-    if (player.isPlaying) {
-        audio.value.pause();
-    } else {
-        try {
-            await audio.value.play();
-            audio.value.currentTime = player.currentTime;
-        } catch (error) {
-            console.error("Error al reproducir el audio:", error);
+        if(mainStore.user) {
+            togglePlayFS(playerStore.player.id, player.isPlaying);
+            updateCurrentTime(playerStore.player.id, player.currentTime);
         }
-    }
-    player.isPlaying = !player.isPlaying;
-}
-
-const nextSong = () => {
-    player.nextSong();
-}
-
-const prevSong = () => {
-    player.prevSong();
-}
+    } else {
+        nextSong();
+    };
+};
 
 const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
     return `${mins}:${secs.toString().padStart(2, '0')}`;
-}
+};
 
 const formattedCurrentTime = computed(() => formatTime(player.currentTime));
 const formattedDuration = computed(() => player.currentSong ? formatTime(player.currentSong.duration) : '0:00');
-
 </script>
 
 <style>

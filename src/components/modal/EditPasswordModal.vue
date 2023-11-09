@@ -128,7 +128,6 @@ async function submitForm(): Promise<void> {
   
   } catch (error: any) {
       if (error.response && error.response.data.error) {
-        console.log(error.response)
         const mappedErrors = await mapZodErrors(error)
         errors.value = mappedErrors;
       }

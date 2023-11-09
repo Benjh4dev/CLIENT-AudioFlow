@@ -65,13 +65,14 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
+
 import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
 import Account from 'vue-material-design-icons/Account.vue';
 import AccountPlus from 'vue-material-design-icons/AccountPlus.vue';
 import Avatar from 'vue-avatar/src/Avatar.vue';
 
-import LoginModal from '../components/LoginModal.vue';
-import RegisterModal from '../components/RegisterModal.vue';
+import LoginModal from '@/components/modal/LoginModal.vue';
+import RegisterModal from '@/components/modal/RegisterModal.vue';
 
 let showRegisterModal = ref(false);
 let showLoginModal = ref(false);

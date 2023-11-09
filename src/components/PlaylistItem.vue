@@ -30,9 +30,9 @@ import { ref } from 'vue';
 import { RouterLink } from 'vue-router'
 
 const props = defineProps({
-imageUrl: String,
-playlistName: String,
-creatorName: String
+  imageUrl: String,
+  playlistName: String,
+  creatorName: String
 });
 
 let optionIsHover = ref<boolean>(false);
@@ -40,4 +40,4 @@ let optionIsHover = ref<boolean>(false);
 function isHover() {
 optionIsHover.value = !optionIsHover.value;
 }
-</script>  
+</script>

@@ -1,6 +1,6 @@
 import api from '@/services/api';
 import { useMainStore } from '@/stores/main';
-import { ChangePasswordForm, ChangeEmailForm, ChangePhotoForm, UploadSongForm } from '@/interfaces';
+import { ChangePasswordForm, ChangeEmailForm, ChangePhotoForm } from '@/interfaces';
 
 export async function changePassword(data: ChangePasswordForm) {
     const mainStore = useMainStore();
