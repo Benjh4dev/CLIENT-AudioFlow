@@ -101,10 +101,11 @@ watch(() => player.volume, (newVolume) => {
 });
 
 watch(() => player.currentTime, (newCurrentTime) => {
+    audio.value.onended = handleSongEnd;
     range.value = newCurrentTime / audio.value.duration * 100;
 });
 
-watch(() => player.currentSong, (newSong, oldSong) => {
+watch(() => player.currentSong, (newSong) => {
     if (newSong) {
         audio.value.pause();
         player.isPlaying = false;
@@ -161,6 +162,15 @@ const nextSong = () => {
 };
 
 const prevSong = () => {
+    if(playerStore.lastPlayed.length === 0) {
+        audio.value.currentTime = 0;
+        if(mainStore.user) {
+            togglePlayFS(playerStore.player.id, player.isPlaying);
+            updateCurrentTime(playerStore.player.id, 0);
+        }
+        return;
+    }
+
     if(mainStore.user && playerStore.lastPlayed.length > 0) {
         let nextSong = playerStore.lastPlayed[0];
         updateCurrentTime(playerStore.player.id, 0);
@@ -172,6 +182,10 @@ const prevSong = () => {
 const handleSongEnd = () => {
     if (player.queue.length === 0) {
         player.isPlaying = false;
+        if(mainStore.user) {
+            togglePlayFS(playerStore.player.id, player.isPlaying);
+            updateCurrentTime(playerStore.player.id, player.currentTime);
+        }
     } else {
         nextSong();
     };

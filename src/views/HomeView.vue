@@ -36,11 +36,12 @@ const isFetching = ref(true);
 
 const getSongs = async () => {
     try {
-        const response = await fetchSongs('');
+        const response = await fetchSongs();
         isFetching.value = false;
         mainStore.loadSongs(response.songs);
 
         if(playerStore.player?.currentSong === null || playerStore.player?.currentSong == undefined) {
+            playerStore.player.currentTime = 0;
             playerStore.player.currentSong = mainStore.systemSongs[0];
             if(mainStore.user) setSong(playerStore.player.id, mainStore.systemSongs[0]);
         }

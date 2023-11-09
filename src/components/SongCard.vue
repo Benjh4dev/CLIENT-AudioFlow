@@ -29,7 +29,7 @@ import SongCardOptions from './SongCardOptions.vue';
 
 import { Song } from '@/interfaces';
 
-import { setSong, updateCurrentTime } from '@/firestore';
+import { setSong, togglePlay as togglePlayFS, updateCurrentTime } from '@/firestore';
 import { usePlayerStore } from '@/stores/player';
 import { useMainStore } from '@/stores/main';
 
@@ -45,10 +45,16 @@ const props = defineProps({
 
 const playSong = async () => {
     console.log('Reproduciendo canción: ', props.song.name);
+
+    const currentSong = playerStore.player.currentSong;
+    if(currentSong && currentSong.id === props.song.id) return;
     
     playerStore.playSong(props.song);
-    if(mainStore.user) updateCurrentTime(playerStore.player.id, 0)
-    if(mainStore.user) setSong(playerStore.player.id, props.song);
+    if(mainStore.user) {
+        updateCurrentTime(playerStore.player.id, 0);
+        setSong(playerStore.player.id, props.song);
+        togglePlayFS(playerStore.player.id, playerStore.player.isPlaying);
+    };
 };
 
 const doSomething = () => {
