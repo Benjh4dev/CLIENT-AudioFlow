@@ -109,8 +109,8 @@ function openChangePasswordModal() {
 }
 
 const logoutUser = () => {
-    togglePlayFS(playerStore.player.id, false);
     updateCurrentTime(playerStore.player.id, playerStore.player.currentTime);
+    togglePlayFS(playerStore.player.id, false);
     
     showErrorToast("Cerrando sesión...", 2000);
     setTimeout(() => {
