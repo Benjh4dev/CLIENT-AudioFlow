@@ -1,0 +1,28 @@
+name: Docker Compose CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Compose
+      run: docker-compose up -d
+
+    - name: Build and tag the Docker image
+      run: |
+        docker build . --file Dockerfile --tag my-image-name:latest
+        docker-compose down
+
+    - name: Log in to Docker Hub
+      run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+
+    - name: Push Docker image to Docker Hub
+      run: docker push my-image-name:latest
