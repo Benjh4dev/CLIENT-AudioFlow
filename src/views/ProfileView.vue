@@ -54,16 +54,15 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { useMainStore } from '@/stores/main';
-import { fetchUserSongs } from '@/api'
-
+import { fetchUserSongs } from '@/backend'
 import Avatar from 'vue-avatar/src/Avatar.vue';
 import Pencil from 'vue-material-design-icons/Pencil.vue';
+import SongCard from '@/components/SongCard.vue';
 
 import EditEmailModal from '@/components/modal/EditEmailModal.vue';
 import EditPhotoModal from '@/components/modal/EditPhotoModal.vue';
 
-import SongCard from '@/components/SongCard.vue';
+import { useMainStore } from '@/stores/main';
 
 const mainStore = useMainStore();
 const showPencil = ref(false);

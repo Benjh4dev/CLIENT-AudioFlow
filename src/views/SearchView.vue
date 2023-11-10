@@ -78,8 +78,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineEmits, onMounted } from 'vue';
-import { Song } from '@/interfaces';
+import { ref, onMounted } from 'vue';
 
 import SongCard from '@/components/SongCard.vue';
 import PlaylistCard from '@/components/PlaylistCard.vue';
@@ -87,8 +86,9 @@ import PlaylistCard from '@/components/PlaylistCard.vue';
 import { usePlayerStore } from '@/stores/player';
 import { useMainStore } from '@/stores/main';
 
-import { fetchSongs } from '@/api';
+import { Song } from '@/interfaces';
 import { setSong } from '@/firestore';
+import { fetchSongs } from '@/backend';
 
 const playerStore = usePlayerStore();
 const mainStore = useMainStore();
@@ -136,4 +136,4 @@ onMounted(async () => {
     mainStore.clearSystemSongs();
     getSongs();
 });
-</script>
+</script>@/backend

@@ -81,21 +81,19 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
-import { Song } from '@/interfaces';
-
 import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue';
-
-import { usePlayerStore } from '@/stores/player';
-import { useMainStore } from '@/stores/main';
-import { deleteUserSong } from '@/api'
-
 import ConfirmationModal from '@/components/modal/ConfirmationModal.vue';
 
 import { showErrorToast, showSuccessToast } from '@/utils/toast';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
+import { useMainStore } from '@/stores/main';
+import { usePlayerStore } from '@/stores/player';
+
+import { Song } from '@/interfaces';
 import { addToQueue as addToQueueFS } from '@/firestore';
+import { deleteUserSong } from '@/backend'
 
 const playerStore = usePlayerStore();
 const mainStore = useMainStore();

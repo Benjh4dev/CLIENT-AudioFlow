@@ -42,8 +42,8 @@
   </template>
     
 <script setup lang="ts">
+import { ref } from 'vue';
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel } from '@headlessui/vue';
-import { ref, defineEmits } from 'vue';
 
 const isOpen = ref<boolean>(true);
 const emits = defineEmits(['close', 'confirm']);

@@ -110,16 +110,18 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
-import { ref, defineEmits } from 'vue';
-import { mapZodErrors } from '@/utils/utils';
-import { UploadSongForm, FormErrors } from '@/interfaces';
+
+import 'vue3-toastify/dist/index.css';
+import { toast } from 'vue3-toastify';
 import { showErrorToast } from '@/utils/toast';
-import { uploadSong as userUploadSong } from '@/api/song';
+import { mapZodErrors } from '@/utils/utils';
+
 import { useMainStore } from '@/stores/main';
 
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
+import { UploadSongForm, FormErrors } from '@/interfaces';
+import { uploadSong as userUploadSong } from '@/backend';
 
 const mainStore = useMainStore();
 
@@ -215,4 +217,4 @@ async function uploadSong(): Promise<void> {
         isUploading.value = false;
     };
 }
-</script>
+</script>@/backend/song

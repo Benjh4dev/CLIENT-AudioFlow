@@ -77,15 +77,17 @@
 </template>
   
 <script setup lang="ts">
+import { ref } from 'vue';
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
-import { ref, defineEmits } from 'vue';
-import { useMainStore } from '@/stores/main'
-import { login as loginUser } from '@/api/auth'
-import { LoginForm } from '@/interfaces'
+
 import { showSuccessToast } from '@/utils/toast';
+
+import { useMainStore } from '@/stores/main'
 import { usePlayerStore } from '@/stores/player';
 
+import { LoginForm } from '@/interfaces'
 import { loadQueue } from '@/firestore';
+import { login as loginUser } from '@/backend'
 
 const mainStore = useMainStore();
 const playerStore = usePlayerStore();

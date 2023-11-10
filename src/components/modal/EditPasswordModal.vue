@@ -93,13 +93,16 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
-import { ref, defineEmits } from 'vue';
-import { useMainStore } from '@/stores/main';
-import { changePassword as changeUserPassword } from '@/api/user';
+
 import { mapZodErrors } from '@/utils/utils';
+import { showSuccessToast } from '@/utils/toast';
+
+import { useMainStore } from '@/stores/main';
+
 import { ChangePasswordForm, FormErrors } from '@/interfaces'
-import { showSuccessToast, showErrorToast } from '@/utils/toast';
+import { changePassword as changeUserPassword } from '@/backend';
 
 const mainStore = useMainStore();
 

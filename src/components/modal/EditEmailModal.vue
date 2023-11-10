@@ -81,13 +81,16 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
-import { ref, defineEmits } from 'vue';
-import { useMainStore } from '@/stores/main';
-import { changeEmail as changeUserEmail } from '@/api/user';
+
 import { mapZodErrors } from '@/utils/utils';
-import { ChangeEmailForm, FormErrors } from '@/interfaces';
 import { showSuccessToast, showErrorToast } from '@/utils/toast';
+
+import { useMainStore } from '@/stores/main';
+
+import { ChangeEmailForm, FormErrors } from '@/interfaces';
+import { changeEmail as changeUserEmail } from '@/backend';
 
 const mainStore = useMainStore();
 

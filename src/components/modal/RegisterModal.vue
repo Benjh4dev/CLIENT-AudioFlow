@@ -108,15 +108,18 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
-import { ref, defineEmits } from 'vue';
+
 import { mapZodErrors } from '@/utils/utils';
+
 import { useMainStore } from '@/stores/main';
 import { usePlayerStore } from '@/stores/player';
-import { register as registerUser, login as loginUser } from '@/api/auth';
-import { RegisterForm, FormErrors } from '@/interfaces'
 
+import { RegisterForm, FormErrors } from '@/interfaces'
 import { loadQueue, setSong } from '@/firestore';
+import { register as registerUser, login as loginUser } from '@/backend';
+
 
 import { showSuccessToast, showErrorToast } from '@/utils/toast';
 

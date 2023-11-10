@@ -73,17 +73,18 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
-import { ref, defineEmits } from 'vue';
-import { useMainStore } from '@/stores/main';
 import Avatar from 'vue-avatar/src/Avatar.vue';
-import { changePhoto as changeUserPhoto } from '@/api/user';
-import { showErrorToast } from '@/utils/toast';
-import { ChangePhotoForm, FormErrors } from '@/interfaces';
 
-import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
+import { toast } from 'vue3-toastify';
+import { showErrorToast } from '@/utils/toast';
 
+import { useMainStore } from '@/stores/main';
+
+import { ChangePhotoForm, FormErrors } from '@/interfaces';
+import { changePhoto as changeUserPhoto } from '@/backend';
 
 const mainStore = useMainStore();
 
