@@ -90,7 +90,8 @@ const getUserSongs = async () => {
         mainStore.loadMySongs(response)
     
     } catch (error) {
-    console.error('Hubo un error al hacer fetch de las canciones del usuario:', error);
+        isFetching.value = false;
+        console.error('Hubo un error al hacer fetch de las canciones del usuario:', error);
     }
 };
 

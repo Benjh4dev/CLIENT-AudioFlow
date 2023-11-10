@@ -128,7 +128,8 @@ const getSongs = async () => {
             if(mainStore.user) setSong(playerStore.player.id, mainStore.systemSongs[0]);
         }
     } catch (error) {
-    console.error('Hubo un error al hacer fetch:', error);
+        isFetching.value = false;
+        console.error('Hubo un error al hacer fetch:', error);
     }
 };
 
@@ -136,4 +137,4 @@ onMounted(async () => {
     mainStore.clearSystemSongs();
     getSongs();
 });
-</script>@/backend
+</script>
