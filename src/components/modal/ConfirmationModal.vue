@@ -29,7 +29,7 @@
                     <h2 class="text-lg font-semibold text-white">¿Estás seguro de que deseas eliminar esta canción?</h2>
                     <div class="mt-4 flex justify-end">
                         <button @click="closeModal" class="px-3 py-1 mr-2 bg-[#282828] text-white rounded hover:bg-gray-900">Cancelar</button>
-                        <button @click="confirmModal" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-400">Eiminar</button>
+                        <button @click="confirmModal" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-400">Eliminar</button>
                     </div>
                 </div>
   
