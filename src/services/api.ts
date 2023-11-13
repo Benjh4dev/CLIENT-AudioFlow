@@ -4,7 +4,7 @@ const port = 3002;
 // baseURL: `http://localhost:${port}/api`,
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_IP as string,
+  baseURL: import.meta.env.VITE_BACKEND_IP,
   withCredentials: false,
   headers: {
     Accept: 'application/json',
