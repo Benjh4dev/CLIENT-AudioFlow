@@ -17,6 +17,7 @@ jobs:
         VITE_MESSAGING_SENDER_ID: ${{ secrets.VITE_MESSAGING_SENDER_ID }}
         VITE_APP_ID: ${{ secrets.VITE_APP_ID }}
         VITE_BACKEND_IP: ${{ secrets.VITE_BACKEND_IP }}
+        VITE_BACKEND_IP_2: ${{ secrets.VITE_BACKEND_IP_2 }}
 
     steps:
       - name: Checkout
