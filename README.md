@@ -1,4 +1,4 @@
-# AudioFlow Cliente Web
+# AudioFlow Web Client
 
 This is a project developed with Node.js, Vue 3, Vite, and TypeScript. It connects to Firebase to make requests to Firestore and a custom API.
 
