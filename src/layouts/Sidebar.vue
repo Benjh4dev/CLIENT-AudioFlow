@@ -46,7 +46,7 @@
         </div>
 
         <div v-if="mainStore.$state.token" id="Playlists" class="h-[100%] bg-[#121212] rounded-lg">
-            <div class="grid grid-rows-1">
+            <!-- <div class="grid grid-rows-1">
                 <ul class="p-1.5">
                     <SidebarItem 
                         iconUrl="/images/icons/library-icon.png" 
@@ -62,7 +62,7 @@
                     <PlaylistItem imageUrl="https://picsum.photos/id/40/300/300" playlistName="Playlist 2#" creatorName="Carlo Ignacio"></PlaylistItem>
                     <PlaylistItem imageUrl="https://picsum.photos/id/45/300/300" playlistName="Playlist 3#" creatorName="Carlo Ignacio"></PlaylistItem>
                 </ul>
-            </div>
+            </div> -->
         </div>
 
         <div v-if="!mainStore.$state.token" id="Guest" class="h-[100%] bg-[#121212] rounded-lg">

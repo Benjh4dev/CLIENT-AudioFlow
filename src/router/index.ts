@@ -16,10 +16,10 @@ const routes: RouteRecordRaw[] = [
     path: '/search',
     component: SearchView,
   },
-  {
-    path: '/library',
-    component: LibraryView
-  },
+  // {
+  //   path: '/library',
+  //   component: LibraryView
+  // },
   {
     path: '/profile',
     component: ProfileView,

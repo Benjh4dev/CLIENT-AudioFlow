@@ -79,7 +79,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue';
 import ConfirmationModal from '@/components/modal/ConfirmationModal.vue';
@@ -109,10 +109,12 @@ const props = defineProps({
     }
 });
 
+const verifyCanDelete = computed(() => {
+    return props.song.user_id == mainStore.user?.id;
+})
+
 onMounted(() => {
-    if (props.song.user_id == mainStore.user?.id) {
-        isUserSong.value = true;
-    }
+    isUserSong.value = verifyCanDelete.value;
 })
 
 const addToQueue = () => {
