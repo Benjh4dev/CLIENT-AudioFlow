@@ -47,7 +47,8 @@
                     <SongCard
                     v-else
                     v-for="song in searchResults"
-                    :song="song"/>
+                    :song="song"
+                    :key="song.id"/>
                 </div>
             </div>
     

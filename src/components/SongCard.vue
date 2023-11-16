@@ -44,8 +44,6 @@ const props = defineProps({
 });
 
 const playSong = async () => {
-    console.log('Reproduciendo canción: ', props.song.name);
-
     const currentSong = playerStore.player.currentSong;
     if(currentSong && currentSong.id === props.song.id) return;
     
@@ -58,6 +56,6 @@ const playSong = async () => {
 };
 
 const doSomething = () => {
-    console.log('ID de la canción: ', props.song.user_id);
+    //console.log('ID de la canción: ', props.song.user_id);
 };
 </script>

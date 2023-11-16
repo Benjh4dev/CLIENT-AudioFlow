@@ -41,7 +41,7 @@
                         </svg>
                     </button>
                     </MenuItem>
-                    <MenuItem v-slot="{ active }">
+                    <MenuItem v-if="mainStore.user" v-slot="{ active }">
                     <button
                         @click="addToPlaylist()"
                         :class="[
@@ -79,7 +79,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue';
 import ConfirmationModal from '@/components/modal/ConfirmationModal.vue';
@@ -113,10 +113,6 @@ const verifyCanDelete = computed(() => {
     return props.song.user_id == mainStore.user?.id;
 })
 
-onMounted(() => {
-    isUserSong.value = verifyCanDelete.value;
-})
-
 const addToQueue = () => {
     playerStore.addToQueue(props.song)
     if(mainStore.user) addToQueueFS(playerStore.player.id, props.song);
@@ -124,7 +120,7 @@ const addToQueue = () => {
 };
 
 const addToPlaylist = () => {
-    console.log('Add to playlist WIP');
+    //console.log('Add to playlist WIP');
 };
 
 
@@ -156,6 +152,14 @@ const deleteSongAndCloseModal = async () => {
         showErrorToast(errors.value);
     }
 };
+
+watch(() => mainStore.user, () => {
+    isUserSong.value = verifyCanDelete.value;
+})
+
+onMounted(() => {
+    isUserSong.value = verifyCanDelete.value;
+})
 </script>
 
 <style scoped>
