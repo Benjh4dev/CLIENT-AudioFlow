@@ -110,7 +110,6 @@ async function submitForm(): Promise<void> {
   
   try {
     const user = await loginUser(formData.value);
-    console.log(user);
     mainStore.loginUser(user);
     user.player.queue = await loadQueue(user.player.id);
     playerStore.storePlayer(user.player);
