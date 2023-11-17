@@ -1,8 +1,8 @@
 <template>
 
     <div @contextmenu.prevent="doSomething">
-        <div class="bg-[#181818] hover:bg-[#282828] pr-4 pl-4 rounded-md m-2 shadow-xlhover:bg-[#252525] cursor-pointer h-[270px] w-[130px] sm:w-[180px] sm:pt-4 group transition-all duration-300 ease-in-out">
-            <div class="flex justify-center items-center relative h-[150px] w-[100px] sm:w-[148px] transition-all duration-300 ease-in-out">
+        <div class="bg-[#181818] hover:bg-[#282828] pr-4 pl-4 rounded-md m-2 shadow-xlhover:bg-[#252525] cursor-pointer h-[250px] w-[110px] sm:h-[270px] sm:w-[180px] sm:pt-4 group transition-all duration-300 ease-in-out">
+            <div class="flex justify-center items-center relative h-[120px] w-[95px] pr-4 sm:pr-0 sm:h-[150px] sm:w-[148px] transition-all duration-300 ease-in-out">
                 <img class="rounded-md shadow-2xl" :src="props.song.coverURL" alt="">
                 <img @click="playSong"
                 class="absolute bottom-0 right-0 mb-8 mr-1 h-[35px] w-[35px] rounded-md shadow-2xl
