@@ -32,13 +32,13 @@
                                         <label for="name" class="block text-sm text-gray-400">Nombre de la canción</label>
                                         <input
                                         v-model="formData.name"
-                                        :maxlength="30"
+                                        :maxlength="45"
                                         type="text"
                                         id="name"
                                         name="name"
                                         autocomplete="off"
                                         placeholder="Thriller"
-                                        class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm ">
+                                        class="w-[90%] h-10 my-2 py-3 px-4 truncate block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm ">
                                         <p v-if="errors.name" class="text-xs text-red-600 mt-2">{{ errors.name[0] }}</p>
                                     </div>
 
@@ -46,13 +46,13 @@
                                         <label for="artist" class="block text-sm text-gray-400">Nombre del artista</label>
                                         <input
                                         v-model="formData.artist"
-                                        :maxlength="30"
+                                        :maxlength="45"
                                         type="text"
                                         id="artist"
                                         name="artist"
                                         autocomplete="off"
                                         placeholder="Michael Jackson"
-                                        class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm ">
+                                        class="w-[90%] h-10 my-2 py-3 px-4 truncate block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm ">
                                         <p v-if="errors.artist" class="text-xs text-red-600 mt-2">{{ errors.artist[0] }}</p>
                                     </div>
 
@@ -88,8 +88,8 @@
                                         <img :src="coverArtPreview || 'images/cover-art-default.png'" alt="Cover Art Preview" class="w-36 h-36 sm:w-56 sm:h-56 sm:ml-8 rounded group transition-all duration-300 ease-in-out">
                                     </div>
                                     <div class="block pr-3 sm:pl-7">
-                                        <label class="text-white text-sm block pt-7 text-center">{{ formData.name || 'Nombre' }}</label>
-                                        <label class="text-gray-500 font-semibold text-sm block text-center">{{ formData.artist || 'Artista' }}</label>
+                                        <label class="text-white text-sm block pt-7 text-center truncate">{{ formData.name || 'Nombre' }}</label>
+                                        <label class="text-gray-500 font-semibold text-sm block text-center truncate">{{ formData.artist || 'Artista' }}</label>
 
                                     </div>
                                 </div>
