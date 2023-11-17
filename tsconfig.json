@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["cypress", "cypress-file-upload"],
     "outDir": "./dist",
     "target": "esnext",
     "module": "esnext",
