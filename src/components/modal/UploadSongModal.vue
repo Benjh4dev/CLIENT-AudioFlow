@@ -59,7 +59,7 @@
                                     <div class="mt-4">
                                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Archivo de canción</label>
                                         <label class="bg-[#121212] w-[90%] pt-[9px] pl-2 block h-10 text-sm text-white border border-gray-200 rounded-lg cursor-pointer relative overflow-hidden">
-                                            <input @change="updateSongName" class="absolute w-0 h-0 opacity-0" id="song" type="file" accept="audio/wav, audio/mp3">
+                                            <input @change="updateSongName" class="absolute w-0 h-0 opacity-0" id="song_file" type="file" accept="audio/wav, audio/mp3">
                                             {{ songName || 'Selecciona una canción' }}
                                         </label>
                                         <p v-if="errors.audio_file" class="text-xs text-red-600 mt-2">{{ errors.audio_file[0] }}</p>
