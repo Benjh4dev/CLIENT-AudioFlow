@@ -36,3 +36,7 @@ export interface UploadSongForm {
   audio_file: File | null;
   cover_art: File | null;
 };
+
+export interface CreatePlaylistForm {
+  name: string;
+}
