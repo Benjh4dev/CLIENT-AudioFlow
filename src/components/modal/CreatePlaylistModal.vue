@@ -29,7 +29,7 @@
                 <!-- Bloque Izquierdo -->
                 <div class="w-1/2 pr-4 gap-5">
                   <DialogTitle as="h3" class="text-lg font-medium leading-6 text-white mb-4">¡Crea una Playlist!</DialogTitle>
-                  <form @submit.prevent="" class="mt-6">
+                  <form @submit.prevent="submitForm" class="mt-6">
                     <div class="mt-4">
                       <label for="username" class="block text-sm text-gray-400">Nombre de la Playlist</label>
                       <input 
@@ -38,6 +38,7 @@
                         name="playlistName" 
                         autocomplete="off"
                         placeholder="@playlistName"
+                        v-model="formData.name"
                         class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm ">
                 
                     </div>
@@ -66,11 +67,27 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
+import { CreatePlaylistForm } from '@/interfaces';
+import { createPlaylist } from '@/backend/playlist';
 
 const isOpen = ref<boolean>(true);
 
 function closeModal(): void {
   isOpen.value = false;
 }
+
+const formData = ref<CreatePlaylistForm>({
+    name: ''
+});
+
+async function submitForm(): Promise<void> {
+  try {
+    await createPlaylist(formData.value);
+    closeModal();
+  }
+  catch (error: any) {
+    console.log('hubo un error', error)
+  } 
+};
 
 </script>
