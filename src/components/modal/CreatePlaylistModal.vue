@@ -34,10 +34,10 @@
                       <label for="username" class="block text-sm text-gray-400">Nombre de la Playlist</label>
                       <input 
                         type="text" 
-                        id="username" 
-                        name="username" 
+                        id="playlistName" 
+                        name="playlistName" 
                         autocomplete="off"
-                        placeholder="@username"
+                        placeholder="@playlistName"
                         class="w-[90%] h-10 my-2 py-3 px-4 block border-6 bg-gray-950 text-white border-gray-200 rounded-md text-sm focus:border-green-500 focus:ring-green-500 shadow-sm ">
                 
                     </div>
@@ -65,12 +65,12 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-
-
+import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
 
 const isOpen = ref<boolean>(true);
 
 function closeModal(): void {
   isOpen.value = false;
 }
+
 </script>
