@@ -27,5 +27,18 @@ export async function deletePlaylist(playlistId: number) {
     return response.data;
 }
 
+//agregar canción a playlist
+export async function addSongToPlaylist(playlistId: number, songId: number) {
+    const mainStore = useMainStore();
+    mainStore.verifyTokenValidity();
+
+    const response = await api.post(`/playlist/${playlistId}/song/${songId}`, {},{
+        headers: {
+            'Authorization': `Bearer ${mainStore.$state.token}`,
+        }
+    });
+    return response.data;
+}
+
 
 
