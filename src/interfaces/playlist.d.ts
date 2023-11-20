@@ -1,9 +1,8 @@
 import { Song } from './song';
 
 export interface Playlist {
-    id: number;
-    username: string;
+    id: string;
+    user_id: string;
     name: string;
-    pic_url: string;
     songs: Song[];
 };

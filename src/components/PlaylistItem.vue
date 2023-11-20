@@ -6,7 +6,7 @@
       @mouseleave="isHover">
       
       <img 
-        :src="imageUrl" 
+        src="/images/icons/defaultPlaylistImg.png" 
         alt="Cover Image" 
         class="w-16 h-16 rounded-lg p-2">
       
@@ -14,11 +14,11 @@
         <h1 
           class="pl-[6%] pt-[8%] text-lg font-semibold w-max"
           :class="optionIsHover ? 'text-green-500 transition-all duration-300 ease-in' : 'text-white transition-all duration-300 ease-out'">
-          {{ playlistName }}
+          {{ playlist.name }}
         </h1>
         <h3 
           class="text-[#A7A7A7] ml-[6%] text-xs pt-1 w-max hover:underline hover:text-white transition-all duration-300 ease-in-out">
-          {{ creatorName }}
+          {{ mainStore.user?.username }}
         </h3>
 
       </div>
@@ -26,13 +26,16 @@
 </template>
   
 <script setup lang="ts">
+import { useMainStore } from '@/stores/main';
 import { ref } from 'vue';
 import { RouterLink } from 'vue-router'
+import { Playlist } from '@/interfaces';
 
 const props = defineProps({
-  imageUrl: String,
-  playlistName: String,
-  creatorName: String
+  playlist: {
+        type: Object as () => Playlist,
+        required: true
+    }
 });
 
 let optionIsHover = ref<boolean>(false);
@@ -40,4 +43,6 @@ let optionIsHover = ref<boolean>(false);
 function isHover() {
 optionIsHover.value = !optionIsHover.value;
 }
+
+const mainStore = useMainStore();
 </script>

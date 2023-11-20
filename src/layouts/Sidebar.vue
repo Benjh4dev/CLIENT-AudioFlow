@@ -60,14 +60,12 @@
                         pl="pl-[20px]" pt="pt-[12px]">
                     </SidebarItem>
                 </ul>
-            </div>
-            <div class="grid grid-rows gap-y-9 bg-[#121212] rounded-lg">
-                <ul class="p-1.5">
-                    <PlaylistItem imageUrl="/images/albumCovers/DiariesOfAHero.png" playlistName="Playlist 1#" creatorName="Carlo Ignacio"></PlaylistItem>
-                    <PlaylistItem imageUrl="https://picsum.photos/id/40/300/300" playlistName="Playlist 2#" creatorName="Carlo Ignacio"></PlaylistItem>
-                    <PlaylistItem imageUrl="https://picsum.photos/id/45/300/300" playlistName="Playlist 3#" creatorName="Carlo Ignacio"></PlaylistItem>
-                </ul>
             </div> -->
+            <div class="grid grid-rows gap-y-9 bg-[#121212] rounded-lg overflow-auto">
+                <ul class="p-1.5 overflow-y-scroll">
+                    <PlaylistItem v-for="playlist in mainStore.playlists" :playlist="playlist"></PlaylistItem>
+                </ul>
+            </div>
         </div>
 
         <div v-if="!mainStore.$state.token" id="Guest" class="h-[100%] bg-[#121212] rounded-lg">

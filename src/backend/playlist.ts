@@ -15,7 +15,7 @@ export async function createPlaylist(data: CreatePlaylistForm) {
     return response.data;
 }
 //eliminar playlist
-export async function deletePlaylist(playlistId: number) {
+export async function deletePlaylist(playlistId: string) {
     const mainStore = useMainStore();
     mainStore.verifyTokenValidity();
 
@@ -27,8 +27,21 @@ export async function deletePlaylist(playlistId: number) {
     return response.data;
 }
 
+//obtener playlist del usuario
+export async function getUserPlaylists() {
+    const mainStore = useMainStore();
+    mainStore.verifyTokenValidity();
+
+    const response = await api.get(`/playlist/${mainStore.$state.user?.id}`,{
+        headers: {
+            'Authorization': `Bearer ${mainStore.$state.token}`,
+        }
+    });
+    return response.data;
+}
+
 //agregar canción a playlist
-export async function addSongToPlaylist(playlistId: number, songId: number) {
+export async function addSongToPlaylist(playlistId: string, songId: string) {
     const mainStore = useMainStore();
     mainStore.verifyTokenValidity();
 

@@ -44,7 +44,7 @@
                     </div>
    
                     <div class="mt-8 flex justify-center pr-8">
-                      <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:text-black hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                      <button type="submit" :disabled="isUploading" :class="{'bg-red-600 hover:bg-red-200': isUploading}" class="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:text-black hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                           Crear
                       </button>
                     </div>
@@ -71,6 +71,7 @@ import { CreatePlaylistForm } from '@/interfaces';
 import { createPlaylist } from '@/backend/playlist';
 
 const isOpen = ref<boolean>(true);
+const isUploading = ref<boolean>(false);
 
 function closeModal(): void {
   isOpen.value = false;
