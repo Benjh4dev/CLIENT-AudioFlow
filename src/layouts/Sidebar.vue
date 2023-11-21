@@ -1,5 +1,6 @@
 <template>
     <UploadSongModal v-if="showUploadSongModal" @close="showUploadSongModal = false"></UploadSongModal>
+    <CreatePlaylistModal v-if="showCreatePlaylistModal" @close="showCreatePlaylistModal = false"></CreatePlaylistModal>
 
     <div class="bg-black w-[80px] md:w-[223px] lg:w-[22%] flex flex-col flex-shrink-0 rounded-lg gap-2">
         <div id="Navigation" class="h-[108px] bg-[#121212] rounded-lg">
@@ -35,12 +36,16 @@
                             pl="pl-[16px]" pt="pt-[10px]">
                         </SidebarItem>
                     </button>
-                    <SidebarItem 
-                        iconUrl="/images/icons/playlist-icon.png" 
-                        message="Crear Playlist" 
-                        ml="ml-[18px]" mt="mt-[8px]" w="w-8" h="h-8" 
-                        pl="pl-[16px]" pt="pt-[8px]">
-                    </SidebarItem>
+                    <button
+                        @click="openCreatePlaylistModal"
+                        class="w-[67px] md:w-[100%] flex h-12 hover:bg-[#1A1A1A] transition-all duration-300 ease-in-out rounded-lg">
+                        <SidebarItem 
+                            iconUrl="/images/icons/playlist-icon.png" 
+                            message="Crear Playlist" 
+                            ml="ml-[18px]" mt="mt-[8px]" w="w-8" h="h-8" 
+                            pl="pl-[16px]" pt="pt-[8px]">
+                        </SidebarItem>
+                    </button>
                 </ul>
             </div>
         </div>
@@ -82,12 +87,19 @@ import { useMainStore } from '@/stores/main';
 import PlaylistItem from '@/components/PlaylistItem.vue';
 import SidebarItem from '@/components/SidebarItem.vue';
 import UploadSongModal from '@/components/modal/UploadSongModal.vue';
+import CreatePlaylistModal from '@/components/modal/CreatePlaylistModal.vue';
 
 let showUploadSongModal = ref(false);
+let showCreatePlaylistModal = ref(false);
 
 function openUploadSongModal() {
     mainStore.verifyTokenValidity()
     showUploadSongModal.value = true
+}
+
+function openCreatePlaylistModal() {
+    mainStore.verifyTokenValidity()
+    showCreatePlaylistModal.value = true
 }
 
 const mainStore = useMainStore();
