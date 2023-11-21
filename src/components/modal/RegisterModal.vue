@@ -118,7 +118,7 @@ import { usePlayerStore } from '@/stores/player';
 
 import { RegisterForm, FormErrors } from '@/interfaces'
 import { loadQueue, setSong } from '@/firestore';
-import { register as registerUser, login as loginUser } from '@/backend';
+import { register as registerUser, login as loginUser, getUserPlaylists } from '@/backend';
 
 
 import { showSuccessToast, showErrorToast } from '@/utils/toast';
@@ -159,9 +159,13 @@ async function submitForm(): Promise<void> {
         password: formData.value.password
       });
       mainStore.loginUser(user);
+      playerStore.storePlayer(user.player);
   
       user.player.queue = await loadQueue(user.player.id);
-      playerStore.storePlayer(user.player);
+
+      const userPlaylist = await getUserPlaylists();
+      mainStore.loadUserPlaylists(userPlaylist)
+      
       if(playerStore.player.currentSong) setSong(playerStore.player.id, playerStore.player.currentSong);
       showSuccessToast("Inicio de sesión exitoso");
 
