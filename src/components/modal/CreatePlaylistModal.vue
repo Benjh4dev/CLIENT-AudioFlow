@@ -72,6 +72,10 @@ import { createPlaylist } from '@/backend/playlist';
 
 import { showSuccessToast } from '@/utils/toast';
 
+import { useMainStore } from '@/stores/main';
+
+const mainStore = useMainStore();
+
 const isOpen = ref<boolean>(true);
 const isLoading = ref<boolean>(false);
 const errors = ref<string>('');
@@ -92,7 +96,9 @@ async function submitForm(): Promise<void> {
   isLoading.value = true;
 
   try {
-    await createPlaylist(formData.value);
+    const response = await createPlaylist(formData.value);
+    console.log(response);
+    mainStore.addSystemPlaylist(response.playlist);
     closeModal();
     showSuccessToast('Playlist creada con éxito');
   }

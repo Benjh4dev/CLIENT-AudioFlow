@@ -68,6 +68,9 @@ export const useMainStore = defineStore({
             this.systemSongs.push(song);
             this.mySongs.push(song);
         },
+        addSystemPlaylist(playlist: Playlist) {
+            this.playlists.push(playlist);
+        },
         clearSystemSongs() {
             this.systemSongs = [];
         },
