@@ -61,6 +61,7 @@ import SongCard from '@/components/SongCard.vue';
 
 import EditEmailModal from '@/components/modal/EditEmailModal.vue';
 import EditPhotoModal from '@/components/modal/EditPhotoModal.vue';
+import AddSongtoPlaylist from '@/components/modal/AddSongtoPlaylist.vue';
 
 import { useMainStore } from '@/stores/main';
 

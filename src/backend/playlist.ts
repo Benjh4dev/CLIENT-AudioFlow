@@ -13,3 +13,54 @@ export async function createPlaylist(data: CreatePlaylistForm) {
     });
     return response.data;
 }
+export async function deletePlaylist(playlistId: string) {
+    const mainStore = useMainStore();
+    mainStore.verifyTokenValidity();
+
+    const response = await api.delete(`/playlist/${playlistId}`,{
+        headers: {
+            'Authorization': `Bearer ${mainStore.$state.token}`,
+        }
+    });
+    return response.data;
+}
+
+export async function getUserPlaylists() {
+    const mainStore = useMainStore();
+    mainStore.verifyTokenValidity();
+
+    const response = await api.get(`/playlist/${mainStore.$state.user?.id}`,{
+        headers: {
+            'Authorization': `Bearer ${mainStore.$state.token}`,
+        }
+    });
+    const userPlaylists = response.data.sort((a: any, b: any) => {
+        return a.timestamp._seconds - b.timestamp._seconds;
+    });
+
+    return userPlaylists;
+}
+
+export async function addSongToPlaylist(playlistId: string, songId: string) {
+    const mainStore = useMainStore();
+    mainStore.verifyTokenValidity();
+
+    const response = await api.post(`/playlist/${playlistId}/song/${songId}`, {},{
+        headers: {
+            'Authorization': `Bearer ${mainStore.$state.token}`,
+        }
+    });
+    return response.data;
+}
+
+export async function removeSongFromPlaylist(playlistId: number, songId: number) {
+    const mainStore = useMainStore();
+    mainStore.verifyTokenValidity();
+
+    const response = await api.delete(`/playlist/${playlistId}/song/${songId}`,{
+        headers: {
+            'Authorization': `Bearer ${mainStore.$state.token}`,
+        }
+    });
+    return response.data;
+}

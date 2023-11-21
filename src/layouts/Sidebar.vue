@@ -50,7 +50,7 @@
             </div>
         </div>
 
-        <div v-if="mainStore.$state.token" id="Playlists" class="h-[100%] bg-[#121212] rounded-lg">
+        <div v-if="mainStore.$state.token" id="Playlists" class="h-screen overflow-y-hidden overflow-x-hidden hover:overflow-y-auto bg-[#121212] rounded-lg">
             <!-- <div class="grid grid-rows-1">
                 <ul class="p-1.5">
                     <SidebarItem 
@@ -60,14 +60,12 @@
                         pl="pl-[20px]" pt="pt-[12px]">
                     </SidebarItem>
                 </ul>
-            </div>
+            </div> -->
             <div class="grid grid-rows gap-y-9 bg-[#121212] rounded-lg">
                 <ul class="p-1.5">
-                    <PlaylistItem imageUrl="/images/albumCovers/DiariesOfAHero.png" playlistName="Playlist 1#" creatorName="Carlo Ignacio"></PlaylistItem>
-                    <PlaylistItem imageUrl="https://picsum.photos/id/40/300/300" playlistName="Playlist 2#" creatorName="Carlo Ignacio"></PlaylistItem>
-                    <PlaylistItem imageUrl="https://picsum.photos/id/45/300/300" playlistName="Playlist 3#" creatorName="Carlo Ignacio"></PlaylistItem>
+                    <PlaylistItem v-for="playlist in mainStore.playlists" :playlist="playlist"></PlaylistItem>
                 </ul>
-            </div> -->
+            </div>
         </div>
 
         <div v-if="!mainStore.$state.token" id="Guest" class="h-[100%] bg-[#121212] rounded-lg">
@@ -104,3 +102,20 @@ function openCreatePlaylistModal() {
 
 const mainStore = useMainStore();
 </script>
+
+
+<style>
+/* Personalización de la barra de desplazamiento */
+#Playlists::-webkit-scrollbar {
+    width: 8px;
+}
+
+#Playlists::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.6); /* Color de la barra de desplazamiento */
+    border-radius: 4px; /* Bordes redondeados */
+}
+
+#Playlists::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.8); /* Color de la barra al hacer hover */
+}
+</style>
