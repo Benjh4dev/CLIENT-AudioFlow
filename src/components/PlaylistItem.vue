@@ -1,7 +1,7 @@
 <template>
     <RouterLink 
       to="/library" 
-      class="w-[67px] md:w-[100%] flex h-18 hover:bg-[#1A1A1A] transition-all duration-300 ease-in-out rounded-lg" 
+      class="w-[67px] md:w-[100%] flex h-[65px] hover:bg-[#1A1A1A] transition-all duration-300 ease-in-out rounded-lg" 
       @mouseenter="isHover" 
       @mouseleave="isHover">
       
@@ -10,14 +10,14 @@
         alt="Cover Image" 
         class="w-16 h-16 rounded-lg p-2">
       
-      <div class="opacity-0 md:opacity-100 transition-all duration-300 ease-in-out">
+      <div class="opacity-0 md:opacity-100 transition-all duration-300 ease-in-out truncate">
         <h1 
-          class="pl-[6%] pt-[8%] text-lg font-semibold w-max"
+          class="ml-1 pt-1 text-lg font-semibold w-[100%]"
           :class="optionIsHover ? 'text-green-500 transition-all duration-300 ease-in' : 'text-white transition-all duration-300 ease-out'">
           {{ playlist.name }}
         </h1>
         <h3 
-          class="text-[#A7A7A7] ml-[6%] text-xs pt-1 w-max hover:underline hover:text-white transition-all duration-300 ease-in-out">
+          class="text-[#A7A7A7] ml-1 text-xs pt-1 w-max hover:underline hover:text-white transition-all duration-300 ease-in-out">
           {{ mainStore.user?.username }}
         </h3>
 

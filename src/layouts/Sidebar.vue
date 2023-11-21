@@ -63,7 +63,7 @@
             </div> -->
             <div class="grid grid-rows gap-y-9 bg-[#121212] rounded-lg">
                 <ul class="p-1.5">
-                    <PlaylistItem v-for="playlist in mainStore.playlists" :playlist="playlist"></PlaylistItem>
+                    <PlaylistItem v-for="playlist in mainStore.playlists" :playlist="playlist" :key="playlist.id"></PlaylistItem>
                 </ul>
             </div>
         </div>
