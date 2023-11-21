@@ -2,7 +2,6 @@ import api from '@/services/api';
 import { useMainStore } from '@/stores/main';
 import { CreatePlaylistForm } from '@/interfaces';
 
-//crear playlist
 export async function createPlaylist(data: CreatePlaylistForm) {
     const mainStore = useMainStore();
     mainStore.verifyTokenValidity();
@@ -14,7 +13,6 @@ export async function createPlaylist(data: CreatePlaylistForm) {
     });
     return response.data;
 }
-//eliminar playlist
 export async function deletePlaylist(playlistId: string) {
     const mainStore = useMainStore();
     mainStore.verifyTokenValidity();
@@ -27,7 +25,6 @@ export async function deletePlaylist(playlistId: string) {
     return response.data;
 }
 
-//obtener playlist del usuario
 export async function getUserPlaylists() {
     const mainStore = useMainStore();
     mainStore.verifyTokenValidity();
@@ -37,10 +34,13 @@ export async function getUserPlaylists() {
             'Authorization': `Bearer ${mainStore.$state.token}`,
         }
     });
-    return response.data;
+    const userPlaylists = response.data.sort((a: any, b: any) => {
+        return a.timestamp._seconds - b.timestamp._seconds;
+    });
+
+    return userPlaylists;
 }
 
-//agregar canción a playlist
 export async function addSongToPlaylist(playlistId: string, songId: string) {
     const mainStore = useMainStore();
     mainStore.verifyTokenValidity();
@@ -53,8 +53,6 @@ export async function addSongToPlaylist(playlistId: string, songId: string) {
     return response.data;
 }
 
-
-//eliminar canción de playlist
 export async function removeSongFromPlaylist(playlistId: number, songId: number) {
     const mainStore = useMainStore();
     mainStore.verifyTokenValidity();

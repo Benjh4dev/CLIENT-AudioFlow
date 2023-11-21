@@ -111,11 +111,13 @@ async function submitForm(): Promise<void> {
   try {
     const user = await loginUser(formData.value);
     mainStore.loginUser(user);
+
     user.player.queue = await loadQueue(user.player.id);
     playerStore.storePlayer(user.player);
 
-    const userPlaylist = await getUserPlaylists();
-    mainStore.loadUserPlaylists(userPlaylist)
+    const userPlaylists = await getUserPlaylists();
+    mainStore.loadUserPlaylists(userPlaylists);
+    console.log(userPlaylists);
 
     closeModal();
     showSuccessToast("Inicio de sesión exitoso");
