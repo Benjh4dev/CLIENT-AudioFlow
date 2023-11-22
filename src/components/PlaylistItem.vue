@@ -20,9 +20,11 @@
           class="text-[#A7A7A7] ml-1 text-xs pt-1 w-max hover:underline hover:text-white transition-all duration-300 ease-in-out">
           {{ mainStore.user?.username }}
         </h3>
+        
 
       </div>
     </RouterLink>
+    <button @click="emitDeleteEvent" class="ml-2">⋮</button>
 </template>
   
 <script setup lang="ts">
@@ -30,18 +32,24 @@ import { useMainStore } from '@/stores/main';
 import { ref } from 'vue';
 import { RouterLink } from 'vue-router'
 import { Playlist } from '@/interfaces';
+import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
   playlist: {
-        type: Object as () => Playlist,
-        required: true
-    }
+    type: Object as () => Playlist,
+    required: true
+  }
 });
 
+const emit = defineEmits(['request-delete']);
 let optionIsHover = ref<boolean>(false);
 
 function isHover() {
-optionIsHover.value = !optionIsHover.value;
+  optionIsHover.value = !optionIsHover.value;
+}
+
+function emitDeleteEvent() {
+  emit('request-delete', props.playlist.id);
 }
 
 const mainStore = useMainStore();
