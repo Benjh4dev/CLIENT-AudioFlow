@@ -1,6 +1,7 @@
 <template>
     <UploadSongModal v-if="showUploadSongModal" @close="showUploadSongModal = false"></UploadSongModal>
     <CreatePlaylistModal v-if="showCreatePlaylistModal" @close="showCreatePlaylistModal = false"></CreatePlaylistModal>
+    
 
     <div class="bg-black w-[80px] md:w-[223px] lg:w-[22%] flex flex-col flex-shrink-0 rounded-lg gap-2">
         <div id="Navigation" class="h-[108px] bg-[#121212] rounded-lg">
