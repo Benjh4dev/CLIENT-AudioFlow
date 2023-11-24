@@ -13,6 +13,7 @@ export async function createPlaylist(data: CreatePlaylistForm) {
     });
     return response.data;
 }
+
 export async function deletePlaylist(playlistId: string) {
     const mainStore = useMainStore();
     mainStore.verifyTokenValidity();
@@ -22,7 +23,7 @@ export async function deletePlaylist(playlistId: string) {
             'Authorization': `Bearer ${mainStore.$state.token}`,
         }
     });
-    return response.data;
+    return response;
 }
 
 export async function getUserPlaylists() {
@@ -34,6 +35,10 @@ export async function getUserPlaylists() {
             'Authorization': `Bearer ${mainStore.$state.token}`,
         }
     });
+    // Si no hay playlists, retorna un arreglo vacío, cambiamos esto carlo jiji
+    if (response.data.length === 0) {
+        return [];
+    }   
     const userPlaylists = response.data.sort((a: any, b: any) => {
         return a.timestamp._seconds - b.timestamp._seconds;
     });

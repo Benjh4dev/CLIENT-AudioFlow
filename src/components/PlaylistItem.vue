@@ -1,6 +1,6 @@
 <template>
     <RouterLink 
-      to="/library" 
+      :to="`/playlist/${playlist.id}`"
       class="w-[67px] md:w-[100%] flex h-[65px] hover:bg-[#1A1A1A] transition-all duration-300 ease-in-out rounded-lg" 
       @mouseenter="isHover" 
       @mouseleave="isHover">
@@ -24,7 +24,7 @@
 
       </div>
     </RouterLink>
-    <button @click="emitDeleteEvent" class="ml-2">⋮</button>
+    
 </template>
   
 <script setup lang="ts">

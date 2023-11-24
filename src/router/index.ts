@@ -25,6 +25,15 @@ const routes: RouteRecordRaw[] = [
     component: ProfileView,
     meta: { requiresAuth: true }
   },
+  {
+    path: '/playlist/:id',
+    component: LibraryView,
+    props : true
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/',
+  },
 ];
 
 const router = createRouter({
