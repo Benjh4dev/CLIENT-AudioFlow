@@ -3,9 +3,8 @@ import { useMainStore } from '@/stores/main';
 
 import HomeView from '@/views/HomeView.vue';
 import SearchView from '@/views/SearchView.vue';
-import LibraryView from '@/views/LibraryView.vue';
+import PlaylistView from '@/views/PlaylistView.vue';
 import ProfileView from '@/views/ProfileView.vue';
-import UploadSongViewVue from '@/views/UploadSongView.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -16,10 +15,6 @@ const routes: RouteRecordRaw[] = [
     path: '/search',
     component: SearchView,
   },
-  // {
-  //   path: '/library',
-  //   component: LibraryView
-  // },
   {
     path: '/profile',
     component: ProfileView,
@@ -27,8 +22,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/playlist/:id',
-    component: LibraryView,
-    props : true
+    component: PlaylistView,
   },
   {
     path: '/:pathMatch(.*)*',

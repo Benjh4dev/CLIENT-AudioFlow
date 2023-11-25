@@ -12,7 +12,7 @@ export async function createPlaylist(data: CreatePlaylistForm) {
         }
     });
     return response.data;
-}
+};
 
 export async function deletePlaylist(playlistId: string) {
     const mainStore = useMainStore();
@@ -24,18 +24,22 @@ export async function deletePlaylist(playlistId: string) {
         }
     });
     return response;
-}
+};
 
-export async function getUserPlaylists() {
+export async function fetchPlaylists() {
+    const response = await api.get('/playlist');
+    return response.data;
+};
+
+export async function fetchUserPlaylists() {
     const mainStore = useMainStore();
     mainStore.verifyTokenValidity();
 
-    const response = await api.get(`/playlist/${mainStore.$state.user?.id}`,{
+    const response = await api.get(`/playlist/user/${mainStore.$state.user?.id}`,{
         headers: {
             'Authorization': `Bearer ${mainStore.$state.token}`,
         }
     });
-    // Si no hay playlists, retorna un arreglo vacío, cambiamos esto carlo jiji
     if (response.data.length === 0) {
         return [];
     }   
@@ -44,7 +48,12 @@ export async function getUserPlaylists() {
     });
 
     return userPlaylists;
-}
+};
+
+export async function fetchPlaylistById(playlistId: string) {
+    const response = await api.get(`/playlist/${playlistId}`)
+    return response.data;
+};
 
 export async function addSongToPlaylist(playlistId: string, songId: string) {
     const mainStore = useMainStore();
@@ -56,7 +65,7 @@ export async function addSongToPlaylist(playlistId: string, songId: string) {
         }
     });
     return response.data;
-}
+};
 
 export async function removeSongFromPlaylist(playlistId: number, songId: number) {
     const mainStore = useMainStore();
@@ -68,4 +77,4 @@ export async function removeSongFromPlaylist(playlistId: number, songId: number)
         }
     });
     return response.data;
-}
+};

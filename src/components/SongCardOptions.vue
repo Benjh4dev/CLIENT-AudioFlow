@@ -3,6 +3,7 @@
     v-if="showConfirmationModal"
     @close="showConfirmationModal = false"
     @confirm="deleteSongAndCloseModal"
+    entityToDelete="canción"
     />
 
     <Menu as="div" class="relative pl-1" id="songOptions">

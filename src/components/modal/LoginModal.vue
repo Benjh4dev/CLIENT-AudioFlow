@@ -87,7 +87,7 @@ import { usePlayerStore } from '@/stores/player';
 
 import { LoginForm } from '@/interfaces'
 import { loadQueue } from '@/firestore';
-import { login as loginUser, getUserPlaylists } from '@/backend'
+import { login as loginUser, fetchUserPlaylists } from '@/backend'
 
 const mainStore = useMainStore();
 const playerStore = usePlayerStore();
@@ -115,9 +115,8 @@ async function submitForm(): Promise<void> {
     user.player.queue = await loadQueue(user.player.id);
     playerStore.storePlayer(user.player);
 
-    const userPlaylists = await getUserPlaylists();
-    mainStore.loadUserPlaylists(userPlaylists);
-    console.log(userPlaylists);
+    const userPlaylists = await fetchUserPlaylists();
+    mainStore.loadMyPlaylists(userPlaylists);
 
     closeModal();
     showSuccessToast("Inicio de sesión exitoso");

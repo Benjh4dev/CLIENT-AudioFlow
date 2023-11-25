@@ -11,14 +11,16 @@ export const useMainStore = defineStore({
         user: User | null;
         token: string;
         mySongs: Song[];
+        myPlaylists: Playlist[];
         systemSongs: Song[];
-        playlists: Playlist[];
+        systemPlaylists: Playlist[];
     } => ({
         user: null,
         token: "",
         mySongs: [],
+        myPlaylists: [],
         systemSongs: [],
-        playlists: [],
+        systemPlaylists: []
     }),
 
     actions: {
@@ -28,11 +30,11 @@ export const useMainStore = defineStore({
             router.push('/');
         },
         logoutUser() {
-            
             this.user = null;
             this.token = "";
             this.mySongs = [];
-            this.playlists = [];
+            this.myPlaylists = [];
+            this.systemPlaylists = [];
             router.push('/');
             window.location.reload();
         },
@@ -53,33 +55,39 @@ export const useMainStore = defineStore({
     
             return true;
         },
-
-
-        loadMySongs(songs: Song[]) {
-            this.mySongs = songs;
-        },
         loadSongs(songs: Song[]) {
             this.systemSongs = songs;
         },
-        loadUserPlaylists(playlists: Playlist[]) {
-            this.playlists = playlists;
+        loadMySongs(songs: Song[]) {
+            this.mySongs = songs;
+        },
+        loadMyPlaylists(playlists: Playlist[]) {
+            this.myPlaylists = playlists;
         },
         addSystemSong(song: Song) {
             this.systemSongs.push(song);
             this.mySongs.push(song);
         },
         addSystemPlaylist(playlist: Playlist) {
-            this.playlists.push(playlist);
-        },
-        clearSystemSongs() {
-            this.systemSongs = [];
+            this.systemPlaylists.push(playlist);
+            this.myPlaylists.push(playlist);
         },
         clearMySongs() {
             this.mySongs = [];
         },
+        clearSystemSongs() {
+            this.systemSongs = [];
+        },
+        clearSystemPlaylist() {
+            this.systemPlaylists = [];
+        },
         deleteSystemSong(song: Song) {
             this.systemSongs = this.systemSongs.filter(s => s.id !== song.id);
             this.mySongs = this.mySongs.filter(s => s.id !== song.id);
+        },
+        deleteSystemPlaylist(id: string) {
+            this.myPlaylists = this.myPlaylists.filter(p => p.id !== id);
+            this.systemPlaylists = this.systemPlaylists.filter(p => p.id !== id);
         }
     },
     persist: true
