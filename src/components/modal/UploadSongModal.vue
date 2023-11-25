@@ -85,7 +85,7 @@
                                 <div class="w-1/2 p-4">
                                     <DialogTitle as="h3" class="text-white text-lg text-center font-medium leading-6 mb-4 sm:ml-6">Vista previa</DialogTitle>
                                     <div class="flex items-center justify-center w-full pt-16 sm:pt-7">
-                                        <img :src="coverArtPreview || 'images/cover-art-default.png'" alt="Cover Art Preview" class="w-36 h-36 sm:w-56 sm:h-56 sm:ml-8 rounded group transition-all duration-300 ease-in-out">
+                                        <img :src="coverArtPreview || '/images/cover-art-default.png'" alt="Cover Art Preview" class="w-36 h-36 sm:w-56 sm:h-56 sm:ml-8 rounded group transition-all duration-300 ease-in-out">
                                     </div>
                                     <div class="block pr-3 sm:pl-7">
                                         <label class="text-white text-sm block pt-7 text-center truncate">{{ formData.name || 'Nombre' }}</label>
