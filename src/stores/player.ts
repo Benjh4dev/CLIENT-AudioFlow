@@ -30,7 +30,7 @@ export const usePlayerStore = defineStore({
             if(currentSong) this.player.currentSong = currentSong;
             this.player.currentTime = currentTime;
             this.player.volume = volume;
-            this.player.queue = queue;
+            if(queue) this.player.queue = queue;
         },
         
         destorePlayer() {

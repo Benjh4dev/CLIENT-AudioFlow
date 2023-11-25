@@ -160,8 +160,6 @@ async function submitForm(): Promise<void> {
       });
       mainStore.loginUser(user);
       playerStore.storePlayer(user.player);
-  
-      user.player.queue = await loadQueue(user.player.id);
 
       const userPlaylist = await fetchUserPlaylists();
       mainStore.loadMyPlaylists(userPlaylist)

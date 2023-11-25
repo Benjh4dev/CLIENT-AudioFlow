@@ -32,7 +32,7 @@
                     class="text-white absolute w-full hover:underline cursor-pointer top-0 font-bosemiboldld
                     opacity-0 sm:opacity-100 group transition-all duration-300 ease-in-out"
                 >
-                    {{ playlist.name || 'Nombre de la playlist' }}
+                    {{ playlist.name }}
                 </div>
 
                 <div class="text-gray-300 text-[13px] flex opacity-0 sm:opacity-100 group transition-all duration-300 ease-in-out">
