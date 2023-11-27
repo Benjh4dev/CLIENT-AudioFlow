@@ -36,31 +36,27 @@
                 <div class="text-sm font-semibold text-gray-400">{{ artist }}</div>
             </div>
         </div>
-        <div class="flex items-center">
+        <div>
             <button type="button" v-if="isHover">
+            <div class="text-xs mx-5 text-gray-400">{{ formatDuration(track.duration) }}</div>
             </button>
-            <div
-                v-if="isTrackTime"
-                class="text-xs mx-5 text-gray-400"
-            >
-                {{ isTrackTime }}
-            </div>
         </div>
+       
     </li>
 </template>
 
 <script setup>
-import { ref, toRefs, onMounted } from 'vue'
+import { ref, toRefs, defineProps } from 'vue'
 import Play from 'vue-material-design-icons/Play.vue';
 import Pause from 'vue-material-design-icons/Pause.vue';
 
 import { useSongStore } from '../stores/song'
 import { storeToRefs } from 'pinia';
+
 const useSong = useSongStore()
 const { isPlaying, currentTrack } = storeToRefs(useSong)
 
 let isHover = ref(false)
-let isTrackTime = ref(null)
 
 const props = defineProps({
     track: Object,
@@ -68,15 +64,12 @@ const props = defineProps({
     index: Number,
 })
 
+const formatDuration = (duration) => {
+    const minutes = Math.floor(duration / 60);
+    const seconds = Math.floor(duration % 60);
+    return minutes+':'+seconds.toString().padStart(2, '0')
+}
+
 const { track, artist, index } = toRefs(props)
 
-onMounted(() => {
-    const audio = new Audio(track.value.path);
-    audio.addEventListener('loadedmetadata', function() {
-        const duration = audio.duration;
-        const minutes = Math.floor(duration / 60);
-        const seconds = Math.floor(duration % 60);
-        isTrackTime.value = minutes+':'+seconds.toString().padStart(2, '0')
-    });
-})
 </script>
