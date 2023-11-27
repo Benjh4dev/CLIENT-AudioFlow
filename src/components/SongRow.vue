@@ -33,7 +33,7 @@
                 >
                     {{ track.name }}
                 </div>
-                <div class="text-sm font-semibold text-gray-400">{{ artist.name }}</div>
+                <div class="text-sm font-semibold text-gray-400">{{ artist }}</div>
             </div>
         </div>
         <div class="flex items-center">
@@ -64,7 +64,7 @@ let isTrackTime = ref(null)
 
 const props = defineProps({
     track: Object,
-    artist: Object,
+    artist: String,
     index: Number,
 })
 

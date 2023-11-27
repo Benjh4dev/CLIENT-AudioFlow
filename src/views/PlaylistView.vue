@@ -75,9 +75,9 @@
         <div class="border-b border-b-[#2A2A2A] mt-2"></div>
         <div class="mb-4"></div>
         
-        <!-- <ul class="w-full" v-for="song, index in playlist.songs" :key="song.id">
-            <SongRow :artist="song.artist" :track="song.audioURL" :index="++index"/>
-        </ul> -->
+        <ul class="w-full" v-for="(song, index) in playlist.songs" :key="song.id">
+            <SongRow :artist="song.artist" :track="song" :index="index"/>
+        </ul>
 
     </div>
     
