@@ -5,6 +5,11 @@
     @confirm="deleteSongAndCloseModal"
     entityToDelete="canción"
     />
+    <AddSongPlaylistModal 
+    v-if="showAddSongToPlaylistModal"
+    @close="showAddSongToPlaylistModal = false, song_id = ''"
+    :song_id= song_id
+    ></AddSongPlaylistModal>
 
     <Menu as="div" class="relative pl-1" id="songOptions">
         <div>
@@ -84,6 +89,7 @@ import { ref, onMounted, computed, watch } from 'vue';
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue';
 import ConfirmationModal from '@/components/modal/ConfirmationModal.vue';
+import AddSongPlaylistModal from './modal/AddSongPlaylistModal.vue';
 
 import { showErrorToast, showSuccessToast } from '@/utils/toast';
 import { toast } from 'vue3-toastify';
@@ -102,6 +108,7 @@ const isUserSong = ref(false);
 
 const errors = ref<string>('');
 const showConfirmationModal = ref(false);
+const showAddSongToPlaylistModal = ref(false);
 
 const props = defineProps({
     song: {
@@ -109,6 +116,8 @@ const props = defineProps({
         required: true
     }
 });
+
+let song_id = ''
 
 const verifyCanDelete = computed(() => {
     return props.song.user_id == mainStore.user?.id;
@@ -121,6 +130,8 @@ const addToQueue = () => {
 };
 
 const addToPlaylist = () => {
+    showAddSongToPlaylistModal.value = true;
+    song_id = props.song.id
     //console.log('Add to playlist WIP');
 };
 

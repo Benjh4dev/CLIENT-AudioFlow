@@ -59,7 +59,7 @@ export async function addSongToPlaylist(playlistId: string, songId: string) {
     const mainStore = useMainStore();
     mainStore.verifyTokenValidity();
 
-    const response = await api.post(`/playlist/${playlistId}/song/${songId}`, {},{
+    const response = await api.post(`/playlist/${playlistId}/${songId}`, {},{
         headers: {
             'Authorization': `Bearer ${mainStore.$state.token}`,
         }
