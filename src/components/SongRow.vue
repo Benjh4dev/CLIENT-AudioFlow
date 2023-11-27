@@ -10,7 +10,7 @@
                     v-if="!isPlaying"
                     fillColor="#FFFFFF"
                     :size="25"
-                    @click="useSong.playOrPauseThisSong(artist, track)"
+                    @click="playSong"
                 />
                 <Play
                     v-else-if="isPlaying && currentTrack.name !== track.name"
@@ -19,7 +19,7 @@
                     @click="useSong.loadSong(artist, track)"
                 />
 
-                <Pause v-else fillColor="#FFFFFF" :size="25" @click="useSong.playOrPauseSong()"/>
+                <Pause v-else fillColor="#FFFFFF" :size="25" @click="pauseSong"/>
             </div>
             <div v-else class="text-white font-semibold w-[40px] ml-5">
                 <span :class="{'text-green-500': currentTrack && currentTrack.name === track.name}">
@@ -49,9 +49,12 @@
 import { ref, toRefs, defineProps } from 'vue'
 import Play from 'vue-material-design-icons/Play.vue';
 import Pause from 'vue-material-design-icons/Pause.vue';
-
+import { usePlayerStore } from '../stores/player'
 import { useSongStore } from '../stores/song'
 import { storeToRefs } from 'pinia';
+import  { useMainStore } from '../stores/main'
+
+import PlaylistCard from './PlaylistCard.vue';
 
 const useSong = useSongStore()
 const { isPlaying, currentTrack } = storeToRefs(useSong)
@@ -63,6 +66,20 @@ const props = defineProps({
     artist: String,
     index: Number,
 })
+
+const playerStore = usePlayerStore();
+
+const playSong = async () => {
+    const currentSong = playerStore.player.currentSong;
+    if(currentSong && currentSong.id === props.song.id) return;
+    
+    playerStore.playSong(props.song);
+    if(mainStore.user) {
+        updateCurrentTime(playerStore.player.id, 0);
+        setSong(playerStore.player.id, props.song);
+        togglePlayFS(playerStore.player.id, playerStore.player.isPlaying);
+    };
+};
 
 const formatDuration = (duration) => {
     const minutes = Math.floor(duration / 60);
