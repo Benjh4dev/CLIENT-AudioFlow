@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { fetchUserSongs } from '@/backend'
 import Avatar from 'vue-avatar/src/Avatar.vue';
 import Pencil from 'vue-material-design-icons/Pencil.vue';
@@ -61,7 +61,6 @@ import SongCard from '@/components/SongCard.vue';
 
 import EditEmailModal from '@/components/modal/EditEmailModal.vue';
 import EditPhotoModal from '@/components/modal/EditPhotoModal.vue';
-import AddSongtoPlaylist from '@/components/modal/AddSongtoPlaylist.vue';
 
 import { useMainStore } from '@/stores/main';
 
@@ -82,6 +81,10 @@ let showEditPhotoModal = ref(false);
 function openEditPhotoModal() {
     showEditPhotoModal.value = true;
 };
+
+watch(() => mainStore.user, (noUser) => {
+    if(noUser === null) window.location.reload();
+});
 
 const getUserSongs = async () => {
     try {

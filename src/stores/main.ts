@@ -36,7 +36,6 @@ export const useMainStore = defineStore({
             this.myPlaylists = [];
             this.systemPlaylists = [];
             router.push('/');
-            window.location.reload();
         },
         verifyTokenValidity() {
             const playerStore = usePlayerStore();

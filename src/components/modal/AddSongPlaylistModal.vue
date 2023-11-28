@@ -25,12 +25,11 @@
               leave-to="opacity-0 scale-95"
             >
               <DialogPanel class="flex w-full max-w-sm transform overflow-hidden rounded-2xl bg-black p-6 shadow-xl transition-all">
-                
-                <!-- Bloque Izquierdo -->
+            
                 <div class="w-full mx-auto pr-4 gap-5">
                   <DialogTitle as="h3" class="text-lg font-medium leading-6 text-white mb-4">¡Agrega la canción a una Playlist!</DialogTitle>
                   <label for="playlists" class="block mb-2 text-sm font-medium text-gray-400">Selecciona una Playlist:</label>
-                  <select id="playlists" v-model="selectedPlaylist" @change="handlePlaylistChange" 
+                  <select id="playlists" v-model="selectedPlaylist"
                   class="border text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 bg-black border-gray-600 text-white"
                   :class="{ 'border-red-500': errors }">
                     <option v-for="playlist in playlists" :key="playlist.id" :value="playlist">{{ playlist.name }}</option>
@@ -56,11 +55,11 @@
 import { ref } from 'vue';
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
 import { addSongToPlaylist } from '@/backend/playlist';
+import { Playlist, Song } from '@/interfaces';
 
 import { showErrorToast, showSuccessToast } from '@/utils/toast';
 
 import { useMainStore } from '@/stores/main';
-import { Playlist } from '@/interfaces';
 
 const mainStore = useMainStore();
 
@@ -68,10 +67,11 @@ const isOpen = ref<boolean>(true);
 const isLoading = ref<boolean>(false);
 const errors = ref<string>('');
 
-
-
 const props = defineProps({
-  song_id: String,
+  song: {
+        type: Object as () => Song,
+        required: true
+    }
 }) 
 
 const playlists = mainStore.myPlaylists;
@@ -79,17 +79,10 @@ const selectedPlaylist = ref<Playlist>(playlists[0]);
 
 const emits = defineEmits(['close']);
 
-const handlePlaylistChange = () => {
-  if (selectedPlaylist.value !== null) {
-    console.log('ID de la playlist seleccionada:', selectedPlaylist.value?.id);
-  }
-};
-
 function closeModal(): void {
   isOpen.value = false;
   setTimeout(() => { emits('close'); }, 300);
 }
-
 
 async function submitForm(): Promise<void> {
   errors.value = '';
@@ -101,18 +94,15 @@ async function submitForm(): Promise<void> {
     };
 
   try {
-    if (selectedPlaylist.value !== null && props.song_id){
-      const response = await addSongToPlaylist(selectedPlaylist.value.id, props.song_id?.toString());
-      console.log(response);
+    if (selectedPlaylist.value !== null && props.song){
+      await addSongToPlaylist(selectedPlaylist.value.id, props.song.id.toString());
       closeModal();
       showSuccessToast('Canción agregada con éxito');
     }
-
   }
   catch (error: any) {
     errors.value = (error.response.data.message)
     isLoading.value = false;
   } 
 };
-
 </script>

@@ -7,8 +7,8 @@
     />
     <AddSongPlaylistModal 
     v-if="showAddSongToPlaylistModal"
-    @close="showAddSongToPlaylistModal = false, song_id = ''"
-    :song_id= song_id
+    @close="showAddSongToPlaylistModal = false"
+    :song= song
     ></AddSongPlaylistModal>
 
     <Menu as="div" class="relative pl-1" id="songOptions">
@@ -117,8 +117,6 @@ const props = defineProps({
     }
 });
 
-let song_id = ''
-
 const verifyCanDelete = computed(() => {
     return props.song.user_id == mainStore.user?.id;
 })
@@ -131,10 +129,7 @@ const addToQueue = () => {
 
 const addToPlaylist = () => {
     showAddSongToPlaylistModal.value = true;
-    song_id = props.song.id
-    //console.log('Add to playlist WIP');
 };
-
 
 const deleteSongAndCloseModal = async () => {
     errors.value = '';

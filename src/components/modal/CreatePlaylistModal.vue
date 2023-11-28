@@ -98,7 +98,6 @@ async function submitForm(): Promise<void> {
 
   try {
     const response = await createPlaylist(formData.value);
-    console.log(response);
     mainStore.addSystemPlaylist(response.playlist);
     closeModal();
     showSuccessToast('Playlist creada con éxito');
