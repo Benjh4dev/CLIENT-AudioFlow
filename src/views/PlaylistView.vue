@@ -68,15 +68,19 @@
         <div class="flex items-center justify-between px-5 pt-2">
             <div class="flex items-center justify-between text-gray-400">
                 <div class="mr-7">#</div>
-                <div class="text-sm">Title</div>
+                <div class="text-sm">Título</div>               
             </div>
             <div><ClockTimeThreeOutline fillColor="#FFFFFF" :size="18"/></div>
         </div>
         <div class="border-b border-b-[#2A2A2A] mt-2"></div>
         <div class="mb-4"></div>
         
-        <ul class="w-full" v-for="(song, index) in playlist.songs" :key="song.id">
-            <SongRow :artist="song.artist" :track="song" :index="index"/>
+        <ul class="w-full">
+            <SongRow
+            v-for="(song, index) in playlist.songs"
+            :key="song.id"  
+            :song="song" 
+            :index="index"/>
         </ul>
 
     </div>

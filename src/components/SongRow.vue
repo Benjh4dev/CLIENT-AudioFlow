@@ -4,89 +4,83 @@
         @mouseenter="isHover = true"
         @mouseleave="isHover = false"
     >
-        <div class="flex items-center w-full py-1.5">
+        <div class="flex items-center w-full py-1.5" @click="playSong">
             <div v-if="isHover" class="w-[40px] ml-[14px] mr-[6px] cursor-pointer">
-                <Play
-                    v-if="!isPlaying"
+                <Play                
                     fillColor="#FFFFFF"
                     :size="25"
                     @click="playSong"
                 />
-                <Play
-                    v-else-if="isPlaying && currentTrack.name !== track.name"
+                <!-- <Play
+                    v-else-if="isPlaying && currentSong.name !== song.song"
                     fillColor="#FFFFFF"
                     :size="25"
-                    @click="useSong.loadSong(artist, track)"
-                />
+                    @click="useSong.loadSong(artist, song)"
+                />  -->
 
-                <Pause v-else fillColor="#FFFFFF" :size="25" @click="pauseSong"/>
+                <!-- <Pause v-else fillColor="#FFFFFF" :size="25" @click="pauseSong"/>  -->
             </div>
-            <div v-else class="text-white font-semibold w-[40px] ml-5">
-                <span :class="{'text-green-500': currentTrack && currentTrack.name === track.name}">
-                    {{ index }}
+            <div v-else class="text-gray-400 font-semibold w-[40px] ml-5">
+                <span>
+                    {{ props.index + 1 }}
                 </span>
             </div>
             <div>
                 <div
-                    :class="{'text-green-500': currentTrack && currentTrack.name === track.name}"
+                    :class="{'text-green-500': props.song}"
                     class="text-white font-semibold"
                 >
-                    {{ track.name }}
+                    {{ props.song.name }}
                 </div>
-                <div class="text-sm font-semibold text-gray-400">{{ artist }}</div>
+                <div class="text-sm font-semibold text-gray-400">{{ props.song.artist }}</div>
             </div>
         </div>
         <div>
-            <button type="button" v-if="isHover">
-            <div class="text-xs mx-5 text-gray-400">{{ formatDuration(track.duration) }}</div>
+            <button type="button">
+            <div class="text-xs mx-5 text-gray-400">{{ formatDuration(props.song.duration) }}</div>
             </button>
         </div>
        
     </li>
 </template>
 
-<script setup>
-import { ref, toRefs, defineProps } from 'vue'
+<script setup lang="ts">
+import { ref, defineProps } from 'vue'
 import Play from 'vue-material-design-icons/Play.vue';
 import Pause from 'vue-material-design-icons/Pause.vue';
 import { usePlayerStore } from '../stores/player'
-import { useSongStore } from '../stores/song'
-import { storeToRefs } from 'pinia';
-import  { useMainStore } from '../stores/main'
+import { Song } from '@/interfaces';
 
-import PlaylistCard from './PlaylistCard.vue';
-
-const useSong = useSongStore()
-const { isPlaying, currentTrack } = storeToRefs(useSong)
+const playerStore = usePlayerStore();
 
 let isHover = ref(false)
 
 const props = defineProps({
-    track: Object,
-    artist: String,
-    index: Number,
-})
+    song: {
+        type: Object as () => Song,
+        required: true
+    },
+    index: {
+        type: Number,
+        required: true
+    }
+});
 
-const playerStore = usePlayerStore();
+
 
 const playSong = async () => {
-    const currentSong = playerStore.player.currentSong;
-    if(currentSong && currentSong.id === props.song.id) return;
-    
     playerStore.playSong(props.song);
-    if(mainStore.user) {
-        updateCurrentTime(playerStore.player.id, 0);
-        setSong(playerStore.player.id, props.song);
-        togglePlayFS(playerStore.player.id, playerStore.player.isPlaying);
-    };
 };
 
-const formatDuration = (duration) => {
-    const minutes = Math.floor(duration / 60);
-    const seconds = Math.floor(duration % 60);
-    return minutes+':'+seconds.toString().padStart(2, '0')
+// const pauseSong = async () => {
+//     playerStore.player.isPlaying = false;
+// };
+
+const formatDuration = (seconds:number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return mins+':'+secs.toString().padStart(2, '0')
 }
 
-const { track, artist, index } = toRefs(props)
 
 </script>
