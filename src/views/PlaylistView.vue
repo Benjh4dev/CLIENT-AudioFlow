@@ -73,16 +73,15 @@
             <div><ClockTimeThreeOutline fillColor="#FFFFFF" :size="18"/></div>
         </div>
         <div class="border-b border-b-[#2A2A2A] mt-2"></div>
-        <div class="mb-4"></div>
+        <div class="mb-4"></div>      
         
-        <ul class="w-full">
+        <ul class="w-full"> 
             <SongRow
             v-for="(song, index) in playlist.songs"
             :key="song.id"  
             :song="song" 
             :index="index"/>
-        </ul>
-
+        </ul> 
     </div>
     
 </template>
