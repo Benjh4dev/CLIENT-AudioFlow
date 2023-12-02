@@ -61,4 +61,4 @@ Note: `VITE_BACKEND_IP` should be the IP where your custom API (described below)
 
 6. Run the project:
 
-For more details about the custom API, please visit [this repository](<https://github.com/Benjh4dev/API-AudioFlow>).
+For more details about the custom API, please visit [this repository](<https://github.com/Benjh4dev/API-AudioFlow>)..
