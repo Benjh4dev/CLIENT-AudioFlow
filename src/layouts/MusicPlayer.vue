@@ -59,7 +59,7 @@
             </div>
         </div>
 
-        <div class="flex items-center w-1/4 justify-end pr-10">
+        <div class="flex items-center w-1/4 justify-end pr-10 opacity-0 sm:opacity-100">
             <MusicPlayerVolume />
         </div>
     </div>
