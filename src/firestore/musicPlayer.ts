@@ -66,7 +66,7 @@ export async function addPlaylistToQueue(playerDocId: string, playlist: Song[]) 
   await clearQueue(playerDocId)
   for (const song of playlist) {
     console.log(song)
-    addToQueue(playerDocId, song);
+    await addToQueue(playerDocId, song);
   }
 }
 
