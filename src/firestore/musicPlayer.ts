@@ -1,5 +1,5 @@
 import { firestore } from "@/services/firestore";
-import { collection, getDocs, getDoc, doc, onSnapshot, updateDoc, addDoc, where, query, deleteDoc, orderBy, arrayRemove} from "firebase/firestore";
+import { collection, getDocs, getDoc, doc, onSnapshot, updateDoc, addDoc, where, query, deleteDoc, orderBy} from "firebase/firestore";
 import { Song } from "@/interfaces";
 
 
@@ -61,8 +61,8 @@ export async function clearQueue(playerDocId: string) {
 
     console.log('Subcolección "queue" eliminada correctamente.');
   } catch (error) {
-    console.error('Error al intentar eliminar la subcolección "queue":', error);
-  }
+    console.error('Error al intentar eliminar la subcolección "queue":', error);
+  }
 }
 
 export async function addPlaylistToQueue(playerDocId: string, playlist: Song[]) {
@@ -72,8 +72,8 @@ export async function addPlaylistToQueue(playerDocId: string, playlist: Song[]) 
   console.log(firstSong);
   
   for (const song of remainingSongs) {
-    await addToQueue(playerDocId, song);
-  }
+    await addToQueue(playerDocId, song);
+  }
 }
 
 
