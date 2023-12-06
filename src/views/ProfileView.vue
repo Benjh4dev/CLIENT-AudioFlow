@@ -92,6 +92,7 @@ const getUserSongs = async () => {
         isFetching.value = false;
         userSongsCounter.value = response.length;
         mainStore.loadMySongs(response)
+        userPlaylistCounter.value = mainStore.myPlaylists.length;
     
     } catch (error) {
         isFetching.value = false;
