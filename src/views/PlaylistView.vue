@@ -134,7 +134,7 @@ const fetchPlaylist = async () => {
     isLoading.value = true;
     try {
         const response = await fetchPlaylistById(String(playlistId));
-        playlist.value = response.playlist.playlist;
+        playlist.value = response.playlist;
         isLoading.value = false;
     } catch (error: any) {
         isLoading.value = false;
