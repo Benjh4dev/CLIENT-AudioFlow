@@ -53,9 +53,8 @@
 
 
                 <div class="absolute flex gap-4 items-center justify-start bottom-0 mb-1.5">
-                    <button class="p-1 rounded-full bg-white" @click="">
-                        <Play v-if="!playerStore.player.isPlaying" fillColor="#181818" :size="25"/>
-                        <Pause v-else fillColor="#181818" :size="25"/>
+                    <button class="p-1 rounded-full bg-white" @click="addToQueue">
+                        <Play fillColor="#181818" :size="25"/>
                     </button>
                     <button type="button" @click="showConfirmationModal = true">
                         <DotsHorizontal fillColor="#FFFFFF" :size="25"/>
@@ -98,12 +97,14 @@ import ClockTimeThreeOutline from 'vue-material-design-icons/ClockTimeThreeOutli
 import SongRow from '../components/SongRow.vue'
 import ConfirmationModal from '@/components/modal/ConfirmationModal.vue';
 
-import { Playlist } from '@/interfaces';
+import { Playlist, Song } from '@/interfaces';
 
 import { deletePlaylist, fetchPlaylistById } from '@/backend';
 
 import { useMainStore } from '@/stores/main'
 import { usePlayerStore } from '@/stores/player';
+
+import { clearQueue, addPlaylistToQueue as addToQueueFS } from '@/firestore';
 
 import { showErrorToast, showSuccessToast } from '@/utils/toast';
 
@@ -141,6 +142,21 @@ const fetchPlaylist = async () => {
         errors.value = error.response.data.message;
         showErrorToast(errors.value);
     }
+};
+
+const addToQueue = () => {
+    if(playlist.value.songs.length > 0){
+        playerStore.addPlaylistToQueue(playlist.value.songs);
+        if(mainStore.user){
+            addToQueueFS(playerStore.player.id, playlist.value.songs);
+            console.log('hola')
+        };
+        showSuccessToast("Reproduciendo Playlist " + playlist.value.name);
+    }
+    else{
+        showErrorToast('¡La Playlist está vacia!')
+    }
+
 };
 
 onMounted(async() => {

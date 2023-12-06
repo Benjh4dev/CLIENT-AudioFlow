@@ -63,6 +63,20 @@ export const usePlayerStore = defineStore({
             this.player.queue.push(song);
         },
 
+        addPlaylistToQueue(playlist: Song[]){
+            const firstSong = playlist[0]
+            this.playSong(firstSong);
+            this.player.queue = [] as Song[];
+            this.restorePrevSong();
+            for (const song of playlist) {
+                if(this.player.currentSong?.id != song.id){
+                    this.player.queue.push(song);
+                }
+            }
+            
+            
+        },
+
         nextSong() {
             if (this.player.queue.length > 0) {
                 this.player.currentTime = 0;
@@ -82,6 +96,10 @@ export const usePlayerStore = defineStore({
                 this.player.isPlaying = true;
                 this.player.currentSong = previousSong;
             }
+        },
+
+        restorePrevSong(){
+            this.lastPlayed = [];
         },
 
         updateCurrentTime(time: number) {
