@@ -48,26 +48,32 @@ export async function addToQueue(playerDocId: string, song: Song) {
 };
 
 export async function clearQueue(playerDocId: string) {
-  const playeDocRef = doc(firestore, 'player', playerDocId);
+  const playerDocRef = doc(firestore, 'player', playerDocId);
+  const queueCollectionRef = collection(playerDocRef, 'queue');
 
   try {
-    // Utilizar arrayRemove para eliminar todos los elementos del array (vaciarlo)
-    await updateDoc(playeDocRef, {
-      queue: [],
-    });
+    // Obtener todos los documentos de la subcolección 'queue'
+    const snapshot = await getDocs(queueCollectionRef);
+    
+    // Eliminar cada documento encontrado
+    const deletePromises = snapshot.docs.map(doc => deleteDoc(doc.ref));
+    await Promise.all(deletePromises);
 
-    console.log('Subcolección "queue" vaciada correctamente.');
+    console.log('Subcolección "queue" eliminada correctamente.');
   } catch (error) {
-    console.error('Error al intentar vaciar la subcolección "queue":', error);
-  }
+    console.error('Error al intentar eliminar la subcolección "queue":', error);
+  }
 }
 
 export async function addPlaylistToQueue(playerDocId: string, playlist: Song[]) {
-  await clearQueue(playerDocId)
-  for (const song of playlist) {
-    console.log(song)
-    await addToQueue(playerDocId, song);
-  }
+  await clearQueue(playerDocId);
+  
+  const [firstSong, ...remainingSongs] = playlist;
+  console.log(firstSong);
+  
+  for (const song of remainingSongs) {
+    await addToQueue(playerDocId, song);
+  }
 }
 
 

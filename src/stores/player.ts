@@ -72,9 +72,7 @@ export const usePlayerStore = defineStore({
                 if(this.player.currentSong?.id != song.id){
                     this.player.queue.push(song);
                 }
-            }
-            
-            
+            }           
         },
 
         nextSong() {
