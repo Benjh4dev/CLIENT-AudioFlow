@@ -6,7 +6,7 @@
       @mouseleave="isHover">
       
       <img 
-        src="/images/icons/defaultPlaylistImg.png" 
+        :src="playlist.image || '/images/icons/defaultPlaylistImg.png'" 
         alt="Cover Image" 
         class="w-16 h-16 rounded-lg p-2">
       

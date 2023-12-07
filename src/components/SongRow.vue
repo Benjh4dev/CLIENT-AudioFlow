@@ -63,6 +63,10 @@ const props = defineProps({
     index: {
         type: Number,
         required: true
+    },
+    playlistId: {
+        type: String,
+        required: true
     }
 });
 

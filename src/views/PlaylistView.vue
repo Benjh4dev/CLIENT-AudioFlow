@@ -22,7 +22,10 @@
 
         <div class="py-1.5"></div>
         <div class="flex items-center w-full relative h-full ml-20 sm:ml-0">
-            <img width="140" src="/images/icons/defaultPlaylistImg.png" class="rounded-md" alt="Imagen de la playlist">  
+            <img width="140" 
+            :src="playlist.image || '/images/icons/defaultPlaylistImg.png'" 
+            class="rounded-md" 
+            alt="Imagen de la playlist">  
 
             <div class="w-full ml-5">
 
@@ -33,6 +36,7 @@
                     opacity-0 sm:opacity-100 group transition-all duration-300 ease-in-out"
                 >
                     {{ playlist.name }}
+                
                 </div>
 
                 <div class="text-gray-300 text-[13px] flex opacity-0 sm:opacity-100 group transition-all duration-300 ease-in-out">
@@ -79,7 +83,8 @@
             v-for="(song, index) in playlist.songs"
             :key="song.id"  
             :song="song" 
-            :index="index"/>
+            :index="index"
+            :playlistId="playlistId"/>
         </ul> 
     </div>
     
