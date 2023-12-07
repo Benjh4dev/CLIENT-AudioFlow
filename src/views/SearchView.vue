@@ -57,14 +57,10 @@
                 <h1 v-else class="text-white text-2xl font-semibold pl-2">Últimas playlists</h1>
     
                 <div class="gap-6 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-16 mt-8 pl-2">
-                    <PlaylistCard name="Playlist #1" image="https://picsum.photos/id/40/300/300"/>
-                    <PlaylistCard name="Playlist #2" image="https://picsum.photos/id/45/300/300"/>
-                    <PlaylistCard name="Playlist #3" image="https://picsum.photos/id/76/300/300"/>
-                    <PlaylistCard name="Playlist #4" image="https://picsum.photos/id/56/300/300"/>
-                    <PlaylistCard name="Playlist #5" image="https://picsum.photos/id/25/300/300"/>
-                    <PlaylistCard name="Playlist #6" image="https://picsum.photos/id/103/300/300"/>
-                    <PlaylistCard name="Playlist #7" image="https://picsum.photos/id/101/300/300"/>
-                    <PlaylistCard name="Playlist #8" image="https://picsum.photos/id/120/300/300"/>
+                    <PlaylistCard
+                        v-for="playlist in playlists"
+                        :key="playlist.id"
+                        :playlist="playlist" />
                 </div>
             </div>
         </div>
@@ -88,8 +84,12 @@ import { usePlayerStore } from '@/stores/player';
 import { useMainStore } from '@/stores/main';
 
 import { Song } from '@/interfaces';
+import { Playlist } from '@/interfaces';
 import { setSong } from '@/firestore';
 import { fetchSongs } from '@/backend';
+import { fetchPlaylists } from '@/backend';
+
+const playlists = ref<Playlist[]>([]);
 
 const playerStore = usePlayerStore();
 const mainStore = useMainStore();
@@ -134,8 +134,15 @@ const getSongs = async () => {
     }
 };
 
+
+
+
 onMounted(async () => {
     mainStore.clearSystemSongs();
     getSongs();
+    const response = await fetchPlaylists();
+    console.log(response.playlists);
+    playlists.value = response.playlists;
+    //console.log("playlist",playlists.value.playlists);
 });
 </script>
