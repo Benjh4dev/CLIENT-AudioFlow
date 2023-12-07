@@ -84,7 +84,7 @@
             :key="song.id"  
             :song="song" 
             :index="index"
-            :playlistId="playlistId"/>
+            :playlistId="playlistId" />
         </ul> 
     </div>
     
@@ -122,6 +122,7 @@ const playerStore = usePlayerStore();
 const errors = ref<string>('');
 
 let playlistId = route.params.id;
+
 const playlist = ref<Playlist>({
     id: 'playlist_id',
     user_id: 'user_id',

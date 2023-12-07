@@ -67,14 +67,15 @@ export async function addSongToPlaylist(playlistId: string, songId: string) {
     return response.data;
 };
 
-export async function removeSongFromPlaylist(playlistId: number, songId: number) {
+export async function removeSongFromPlaylist(playlistId: String, songId: String) {
     const mainStore = useMainStore();
     mainStore.verifyTokenValidity();
-
-    const response = await api.delete(`/playlist/${playlistId}/song/${songId}`,{
+    // console.log(playlistId, songId)
+    const response = await api.delete(`/playlist/${playlistId}/${songId}`,{
         headers: {
             'Authorization': `Bearer ${mainStore.$state.token}`,
         }
     });
+    console.log(response)
     return response.data;
 };

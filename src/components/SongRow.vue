@@ -5,6 +5,12 @@
         @mouseleave="isHover = false"
     >
         <div class="flex items-center w-full py-1.5" @click="playSong">
+            <ConfirmationModal
+            v-if="showConfirmationModal"
+            @close="showConfirmationModal = false"
+            @confirm="deleteSongAndCloseModal()"
+            entityToDelete="canción de la playlist"
+            />
             <div v-if="isHover" class="w-[40px] ml-[14px] mr-[6px] cursor-pointer">
                 <Play                
                     fillColor="#FFFFFF"
@@ -39,6 +45,10 @@
             <button type="button">
             <div class="text-xs mx-5 text-gray-400">{{ formatDuration(props.song.duration) }}</div>
             </button>
+            <button type="button" @click="showConfirmationModal = true">
+                <DotsHorizontal fillColor="#FFFFFF" :size="25"/>
+            </button>
+
         </div>
        
     </li>
@@ -50,9 +60,16 @@ import Play from 'vue-material-design-icons/Play.vue';
 import Pause from 'vue-material-design-icons/Pause.vue';
 import { usePlayerStore } from '../stores/player'
 import { Song } from '@/interfaces';
+import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue';
+import ConfirmationModal from '@/components/modal/ConfirmationModal.vue';
+import { removeSongFromPlaylist } from '@/backend';
+import { showErrorToast, showSuccessToast } from '@/utils/toast';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const playerStore = usePlayerStore();
 
+const showConfirmationModal = ref(false);
 let isHover = ref(false)
 
 const props = defineProps({
@@ -86,5 +103,24 @@ const formatDuration = (seconds:number) => {
     return mins+':'+secs.toString().padStart(2, '0')
 }
 
+const deleteSongAndCloseModal = async () => {
+    // errors.value = '';
+
+    try {
+        await removeSongFromPlaylist(String(props.playlistId),String(props.song.id));
+        showConfirmationModal.value = false;
+        // mainStore.deleteSystemPlaylist(String(playlistId));
+        router.push('/');
+        setTimeout(() => {
+            showSuccessToast('Playlist eliminada correctamente');
+        }, 500);
+    } catch (error: any) {
+        if (error.response) {
+            // errors.value = error.response.data.message;
+            console.log(error)
+        }
+        showErrorToast(error);
+    }
+};
 
 </script>
