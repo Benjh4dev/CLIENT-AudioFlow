@@ -23,6 +23,7 @@ export async function deletePlaylist(playlistId: string) {
             'Authorization': `Bearer ${mainStore.$state.token}`,
         }
     });
+    console.log(response.data)
     return response;
 };
 
