@@ -45,11 +45,12 @@
             <button type="button">
             <div class="text-xs mx-5 text-gray-400">{{ formatDuration(props.song.duration) }}</div>
             </button>
-            <button type="button" @click="showConfirmationModal = true">
-                <DotsHorizontal fillColor="#FFFFFF" :size="25"/>
-            </button>
 
         </div>
+        <button type="button" @click="showConfirmationModal = true">
+                <DotsHorizontal fillColor="#FFFFFF" :size="25"/>
+        </button>
+
        
     </li>
 </template>
