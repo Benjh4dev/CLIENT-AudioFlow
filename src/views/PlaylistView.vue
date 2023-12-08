@@ -21,7 +21,7 @@
 
         <div class="py-1.5"></div>
         <div class="flex items-center w-full relative h-full ml-20 sm:ml-0">
-            <img width="140" :src="playlist.image || '/images/icons/defaultPlaylistImg.png'" class="rounded-md"
+            <img width="140" height="140" :src="playlist.image || '/images/icons/defaultPlaylistImg.png'" class="rounded-md h-[140px]"
                 alt="Imagen de la playlist">
 
             <div class="w-full ml-5">
@@ -64,7 +64,9 @@
                     </button> -->
                     <button v-if="playlist.user_id === mainStore.user?.id" type="button"
                         @click="showConfirmationModal = true">
-                        <DotsHorizontal fillColor="#FFFFFF" :size="25" />
+                        <svg class="w-5 h-5 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                            <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>
+                        </svg>
                     </button>
                 </div>
             </div>
@@ -77,16 +79,19 @@
                 <div class="text-sm">Título</div>
             </div>
             <div>
-                <ClockTimeThreeOutline fillColor="#FFFFFF" :size="18" />
+                <ClockTimeThreeOutline fillColor="#FFFFFF" :size="18" class="mr-[45px]"/>
             </div>
         </div>
         <div class="border-b border-b-[#2A2A2A] mt-2"></div>
         <div class="mb-4"></div>
 
         <ul class="w-full">
-            <SongRow v-for="(song, index) in playlist.songs" :key="song.id" :song="song" :index="index"
-                :playlistId="String(playlistId)"
-                :playlistUserId="playlist.user_id" />
+            <SongRow v-for="(song, index) in playlist.songs" 
+            :key="song.id" 
+            :song="song" 
+            :index="index"
+            :playlist="playlist"
+                 />
         </ul>
     </div>
 </template>

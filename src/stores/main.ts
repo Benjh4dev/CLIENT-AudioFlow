@@ -60,6 +60,9 @@ export const useMainStore = defineStore({
         loadSongs(songs: Song[]) {
             this.systemSongs = songs;
         },
+        LoadPlaylists(playlists: Playlist[]){
+            this.systemPlaylists = playlists;
+        },
         loadMySongs(songs: Song[]) {
             this.mySongs = songs;
         },

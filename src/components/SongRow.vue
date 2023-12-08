@@ -47,9 +47,11 @@
             </button>
 
         </div>
-        <button v-if="props.playlistUserId === mainStore.user?.id" type="button" @click="showConfirmationModal = true">
-                <DotsHorizontal fillColor="#FFFFFF" :size="25"/>
-        </button>
+        <SongRowOptions
+        :song=props.song
+        :playlist=props.playlist
+        class="z-0"
+        ></SongRowOptions>
 
        
     </li>
@@ -60,9 +62,11 @@ import { ref, defineProps } from 'vue'
 import Play from 'vue-material-design-icons/Play.vue';
 import Pause from 'vue-material-design-icons/Pause.vue';
 import { usePlayerStore } from '../stores/player'
-import { Song } from '@/interfaces';
-import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue';
+import { Song, Playlist } from '@/interfaces';
+
 import ConfirmationModal from '@/components/modal/ConfirmationModal.vue';
+import SongRowOptions from './SongRowOptions.vue';
+
 import { removeSongFromPlaylist, fetchUserPlaylists } from '@/backend';
 import { showErrorToast, showSuccessToast } from '@/utils/toast';
 import { useRouter } from 'vue-router';
@@ -85,12 +89,8 @@ const props = defineProps({
         type: Number,
         required: true
     },
-    playlistId: {
-        type: String,
-        required: true
-    },
-    playlistUserId: {
-        type: String,
+    playlist: {
+        type: Object as () => Playlist,
         required: true
     }
 });
@@ -115,7 +115,7 @@ const deleteSongAndCloseModal = async () => {
     // errors.value = '';
 
     try {
-        await removeSongFromPlaylist(String(props.playlistId),String(props.song.id));
+        await removeSongFromPlaylist(String(props.playlist.id),String(props.song.id));
         showConfirmationModal.value = false;
         // mainStore.deleteSystemPlaylist(String(playlistId));
         //router.push(`/playlist/${props.playlistId}`);

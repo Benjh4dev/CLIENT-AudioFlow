@@ -54,7 +54,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle } from '@headlessui/vue';
-import { addSongToPlaylist } from '@/backend/playlist';
+import { addSongToPlaylist, fetchUserPlaylists } from '@/backend/playlist';
 import { Playlist, Song } from '@/interfaces';
 
 import { showErrorToast, showSuccessToast } from '@/utils/toast';
@@ -96,6 +96,8 @@ async function submitForm(): Promise<void> {
   try {
     if (selectedPlaylist.value !== null && props.song){
       await addSongToPlaylist(selectedPlaylist.value.id, props.song.id.toString());
+      const userPlaylists = await fetchUserPlaylists();
+      mainStore.loadMyPlaylists(userPlaylists);
       closeModal();
       showSuccessToast('Canción agregada con éxito');
     }
