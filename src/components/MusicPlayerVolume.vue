@@ -49,7 +49,7 @@ const player = playerStore.player;
 let isHover = ref(false)
 let vol = ref(player.volume)
 let volume = ref<HTMLInputElement | null>(null)
-let volumeTimeout: NodeJS.Timeout | null = null;
+let volumeTimeout: any | null = null;
 
 watch(vol, (newVolume) => {
     playerStore.updateVolume(newVolume);

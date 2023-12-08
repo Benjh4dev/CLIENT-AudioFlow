@@ -109,7 +109,7 @@ import { useMainStore } from '@/stores/main'
 import { usePlayerStore } from '@/stores/player';
 
 import { deletePlaylist, fetchPlaylistById } from '@/backend';
-import { addPlaylistToQueue as addToQueueFS } from '@/firestore';
+import { addPlaylistToQueue as addToQueueFS, setSong } from '@/firestore';
 
 import { showErrorToast, showSuccessToast } from '@/utils/toast';
 
@@ -154,8 +154,8 @@ const addToQueue = () => {
     if (playlist.value.songs.length > 0) {
         playerStore.addPlaylistToQueue(playlist.value.songs);
         if (mainStore.user) {
+            setSong(playerStore.player.id, playlist.value.songs[0]);
             addToQueueFS(playerStore.player.id, playlist.value.songs);
-            console.log('hola')
         };
         showSuccessToast("Reproduciendo Playlist " + playlist.value.name);
     }
