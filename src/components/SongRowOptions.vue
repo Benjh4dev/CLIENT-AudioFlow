@@ -30,7 +30,7 @@
             leave-to-class="transform scale-95 opacity-0"
         >
             <MenuItems
-            class="absolute right-1 w-48 rounded-md bg-black shadow-2xl"
+            class="absolute right-1 w-48 rounded-md bg-black shadow-2xl z-50"
             >
                 <div class="px-1 py-1">
                     <MenuItem v-slot="{ active }" class="w-full">
@@ -170,9 +170,3 @@ onMounted(() => {
     isUserSong.value = verifyCanDelete.value;
 })
 </script>
-
-<style scoped>
-#songOptions {
-  z-index: 10;
-}
-</style>
