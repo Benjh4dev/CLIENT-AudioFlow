@@ -50,7 +50,6 @@
         <SongRowOptions
         :song=props.song
         :playlist=props.playlist
-        class="z-0"
         ></SongRowOptions>
 
        
