@@ -63,10 +63,13 @@ import { usePlayerStore } from '../stores/player'
 import { Song } from '@/interfaces';
 import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue';
 import ConfirmationModal from '@/components/modal/ConfirmationModal.vue';
-import { removeSongFromPlaylist } from '@/backend';
+import { removeSongFromPlaylist, fetchUserPlaylists } from '@/backend';
 import { showErrorToast, showSuccessToast } from '@/utils/toast';
 import { useRouter } from 'vue-router';
 
+import { useMainStore } from '@/stores/main';
+
+const mainStore = useMainStore();
 const router = useRouter();
 const playerStore = usePlayerStore();
 
@@ -111,9 +114,12 @@ const deleteSongAndCloseModal = async () => {
         await removeSongFromPlaylist(String(props.playlistId),String(props.song.id));
         showConfirmationModal.value = false;
         // mainStore.deleteSystemPlaylist(String(playlistId));
-        router.push('/');
+        //router.push(`/playlist/${props.playlistId}`);
+        const userPlaylists = await fetchUserPlaylists();
+        mainStore.loadMyPlaylists(userPlaylists);
+        router.go(0)
         setTimeout(() => {
-            showSuccessToast('Playlist eliminada correctamente');
+            showSuccessToast('Canción removida correctamente correctamente');
         }, 500);
     } catch (error: any) {
         if (error.response) {

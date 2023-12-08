@@ -52,7 +52,11 @@
 
 
                 <div class="absolute flex gap-4 items-center justify-start bottom-0 mb-1.5">
-                    <button class="p-1 rounded-full bg-white" @click="addToQueue">
+                    <button 
+                    :disabled= "playlist.songs.length === 0" 
+                    class="p-1 rounded-full bg-white" 
+                    @click="addToQueue"
+                        >
                         <Play fillColor="#181818" :size="25" />
                     </button>
                     <!-- <button type="button" @click="showConfirmationModal = true">
