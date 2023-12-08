@@ -85,7 +85,8 @@
 
         <ul class="w-full">
             <SongRow v-for="(song, index) in playlist.songs" :key="song.id" :song="song" :index="index"
-                :playlistId="playlistId" />
+                :playlistId="String(playlistId)"
+                :playlistUserId="playlist.user_id" />
         </ul>
     </div>
 </template>

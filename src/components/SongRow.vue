@@ -47,7 +47,7 @@
             </button>
 
         </div>
-        <button type="button" @click="showConfirmationModal = true">
+        <button v-if="props.playlistUserId === mainStore.user?.id" type="button" @click="showConfirmationModal = true">
                 <DotsHorizontal fillColor="#FFFFFF" :size="25"/>
         </button>
 
@@ -86,6 +86,10 @@ const props = defineProps({
         required: true
     },
     playlistId: {
+        type: String,
+        required: true
+    },
+    playlistUserId: {
         type: String,
         required: true
     }
