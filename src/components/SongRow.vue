@@ -41,16 +41,19 @@
                 <div class="text-sm font-semibold text-gray-400">{{ props.song.artist }}</div>
             </div>
         </div>
-        <div>
+        <div class="flex">
             <button type="button">
             <div class="text-xs mx-5 text-gray-400">{{ formatDuration(props.song.duration) }}</div>
             </button>
 
+            <div class="mr-5">
+
+                <SongRowOptions
+                :song=props.song
+                :playlist=props.playlist
+                />
+            </div>
         </div>
-        <SongRowOptions
-        :song=props.song
-        :playlist=props.playlist
-        ></SongRowOptions>
 
        
     </li>

@@ -21,7 +21,7 @@
             "
         >
             <div class="text-white pt-3 pl-4 font-semibold text-[23px]">{{ playlist.name }}</div>
-            <div class="text-gray-400 pt-1 pl-4 font-medium text-sm">{{ playlist.username }}</div>
+            <div class="text-white pt-1 pl-4 font-medium text-sm">{{ playlist.username }}</div>
             <img
                 class="
                     absolute 

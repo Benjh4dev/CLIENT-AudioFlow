@@ -17,7 +17,7 @@
             />
             </div>
         </div>
-        <div class="mt-6 flex space-x-4 transition-all duration-300 ease-in-out">
+        <div class="mt-6 flex space-x-4 transition-all duration-300 ease-in-out" v-if="!isFetching">
             <button
                 :class="{'bg-[#282828] text-white': activeFilter === 'songs', 'bg-black text-white': activeFilter !== 'songs'}"
                 @click="setActiveFilter('songs')"
@@ -26,6 +26,7 @@
                 Artista/Canción
             </button>
             <button
+                v-if="!isFetchingPlaylist"
                 :class="{'bg-[#282828] text-white': activeFilter === 'playlists', 'bg-black text-white': activeFilter !== 'playlists'}"
                 @click="setActiveFilter('playlists')"
                 class="px-3 py-1 rounded-full transition-all duration-300 ease-in-out"
@@ -46,21 +47,28 @@
                     :song="song"/>
                     <SongCard
                     v-else
-                    v-for="song in searchResults"
+                    v-for="song in searchResultsSong"
                     :song="song"
                     :key="song.id"/>
                 </div>
             </div>
     
-            <div v-if="activeFilter == 'playlists'">
+            <div v-if="activeFilter == 'playlists'" :class="{'opacity-100': !isFetching, 'opacity-0': isFetching}" class="transition-opacity duration-500">
                 <h1 v-if="searchTerm" class="text-white text-2xl font-semibold pl-2">Tu búsqueda...</h1>
                 <h1 v-else class="text-white text-2xl font-semibold pl-2">Últimas playlists</h1>
     
                 <div class="gap-6 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-16 mt-8 pl-2">
                     <PlaylistCard
+                        v-if="!searchTerm"
                         v-for="playlist in playlists"
+                        :playlist="playlist"
+                    />
+                    <PlaylistCard
+                        v-else
+                        v-for="playlist in searchResultPlaylist"
+                        :playlist="playlist"
                         :key="playlist.id"
-                        :playlist="playlist" />
+                    />
                 </div>
             </div>
         </div>
@@ -94,17 +102,23 @@ const playlists = ref<Playlist[]>([]);
 const playerStore = usePlayerStore();
 const mainStore = useMainStore();
 const isFetching = ref(true);
+const isFetchingPlaylist = ref(true);
 
 const searchTerm = ref('');
 const activeFilter = ref('songs');
 
 const emit = defineEmits(['search']);
 
-let searchResults = ref<Song[]>([]);
+let searchResultsSong = ref<Song[]>([]);
+let searchResultPlaylist = ref<Playlist[]>([]);
 
 const handleSearch = () => {
-    searchResults.value = mainStore.systemSongs.filter((song) =>
+    searchResultsSong.value = mainStore.systemSongs.filter((song) =>
         song.name.toLowerCase().includes(searchTerm.value.toLowerCase()) || song.artist.toLowerCase().includes(searchTerm.value.toLowerCase())
+    );
+
+    searchResultPlaylist.value = playlists.value.filter((playlist) =>
+        playlist.name.toLowerCase().includes(searchTerm.value.toLowerCase())
     );
 
     setTimeout(() => {
@@ -113,8 +127,8 @@ const handleSearch = () => {
 };
 
 const setActiveFilter = (filter: string) => {
-  activeFilter.value = filter;
-  handleSearch();
+    activeFilter.value = filter;
+    handleSearch();
 };
 
 const getSongs = async () => {
@@ -135,14 +149,11 @@ const getSongs = async () => {
 };
 
 
-
-
 onMounted(async () => {
     mainStore.clearSystemSongs();
-    getSongs();
     const response = await fetchPlaylists();
-    console.log(response.playlists);
+    getSongs();
     playlists.value = response.playlists;
-    //console.log("playlist",playlists.value.playlists);
+    isFetchingPlaylist.value = false;
 });
 </script>

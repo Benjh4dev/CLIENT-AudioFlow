@@ -12,7 +12,7 @@
         </svg>
     </div>
 
-    <div class="p-8 overflow-x-hidden" :class="{ 'visible': !isLoading, 'hidden': isLoading }">
+    <div class="pl-8 overflow-x-hidden" :class="{ 'visible': !isLoading, 'hidden': isLoading }">
         <ConfirmationModal v-if="showConfirmationModal" @close="showConfirmationModal = false"
             @confirm="deletePlaylistAndCloseModal()" entityToDelete="playlist" />
         <button type="button" class="text-white text-2xl font-semibold hover:underline cursor-pointer ml-14 sm:ml-0">
@@ -27,9 +27,8 @@
             <div class="w-full ml-5">
 
                 <div v-if="playlist" style="font-size: 33px;" class="text-white absolute w-full hover:underline cursor-pointer top-0 font-bosemiboldld
-                    opacity-0 sm:opacity-100 group transition-all duration-300 ease-in-out">
+                    opacity-0 sm:opacity-100 group transition-all duration-300 ease-in-out ml-1">
                     {{ playlist.name }}
-
                 </div>
 
                 <div
@@ -51,20 +50,18 @@
                 </div>
 
 
-                <div class="absolute flex gap-4 items-center justify-start bottom-0 mb-1.5">
+                <div class="absolute flex gap-4 items-center justify-start bottom-0 mb-1.5 ml-1">
                     <button 
-                    :disabled= "playlist.songs.length === 0" 
-                    class="p-1 rounded-full bg-white" 
+                    :disabled= "playlist.songs.length === 0"
+                    :class="{'hover:bg-gray-700': playlist.songs.length === 0}"
+                    class="p-1 rounded-full bg-white hover:bg-green-500 transition-all duration-300 ease-in-out" 
                     @click="addToQueue"
                         >
                         <Play fillColor="#181818" :size="25" />
                     </button>
-                    <!-- <button type="button" @click="showConfirmationModal = true">
-                        <DotsHorizontal fillColor="#FFFFFF" :size="25" />
-                    </button> -->
                     <button v-if="playlist.user_id === mainStore.user?.id" type="button"
                         @click="showConfirmationModal = true" id="deletePlaylist">
-                        <svg class="w-5 h-5 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                        <svg class="w-7 h-7 text-white hover:text-red-500 transition-all duration-300 ease-in-out" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                             <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>
                         </svg>
                     </button>
@@ -79,19 +76,19 @@
                 <div class="text-sm">Título</div>
             </div>
             <div>
-                <ClockTimeThreeOutline fillColor="#FFFFFF" :size="18" class="mr-[45px]"/>
+                <ClockTimeThreeOutline fillColor="#FFFFFF" :size="18" class="mr-[70px]"/>
             </div>
         </div>
         <div class="border-b border-b-[#2A2A2A] mt-2"></div>
-        <div class="mb-4"></div>
+        <div class="mb-2"></div>
 
-        <ul class="w-full">
+        <ul class="w-full h-[52vh] overflow-y-auto" id="ViewBlock">
             <SongRow v-for="(song, index) in playlist.songs" 
             :key="song.id" 
             :song="song" 
             :index="index"
             :playlist="playlist"
-                 />
+            />
         </ul>
     </div>
 </template>
@@ -101,21 +98,18 @@ import { watch, ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 
 import Play from 'vue-material-design-icons/Play.vue';
-import Pause from 'vue-material-design-icons/Pause.vue';
-import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue';
 import ClockTimeThreeOutline from 'vue-material-design-icons/ClockTimeThreeOutline.vue';
 
 import SongRow from '../components/SongRow.vue'
 import ConfirmationModal from '@/components/modal/ConfirmationModal.vue';
 
-import { Playlist, Song } from '@/interfaces';
-
-import { deletePlaylist, fetchPlaylistById } from '@/backend';
+import { Playlist } from '@/interfaces';
 
 import { useMainStore } from '@/stores/main'
 import { usePlayerStore } from '@/stores/player';
 
-import { clearQueue, addPlaylistToQueue as addToQueueFS } from '@/firestore';
+import { deletePlaylist, fetchPlaylistById } from '@/backend';
+import { addPlaylistToQueue as addToQueueFS } from '@/firestore';
 
 import { showErrorToast, showSuccessToast } from '@/utils/toast';
 
@@ -209,3 +203,4 @@ const deletePlaylistAndCloseModal = async () => {
     border-radius: 100%;
 }
 </style>
+
