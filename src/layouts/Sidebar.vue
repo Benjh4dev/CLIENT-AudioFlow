@@ -1,6 +1,7 @@
 <template>
     <UploadSongModal v-if="showUploadSongModal" @close="showUploadSongModal = false"></UploadSongModal>
     <CreatePlaylistModal v-if="showCreatePlaylistModal" @close="showCreatePlaylistModal = false"></CreatePlaylistModal>
+    
 
     <div class="bg-black w-[80px] md:w-[223px] lg:w-[22%] flex flex-col flex-shrink-0 rounded-lg gap-2">
         <div id="Navigation" class="h-[108px] bg-[#121212] rounded-lg">
@@ -64,7 +65,7 @@
             </div> -->
             <div class="grid grid-rows gap-y-9 bg-[#121212] rounded-lg">
                 <ul class="p-1.5">
-                    <PlaylistItem v-for="playlist in mainStore.playlists" :playlist="playlist" :key="playlist.id"></PlaylistItem>
+                    <PlaylistItem v-for="playlist in mainStore.myPlaylists" :playlist="playlist" :key="playlist.id"></PlaylistItem>
                 </ul>
             </div>
         </div>

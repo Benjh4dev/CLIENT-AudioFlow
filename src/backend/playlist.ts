@@ -12,7 +12,8 @@ export async function createPlaylist(data: CreatePlaylistForm) {
         }
     });
     return response.data;
-}
+};
+
 export async function deletePlaylist(playlistId: string) {
     const mainStore = useMainStore();
     mainStore.verifyTokenValidity();
@@ -22,45 +23,60 @@ export async function deletePlaylist(playlistId: string) {
             'Authorization': `Bearer ${mainStore.$state.token}`,
         }
     });
-    return response.data;
-}
+    console.log(response.data)
+    return response;
+};
 
-export async function getUserPlaylists() {
+export async function fetchPlaylists() {
+    const response = await api.get('/playlist');
+    return response.data;
+};
+
+export async function fetchUserPlaylists() {
     const mainStore = useMainStore();
     mainStore.verifyTokenValidity();
 
-    const response = await api.get(`/playlist/${mainStore.$state.user?.id}`,{
+    const response = await api.get(`/playlist/user/${mainStore.$state.user?.id}`,{
         headers: {
             'Authorization': `Bearer ${mainStore.$state.token}`,
         }
     });
+    if (response.data.length === 0) {
+        return [];
+    }   
     const userPlaylists = response.data.sort((a: any, b: any) => {
         return a.timestamp._seconds - b.timestamp._seconds;
     });
 
     return userPlaylists;
-}
+};
+
+export async function fetchPlaylistById(playlistId: string) {
+    const response = await api.get(`/playlist/${playlistId}`)
+    return response.data;
+};
 
 export async function addSongToPlaylist(playlistId: string, songId: string) {
     const mainStore = useMainStore();
     mainStore.verifyTokenValidity();
 
-    const response = await api.post(`/playlist/${playlistId}/song/${songId}`, {},{
+    const response = await api.post(`/playlist/${playlistId}/${songId}`, {},{
         headers: {
             'Authorization': `Bearer ${mainStore.$state.token}`,
         }
     });
     return response.data;
-}
+};
 
-export async function removeSongFromPlaylist(playlistId: number, songId: number) {
+export async function removeSongFromPlaylist(playlistId: String, songId: String) {
     const mainStore = useMainStore();
     mainStore.verifyTokenValidity();
-
-    const response = await api.delete(`/playlist/${playlistId}/song/${songId}`,{
+    // console.log(playlistId, songId)
+    const response = await api.delete(`/playlist/${playlistId}/${songId}`,{
         headers: {
             'Authorization': `Bearer ${mainStore.$state.token}`,
         }
     });
+    console.log(response)
     return response.data;
-}
+};

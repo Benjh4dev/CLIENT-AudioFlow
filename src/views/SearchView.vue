@@ -17,7 +17,7 @@
             />
             </div>
         </div>
-        <div class="mt-6 flex space-x-4 transition-all duration-300 ease-in-out">
+        <div class="mt-6 flex space-x-4 transition-all duration-300 ease-in-out" v-if="!isFetching">
             <button
                 :class="{'bg-[#282828] text-white': activeFilter === 'songs', 'bg-black text-white': activeFilter !== 'songs'}"
                 @click="setActiveFilter('songs')"
@@ -26,6 +26,7 @@
                 Artista/Canción
             </button>
             <button
+                v-if="!isFetchingPlaylist"
                 :class="{'bg-[#282828] text-white': activeFilter === 'playlists', 'bg-black text-white': activeFilter !== 'playlists'}"
                 @click="setActiveFilter('playlists')"
                 class="px-3 py-1 rounded-full transition-all duration-300 ease-in-out"
@@ -46,25 +47,28 @@
                     :song="song"/>
                     <SongCard
                     v-else
-                    v-for="song in searchResults"
+                    v-for="song in searchResultsSong"
                     :song="song"
                     :key="song.id"/>
                 </div>
             </div>
     
-            <div v-if="activeFilter == 'playlists'">
+            <div v-if="activeFilter == 'playlists'" :class="{'opacity-100': !isFetching, 'opacity-0': isFetching}" class="transition-opacity duration-500">
                 <h1 v-if="searchTerm" class="text-white text-2xl font-semibold pl-2">Tu búsqueda...</h1>
                 <h1 v-else class="text-white text-2xl font-semibold pl-2">Últimas playlists</h1>
     
                 <div class="gap-6 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-16 mt-8 pl-2">
-                    <PlaylistCard name="Playlist #1" image="https://picsum.photos/id/40/300/300"/>
-                    <PlaylistCard name="Playlist #2" image="https://picsum.photos/id/45/300/300"/>
-                    <PlaylistCard name="Playlist #3" image="https://picsum.photos/id/76/300/300"/>
-                    <PlaylistCard name="Playlist #4" image="https://picsum.photos/id/56/300/300"/>
-                    <PlaylistCard name="Playlist #5" image="https://picsum.photos/id/25/300/300"/>
-                    <PlaylistCard name="Playlist #6" image="https://picsum.photos/id/103/300/300"/>
-                    <PlaylistCard name="Playlist #7" image="https://picsum.photos/id/101/300/300"/>
-                    <PlaylistCard name="Playlist #8" image="https://picsum.photos/id/120/300/300"/>
+                    <PlaylistCard
+                        v-if="!searchTerm"
+                        v-for="playlist in playlists"
+                        :playlist="playlist"
+                    />
+                    <PlaylistCard
+                        v-else
+                        v-for="playlist in searchResultPlaylist"
+                        :playlist="playlist"
+                        :key="playlist.id"
+                    />
                 </div>
             </div>
         </div>
@@ -88,23 +92,33 @@ import { usePlayerStore } from '@/stores/player';
 import { useMainStore } from '@/stores/main';
 
 import { Song } from '@/interfaces';
+import { Playlist } from '@/interfaces';
 import { setSong } from '@/firestore';
 import { fetchSongs } from '@/backend';
+import { fetchPlaylists } from '@/backend';
+
+const playlists = ref<Playlist[]>([]);
 
 const playerStore = usePlayerStore();
 const mainStore = useMainStore();
 const isFetching = ref(true);
+const isFetchingPlaylist = ref(true);
 
 const searchTerm = ref('');
 const activeFilter = ref('songs');
 
 const emit = defineEmits(['search']);
 
-let searchResults = ref<Song[]>([]);
+let searchResultsSong = ref<Song[]>([]);
+let searchResultPlaylist = ref<Playlist[]>([]);
 
 const handleSearch = () => {
-    searchResults.value = mainStore.systemSongs.filter((song) =>
+    searchResultsSong.value = mainStore.systemSongs.filter((song) =>
         song.name.toLowerCase().includes(searchTerm.value.toLowerCase()) || song.artist.toLowerCase().includes(searchTerm.value.toLowerCase())
+    );
+
+    searchResultPlaylist.value = playlists.value.filter((playlist) =>
+        playlist.name.toLowerCase().includes(searchTerm.value.toLowerCase())
     );
 
     setTimeout(() => {
@@ -113,8 +127,8 @@ const handleSearch = () => {
 };
 
 const setActiveFilter = (filter: string) => {
-  activeFilter.value = filter;
-  handleSearch();
+    activeFilter.value = filter;
+    handleSearch();
 };
 
 const getSongs = async () => {
@@ -134,8 +148,12 @@ const getSongs = async () => {
     }
 };
 
+
 onMounted(async () => {
     mainStore.clearSystemSongs();
+    const response = await fetchPlaylists();
     getSongs();
+    playlists.value = response.playlists;
+    isFetchingPlaylist.value = false;
 });
 </script>

@@ -46,7 +46,7 @@
    
                     <div class="mt-8 flex justify-center pr-8">
                       <button type="submit" :disabled="isLoading" :class="{'bg-red-600 hover:bg-red-200': isLoading}" class="inline-flex justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:text-black hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
-                          Crear Playlist
+                          Crear la Playlist
                       </button>
                     </div>
                 </form>
@@ -98,7 +98,6 @@ async function submitForm(): Promise<void> {
 
   try {
     const response = await createPlaylist(formData.value);
-    console.log(response);
     mainStore.addSystemPlaylist(response.playlist);
     closeModal();
     showSuccessToast('Playlist creada con éxito');

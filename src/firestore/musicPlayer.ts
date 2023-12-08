@@ -1,5 +1,5 @@
 import { firestore } from "@/services/firestore";
-import { collection, getDocs, getDoc, doc, onSnapshot, updateDoc, addDoc, where, query, deleteDoc, orderBy } from "firebase/firestore";
+import { collection, getDocs, getDoc, doc, onSnapshot, updateDoc, addDoc, where, query, deleteDoc, orderBy} from "firebase/firestore";
 import { Song } from "@/interfaces";
 
 
@@ -46,6 +46,36 @@ export async function addToQueue(playerDocId: string, song: Song) {
     timestamp: clientTimestamp,
   });
 };
+
+export async function clearQueue(playerDocId: string) {
+  const playerDocRef = doc(firestore, 'player', playerDocId);
+  const queueCollectionRef = collection(playerDocRef, 'queue');
+
+  try {
+    // Obtener todos los documentos de la subcolección 'queue'
+    const snapshot = await getDocs(queueCollectionRef);
+    
+    // Eliminar cada documento encontrado
+    const deletePromises = snapshot.docs.map(doc => deleteDoc(doc.ref));
+    await Promise.all(deletePromises);
+
+    console.log('Subcolección "queue" eliminada correctamente.');
+  } catch (error) {
+    console.error('Error al intentar eliminar la subcolección "queue":', error);
+  }
+}
+
+export async function addPlaylistToQueue(playerDocId: string, playlist: Song[]) {
+  await clearQueue(playerDocId);
+  
+  const [firstSong, ...remainingSongs] = playlist;
+  console.log(firstSong);
+  
+  for (const song of remainingSongs) {
+    await addToQueue(playerDocId, song);
+  }
+}
+
 
 export async function removeFromQueue(playerDocId: string, song: Song) {
   const playerDocRef = doc(firestore, "player", playerDocId);
