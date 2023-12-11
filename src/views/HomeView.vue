@@ -1,7 +1,7 @@
 <template>
     <div class="p-8 transition-opacity duration-500" :class="{'opacity-100': !isFetching, 'opacity-0': isFetching}">
         <h1 class="text-white text-2xl font-semibold pl-2">
-            Todas las canciones
+            ¡Despliegue Automático!
         </h1>
 
 
