@@ -47,7 +47,7 @@ describe('Login user in AudioFlow', () => {
     })
 })
 
-describe('Upload song in AudioFlow', () => {
+describe('Upload and delete song in AudioFlow', () => {
     beforeEach( () => {
         cy.visit('http://localhost:5173')
         cy.contains('Usuario Invitado').click()
@@ -69,7 +69,29 @@ describe('Upload song in AudioFlow', () => {
         cy.wait(5000)
     })
 
-    it('Try to create a playlist', () => {
+    it('Try to delete the song', () => {
+        cy.contains('cypress').click()
+        cy.contains('Mi perfil').click()
+        cy.get('#songOptions').click()
+        cy.contains('Eliminar canción').click()
+        cy.contains('Eliminar').click()
+        cy.wait(5000)
+    })
+
+})
+
+/*
+describe('Playlist user flow in AudioFlow', () => {
+    beforeEach( () => {
+        cy.visit('http://localhost:5173')
+        cy.contains('Usuario Invitado').click()
+        cy.contains('Iniciar sesión').click()
+        cy.get('[placeholder="ejemplo@correo"]').type('cypress@test.cy')
+        cy.get('[placeholder="contraseña"]').type('cypresspassword')
+        cy.contains('Iniciar sesión').click()
+    })
+
+        it('Try to create a playlist', () => {
         cy.contains('Crear nueva Playlist').click()
         cy.get('[placeholder="Música favorita"]').type('Playlist test')
         cy.contains('Crear Playlist').click()
@@ -96,40 +118,7 @@ describe('Upload song in AudioFlow', () => {
         cy.get('#deletePlaylist').click()
         cy.contains('Eliminar').click()
     })
-})
-
-/*
-describe('Playlist user flow in AudioFlow', () => {
-    beforeEach( () => {
-        cy.visit('http://localhost:5173')
-        cy.contains('Usuario Invitado').click()
-        cy.contains('Iniciar sesión').click()
-        cy.get('[placeholder="ejemplo@correo"]').type('cypress@test.cy')
-        cy.get('[placeholder="contraseña"]').type('cypresspassword')
-        cy.contains('Iniciar sesión').click()
-    })
-
-    
     
 })
 
-describe('Delete song in AudioFlow', () => {
-    beforeEach( () => {
-        cy.visit('http://localhost:5173')
-        cy.contains('Usuario Invitado').click()
-        cy.contains('Iniciar sesión').click()
-        cy.get('[placeholder="ejemplo@correo"]').type('cypress@test.cy')
-        cy.get('[placeholder="contraseña"]').type('cypresspassword')
-        cy.contains('Iniciar sesión').click()
-    })
-
-    it('Try to delete the song', () => {
-        cy.contains('cypress').click()
-        cy.contains('Mi perfil').click()
-        cy.get('#songOptions').click()
-        cy.contains('Eliminar canción').click()
-        cy.contains('Eliminar').click()
-        cy.wait(5000)
-    })
-})
 */
